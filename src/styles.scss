@@ -12,25 +12,3 @@ $primary-green: #6ACA25;
 body {
     @include gradient(to right, $primary-gradient);
 }
-
-.my-icon-class {
-    color: $primary-green;
-    width: 4vw !important;
-    transition: .4s ease;
-    animation:  mymove 2s infinite;
-    cursor: pointer;
-    margin: auto;
-
- }
-
- @keyframes mymove {
-    from {color: #686868;}
-    to {color: $primary-green; transform: scale(1.15);}
-  }
-
- @media only screen and (max-width: 480px){
-     .my-icon-class {
-         width: 7vw !important;
-     }
- }
- 
