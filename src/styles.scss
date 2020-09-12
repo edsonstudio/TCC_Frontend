@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+$primary-gradient: #686868, #282828;
+$primary-green: #6ACA25;
+
+@mixin gradient($direction, $list) { 
+    background: -webkit-linear-gradient($direction, $list);
+    background: -moz-linear-gradient($direction, $list);
+    background: -o-linear-gradient($direction, $list);
+    background: linear-gradient($direction, $list);  
+}
+
+body {
+    @include gradient(to right, $primary-gradient);
+}
