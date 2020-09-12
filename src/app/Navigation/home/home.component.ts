@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faPlayCircle, faStar } from '@fortawesome/free-regular-svg-icons';
 import { faFacebookF, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { trigger,  state, style, animate, transition, } from '@angular/animations';
 import { Router } from '@angular/router';
 
 

@@ -2,7 +2,7 @@ $primary-green: #6ACA25;
 
 .my-icon-class {
     color: $primary-green;
-    width: 4vw !important;
+    width: 3vw !important;
     transition: .4s ease;
     animation:  mymove 2s infinite;
     cursor: pointer;
@@ -10,14 +10,37 @@ $primary-green: #6ACA25;
 
  }
 
+ .banner-image {
+    width: calc(100% / 3);
+}
+
  @keyframes mymove {
     from {color: #686868;}
     to {color: $primary-green; transform: scale(1.15);}
   }
 
- @media only screen and (max-width: 480px){
+ @media screen and (max-width: 480px){
      .my-icon-class {
          width: 7vw !important;
      }
  }
- 
+
+ @media screen and (min-width: 481px) and (max-width: 768px){
+    .my-icon-class {
+        width: 5vw !important;
+    }
+
+    .container-fluid { width: 90% !important }
+ }
+
+ @media screen and (min-width: 769px) and (max-width: 1199px){
+    .my-icon-class {
+        width: 4vw !important;
+    }
+
+    .container-fluid { width: 90% !important }
+ }
+
+ @media screen and (min-width: 1200px) {
+    .container-fluid { width: 90% !important }
+ }
