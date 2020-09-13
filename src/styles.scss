@@ -3,12 +3,13 @@ $primary-gradient: #686868, #282828;
 $primary-green: #6ACA25;
 
 @mixin gradient($direction, $list) { 
-    background: -webkit-linear-gradient($direction, $list);
-    background: -moz-linear-gradient($direction, $list);
-    background: -o-linear-gradient($direction, $list);
-    background: linear-gradient($direction, $list);  
+    background: -webkit-linear-gradient($direction, $list) !important;
+    background: -moz-linear-gradient($direction, $list) !important;
+    background: -o-linear-gradient($direction, $list) !important;
+    background: linear-gradient($direction, $list) !important;  
 }
 
 body {
     @include gradient(to right, $primary-gradient);
+    overflow-x: hidden;
 }
