@@ -5,11 +5,13 @@ import { MainRouterModule } from './main-routing.module';
 import { MainAppComponent } from './main-app';
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { CardComponent } from '../components/card/card.component';
 
 @NgModule({
     declarations: [
         MainComponent,
-        MainAppComponent
+        MainAppComponent,
+        CardComponent
     ],
     imports: [
         MainRouterModule,
