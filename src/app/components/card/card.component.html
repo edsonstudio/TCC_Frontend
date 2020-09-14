@@ -1,3 +1,8 @@
-<p>
-  card works!
-</p>
+<div class="card h-100 text-white bg-warning mb-3" style="min-width: 100% !important;">
+  <ng-content select="img" ></ng-content>
+  <div class="card-body">
+    <h5 class="card-title">Título de Card Primary</h5>
+    <p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
+    <ng-content></ng-content>
+  </div>
+</div>
