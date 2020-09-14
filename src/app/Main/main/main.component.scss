@@ -37,8 +37,19 @@ $primary-green: #6ACA25;
      background: #000; 
  }
 
+@media screen and (max-width:350px){
+  .parent {
+    grid-template-columns: repeat(12, calc(40% - 40px));
+    grid-template-rows: repeat(3, 1fr);
 
-@media screen and (max-width: 480px){
+    .div1 { grid-area: 1 / 1 / 4 / 4; }
+    .div2 { grid-area: 1 / 4 / 2 / 9; }
+    .div3 { grid-area: 2 / 4 / 4 / 9; }
+    .div4 { grid-area: 1 / 9 / 4 / 12; }
+    }
+}
+
+@media screen and (min-width: 351px) and (max-width: 480px){
   .parent {
     grid-template-columns: repeat(10, calc(40% - 40px));
     grid-template-rows: repeat(3, 1fr);
