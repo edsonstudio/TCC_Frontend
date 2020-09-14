@@ -39,13 +39,13 @@ $primary-green: #6ACA25;
 
 @media screen and (max-width:350px){
   .parent {
-    grid-template-columns: repeat(12, calc(40% - 40px));
+    grid-template-columns: repeat(13, calc(40% - 40px));
     grid-template-rows: repeat(3, 1fr);
 
     .div1 { grid-area: 1 / 1 / 4 / 4; }
-    .div2 { grid-area: 1 / 4 / 2 / 9; }
-    .div3 { grid-area: 2 / 4 / 4 / 9; }
-    .div4 { grid-area: 1 / 9 / 4 / 12; }
+    .div2 { grid-area: 1 / 4 / 2 / 10; }
+    .div3 { grid-area: 2 / 4 / 4 / 10; }
+    .div4 { grid-area: 1 / 10 / 4 / 13; }
     }
 }
 
