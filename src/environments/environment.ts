@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrlV1: 'https://localhost:44372/api/v1',
-  apiAuthUrlV1: 'https://localhost:44356/api/v1'
+  apiAuthUrlV1: 'https://localhost:44356/api/v1/identity'
 };
 
 /*
