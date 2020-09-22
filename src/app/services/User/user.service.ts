@@ -6,7 +6,7 @@ import { User } from 'src/app/models/User';
 import { BaseService } from '../base.service';
 
 @Injectable()
-export class ContaService extends BaseService {
+export class AccountService extends BaseService {
 
     constructor(private http: HttpClient) { super(); }
 
