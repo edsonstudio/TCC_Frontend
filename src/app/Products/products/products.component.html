@@ -1,3 +1,33 @@
-<p>
-  products works!
-</p>
+<div class="main-grid">
+  <div id="categories">
+    <ul class="list-group rounded-0">
+      <li class="list-group-item">
+        <ul class="list-group rounded-0">
+          <li class="list-group-item"></li>
+        </ul>
+      </li>
+      <li class="list-group-item"></li>
+    </ul>
+  </div>
+  <div id="catalog">
+    <div class="filter px-3 d-flex flex-row-reverse">
+      <div class="single-search">
+        <input class="custom-input" type="text" placeholder="What are you looking for ...">
+        <a href="#" class="icon-area">
+          <fa-icon size="lg" class="my-2 ml-1" [styles]="{'color': '#CBCBCB'}" [icon]="faSearch"></fa-icon>
+        </a>
+      </div>
+    </div>
+    <div class="products" [style.grid-template-columns]="'repeat('+colums+', calc(40% - 40px))'">
+      <app-card [styleCard]="'#6ACA25'" [product]="product">
+        <img src="../../../assets/montagemBan.jpg" class="card-img-top w-50 mx-auto">
+      </app-card>
+      <div class="container bg-white"></div>
+      <div class="container bg-white"></div>
+      <div class="container bg-white"></div>
+      <div class="container bg-white"></div>
+      <div class="container bg-white"></div> 
+    </div>
+  </div>
+</div>
+
