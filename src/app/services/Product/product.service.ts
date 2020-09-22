@@ -16,7 +16,7 @@ export class ProductService extends BaseService{
     }
 
     getProducts(): Observable<Product[]> {
-        return this.http.get<Product[]>(`${this.UrlAPIV1}products`);
+        return this.http.get<Product[]>(`${this.UrlAPIV1}/products`, super.GetJsonAuthHeader());
     }
 
     getProduct(id: Guid): Observable<Product>{
@@ -24,7 +24,7 @@ export class ProductService extends BaseService{
     }
 
     postProduct(product: Product): Observable<Product> {
-        return this.http.post<Product>(`${this.UrlAPIV1}products`, product, super.GetJsonAuthHeader());
+        return this.http.post<Product>(`${this.UrlAPIV1}/products`, product, super.GetJsonAuthHeader());
     }
 
     deleteProduct(id: Guid): Observable<Product> {
