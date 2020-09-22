@@ -4,18 +4,18 @@ import { NgModule } from '@angular/core';
 import { MainAppComponent } from './main-app';
 
 
-const routes: Routes = [
+const mainRouteConfig: Routes = [
     { path: '', component: MainAppComponent,
     children: [
-        { path: '', component: MainComponent, pathMatch: 'full' },
-        { path: 'Produtos', loadChildren: () => import('../Products/product.module').then(m => m.ProductModule) },
-        { path: 'Suporte', loadChildren: () => import('../Chat/chat.module').then(m => m.ChatModule) }
+        { path: '', component: MainComponent },
+        { path: 'produtos', loadChildren: () => import('../Products/product.module').then(m => m.ProductModule) },
+        { path: 'suporte', loadChildren: () => import('../Chat/chat.module').then(m => m.ChatModule) }
     ] }
 ];
 
 @NgModule({
     imports: [
-        RouterModule.forChild(routes)
+        RouterModule.forChild(mainRouteConfig)
     ],
     exports: [
         RouterModule

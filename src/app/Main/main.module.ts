@@ -6,16 +6,17 @@ import { MainAppComponent } from './main-app';
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CardComponent } from '../components/card/card.component';
+import { SharedModule } from '../components/shared.module';
 
 @NgModule({
     declarations: [
         MainComponent,
-        MainAppComponent,
-        CardComponent
+        MainAppComponent
     ],
     imports: [
         MainRouterModule,
-        TooltipModule.forRoot()
+        TooltipModule.forRoot(),
+        SharedModule
     ],
     exports: [ MainComponent ]
 })

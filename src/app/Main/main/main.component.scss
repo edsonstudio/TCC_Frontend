@@ -76,13 +76,13 @@ $primary-green: #6ACA25;
 
 @media screen and (min-width: 769px) and (max-width: 1199px){
  .parent {
-     grid-template-columns: repeat(9, calc(25% - 40px));
+     grid-template-columns: repeat(5, calc(35% - 40px));
      grid-template-rows: repeat(3, 1fr);
 
-     .div1 { grid-area: 1 / 1 / 4 / 3;}
-     .div2 { grid-area: 1 / 3 / 2 / 7;}
-     .div3 { grid-area: 2 / 3 / 4 / 7;}
-     .div4 { grid-area: 1 / 7 / 4 / 9;}
+     .div1 { grid-area: 1 / 1 / 4 / 2;}
+     .div2 { grid-area: 1 / 2 / 2 / 4;}
+     .div3 { grid-area: 2 / 2 / 4 / 4;}
+     .div4 { grid-area: 1 / 4 / 4 / 5;}
     }
 }
 
@@ -109,3 +109,4 @@ $primary-green: #6ACA25;
         .div4 { grid-area: 1 / 4 / 4 / 5;}
       }
 }
+
