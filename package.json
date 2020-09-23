@@ -26,6 +26,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "bootstrap": "^4.5.2",
     "ngx-bootstrap": "^6.1.0",
+    "ngx-custom-validators": "^9.1.0",
     "rxjs": "~6.5.4",
     "swiper": "^6.2.0",
     "tslib": "^1.10.0",
