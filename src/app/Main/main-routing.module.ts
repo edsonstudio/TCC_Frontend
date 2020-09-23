@@ -22,4 +22,4 @@ const mainRouteConfig: Routes = [
     ]
 })
 
-export class MainRouterModule {}
+export class MainRoutingModule {}

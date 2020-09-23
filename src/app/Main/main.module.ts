@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 
 import { MainComponent } from './main/main.component';
-import { MainRouterModule } from './main-routing.module';
+import { MainRoutingModule } from './main-routing.module';
 import { MainAppComponent } from './main-app';
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { CardComponent } from '../components/card/card.component';
 import { SharedModule } from '../components/shared.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -14,7 +14,8 @@ import { SharedModule } from '../components/shared.module';
         MainAppComponent
     ],
     imports: [
-        MainRouterModule,
+        CommonModule,
+        MainRoutingModule,
         TooltipModule.forRoot(),
         SharedModule
     ],
