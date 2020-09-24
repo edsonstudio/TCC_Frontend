@@ -1,7 +1,7 @@
 {
     "gitflow4code.features": [
         {
-            "name": "feature/PaginaCatalogo",
+            "name": "feature/CadastroUsuario",
             "base": "develop"
         }
     ]
