@@ -1,0 +1,67 @@
+<div class="container w-50 mx-auto py-5 px-4 text-white rounded-lg border-success">
+  <div class="row">
+    <div class="col">
+      <span>
+      <fa-icon [icon]="faUser" size="lg" class="mr-2" [styles]="{'color':'black'}"></fa-icon>
+      <h5 *ngIf="mode == 'login'" class="d-inline-block">Login</h5>
+      <h5 *ngIf="mode == 'register'" class="d-inline-block">Cadastrar</h5>
+      </span>
+  
+      <form class="mt-4" [formGroup]="formLoRe">
+        
+        <div class="form-group">
+          <label for="emailInp">Email</label>
+          <input type="email" id="emailInp" class="form-control border-success" formControlName="email"
+          [ngClass]="{'is-invalid': formLoRe.get('email').errors && formLoRe.get('email').touched}">
+          <small *ngIf="formLoRe.get('email').hasError('required')" class="invalid-feedback">
+            Campo obrigatório
+          </small>
+          <small *ngIf="formLoRe.get('email').hasError('email')" class="invalid-feedback">
+            Email inválido
+          </small>
+        </div>
+        
+    
+        <div class="form-group">
+          <label for="pwdInp">Senha</label>
+          <input type="password" class="form-control border-success" formControlName="password" required 
+          [ngClass]="{'is-invalid': formLoRe.get('password').errors && formLoRe.get('password').touched}">
+          <small *ngIf="formLoRe.get('password').hasError('required')" class="invalid-feedback">
+            Campo obrigatório
+          </small>
+          <small *ngIf="pwd.errors?.rangeLength && formLoRe.get('password').touched">
+            Insira no mínimo 6 caracteres 
+          </small>
+        </div>
+        
+        <div *ngIf="mode == 'register'" class="form-group">
+          <label for="pwdInp">Confirmar Senha</label>
+          <input type="password" name="confirm" class="form-control border-success" formControlName="confirmPassword" [equalTo]="pwd"
+          [ngClass]="{'is-invalid': confirmPwd.errors?.equalTo && formLoRe.get('confirmPassword').touched}">
+          <small *ngIf="confirmPwd.errors?.equalTo && formLoRe.get('confirmPassword').touched">
+            Senhas incompatíveis
+          </small>
+        </div>
+        <p>{{formLoRe.value | json}}</p>
+        <div class="row mt-5">
+          <div *ngIf="mode == 'login'" class="col mx-auto">
+            <button type="submit" class="btn btn-sm btn-success btn-block" (click)="emitLogin()" [disabled]="!formLoRe.valid">Entrar</button>
+          </div>
+          <div *ngIf="mode == 'register'" class="col mx-auto">
+            <button type="submit" class="btn btn-sm btn-dark btn-block" (click)="emitRegister()"  [disabled]="!formLoRe.valid">Cadastrar</button>
+          </div>
+        </div>
+  
+      </form>
+    </div>
+
+    <div *ngIf="erros && erros.length > 0" class="col">
+      <h6>Opa! Algo deu errado
+        <span class="badge badge-primary badge-pill">{{erros.length}}</span>
+      </h6>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let error of erros" class="list-group-item text-danger" style="background-color: rgba(0, 0, 0, 0);">{{error}}</li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -9,7 +9,9 @@ const mainRouteConfig: Routes = [
     children: [
         { path: '', component: MainComponent },
         { path: 'produtos', loadChildren: () => import('../Products/product.module').then(m => m.ProductModule) },
-        { path: 'suporte', loadChildren: () => import('../Chat/chat.module').then(m => m.ChatModule) }
+        { path: 'suporte', loadChildren: () => import('../Chat/chat.module').then(m => m.ChatModule) },
+        { path: 'conta', loadChildren: () => import('../Account/account.module').then(m => m.AccountModule) },
+        { path: '**', redirectTo: '' }
     ] }
 ];
 
@@ -22,4 +24,4 @@ const mainRouteConfig: Routes = [
     ]
 })
 
-export class MainRouterModule {}
+export class MainRoutingModule {}
