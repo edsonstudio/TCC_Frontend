@@ -1,15 +1,15 @@
 export class LocalStorageUtils {
 
-    public obterUsuario() {
+    public getUser() {
         return JSON.parse(localStorage.getItem('ecom.user'));
     }
 
-    public salvarDadosLocaisUsuario(response: any) {
-        this.salvarTokenUsuario(response.accessToken);
-        this.salvarUsuario(response.userToken);
+    public saveUserLocalData(response: any) {
+        this.saveUserToken(response.accessToken);
+        this.saveUser(response.userToken);
     }
 
-    public limparDadosLocaisUsuario() {
+    public cleanUserLocalData() {
         localStorage.removeItem('ecom.token');
         localStorage.removeItem('ecom.user');
     }
@@ -18,11 +18,11 @@ export class LocalStorageUtils {
         return localStorage.getItem('ecom.token');
     }
 
-    public salvarTokenUsuario(token: string) {
+    public saveUserToken(token: string) {
         localStorage.setItem('ecom.token', token);
     }
 
-    public salvarUsuario(user: string) {
+    public saveUser(user: string) {
         localStorage.setItem('ecom.user', JSON.stringify(user));
     }
 
