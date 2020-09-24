@@ -10,7 +10,7 @@ export class AccountService extends BaseService {
 
     constructor(private http: HttpClient) { super(); }
 
-    registrarUsuario(user: User): Observable<User> {
+    registerUser(user: User): Observable<User> {
         const response = this.http
             .post(`${this.UrlAuth}/nova-conta`, user, this.GetJsonHeader())
             .pipe(
@@ -20,7 +20,7 @@ export class AccountService extends BaseService {
         return response;
     }
 
-    login(user: User): Observable<User> {
+    Login(user: User): Observable<User> {
         const response = this.http
             .post(`${this.UrlAuth}/entrar`, user, this.GetJsonHeader())
             .pipe(
