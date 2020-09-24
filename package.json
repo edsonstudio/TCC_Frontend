@@ -27,6 +27,7 @@
     "bootstrap": "^4.5.2",
     "ngx-bootstrap": "^6.1.0",
     "ngx-custom-validators": "^9.1.0",
+    "ngx-spinner": "^10.0.1",
     "ngx-toastr": "^13.0.0",
     "rxjs": "~6.5.4",
     "swiper": "^6.2.0",
