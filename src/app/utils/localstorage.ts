@@ -14,7 +14,7 @@ export class LocalStorageUtils {
         localStorage.removeItem('ecom.user');
     }
 
-    public obterTokenUsuario(): string {
+    public getUserToken(): string {
         return localStorage.getItem('ecom.token');
     }
 
