@@ -2,6 +2,7 @@
     <div class="div1">
       <app-card>
         <img src="../../../assets/montagemBan.jpg" class="card-img-top">
+        <a (click)="logout()" class="btn d-block m-0 text-white buttonS" style="background-color: #FF9900">Logout</a>
       </app-card>
     </div>
   
@@ -21,4 +22,4 @@
       </app-card>
     </div>
   </div>
-
+  <ngx-spinner bdColor = "rgba(0, 0, 0, 1)" size = "large" color = "#6ACA25" type = "pacman" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>

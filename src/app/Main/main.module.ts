@@ -7,6 +7,8 @@ import { MainAppComponent } from './main-app';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { SharedModule } from '../components/shared.module';
 import { CommonModule } from '@angular/common';
+import { AccountService } from '../services/User/user.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
     declarations: [
@@ -17,9 +19,11 @@ import { CommonModule } from '@angular/common';
         CommonModule,
         MainRoutingModule,
         TooltipModule.forRoot(),
-        SharedModule
+        SharedModule,
+        NgxSpinnerModule
     ],
-    exports: [ MainComponent ]
+    exports: [ MainComponent ],
+    providers: [AccountService]
 })
 
 export class MainModule {}
