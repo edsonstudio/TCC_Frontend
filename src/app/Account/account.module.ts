@@ -8,12 +8,15 @@ import { AccountService } from '../services/User/user.service';
 import { AccountAppComponent } from './account-app';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { GuardAccount } from '../services/User/user.guard';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
     imports: [
         CommonModule,
         AccountRoutingModule,
-        SharedModule
+        SharedModule,
+        NgxSpinnerModule
     ],
     declarations: [
         AccountAppComponent,
@@ -21,7 +24,8 @@ import { RegisterComponent } from './register/register.component';
         RegisterComponent
     ],
     providers: [
-        AccountService
+        AccountService,
+        GuardAccount
     ]
 })
 

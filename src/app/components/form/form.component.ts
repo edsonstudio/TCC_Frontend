@@ -17,9 +17,12 @@ export class FormComponent implements OnInit, OnChanges {
   confirmPwd: FormControl;
   faUser = faUser;
   formLoRe: FormGroup;
+  private dirty = false;
+
   private _cleanForm: boolean;
 
   constructor(private fb: FormBuilder) { }
+
   get cleanForm(){
     return this._cleanForm;
   }
@@ -32,22 +35,26 @@ export class FormComponent implements OnInit, OnChanges {
       }
     }
 
-
   @Input()
     mode: string;
 
   @Input()
-    erros: string[];
+    errors: string[];
 
   @Output()
     form: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+    formDirty: EventEmitter<boolean> = new EventEmitter();
 
   ngOnInit() {
     this.validate();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    changes.cleanForm = changes.cleanForm.currentValue;
+    if (this.cleanForm){
+      changes.cleanForm = changes.cleanForm.currentValue;
+    }
   }
 
 
@@ -74,6 +81,11 @@ export class FormComponent implements OnInit, OnChanges {
     password: this.formLoRe.get('password').value};
 
     this.form.emit(formReg);
+  }
+
+  dirtyForm(){
+    this.dirty = true;
+    this.formDirty.emit(this.dirty);
   }
 
 }

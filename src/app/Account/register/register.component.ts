@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { User } from 'src/app/models/User';
 
 import { AccountService } from 'src/app/services/User/user.service';
 import { ToastrService } from 'ngx-toastr';
-import { LocalStorageUtils } from 'src/app/utils/localstorage';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnChanges {
 
   user: User;
-  errosResponse: string[];
+  errorsResponse: string[];
   cleanForm = false;
+  changesNotSaved: boolean;
 
   constructor(
     private accountService: AccountService,
@@ -24,8 +25,13 @@ export class RegisterComponent implements OnInit {
     private router: Router
     ) { }
 
+  ngOnChanges(changes: SimpleChanges): void {
+
+  }
+
   ngOnInit() {
   }
+
 
   register(event: User){
     this.user = event;
@@ -34,7 +40,7 @@ export class RegisterComponent implements OnInit {
         this.processSuccess(success);
       },
       fail => {
-        this.errosResponse = fail.error.errors;
+        this.errorsResponse = fail.error.errors;
         this.cleanForm = false;
       }
     );
@@ -42,18 +48,19 @@ export class RegisterComponent implements OnInit {
 
   processSuccess(response){
         this.cleanForm = true;
-        this.errosResponse = [];
+        this.errorsResponse = [];
         console.clear();
 
         this.accountService.LocalStorage.saveUserLocalData(response);
 
-        this.toastr.success('Cadastro feito com sucesso!', 'Sucesso', {
+        const toastr = this.toastr.success('Cadastro feito com sucesso!', 'Sucesso', {
           progressBar: true,
           easing: 'ease',
         });
-
-        setTimeout(() => {
-          this.router.navigate(['/Inicio']);
-        }, 5000);
+        if (toastr){
+          toastr.onHidden.subscribe(() => {
+            this.router.navigate(['/Inicio']);
+          });
+        }
   }
 }
