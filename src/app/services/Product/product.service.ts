@@ -16,11 +16,15 @@ export class ProductService extends BaseService{
     }
 
     getProducts(): Observable<Product[]> {
-        return this.http.get<Product[]>(`${this.UrlAPIV1}/products`, super.GetJsonAuthHeader());
+        return this.http.get<Product[]>(`${this.UrlAPIV1}/Products`, super.GetJsonAuthHeader());
+    }
+
+    getProductsByCategory(id: Guid){
+        return this.http.get<Product[]>(`${this.UrlAPIV1}/ProductsByCategory/${id}`, super.GetJsonAuthHeader());
     }
 
     getProduct(id: Guid): Observable<Product>{
-    return this.http.get<Product>(`${this.UrlAPIV1}products/${id}`, super.GetJsonAuthHeader());
+    return this.http.get<Product>(`${this.UrlAPIV1}/products/${id}`, super.GetJsonAuthHeader());
     }
 
     postProduct(product: Product): Observable<Product> {
@@ -28,7 +32,7 @@ export class ProductService extends BaseService{
     }
 
     deleteProduct(id: Guid): Observable<Product> {
-       return this.http.delete<Product>(`${this.UrlAPIV1}/${id}`, super.GetJsonAuthHeader());
+       return this.http.delete<Product>(`${this.UrlAPIV1}/products/${id}`, super.GetJsonAuthHeader());
     }
 
     putProduct(product: Product): Observable<Product> {

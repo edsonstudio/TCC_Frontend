@@ -16,19 +16,19 @@ export class CategoryService extends BaseService{
     }
 
     getCategories(): Observable<Category[]> {
-        return this.http.get<Category[]>(`${this.UrlAPIV1}categories`);
+        return this.http.get<Category[]>(`${this.UrlAPIV1}/categories`, super.GetJsonAuthHeader());
     }
 
     getCategory(id: Guid): Observable<Category>{
-    return this.http.get<Category>(`${this.UrlAPIV1}categories/${id}`, super.GetJsonAuthHeader());
+    return this.http.get<Category>(`${this.UrlAPIV1}/categories/${id}`, super.GetJsonAuthHeader());
     }
 
     postProduct(category: Category): Observable<Category> {
-        return this.http.post<Category>(`${this.UrlAPIV1}categories`, category, super.GetJsonAuthHeader());
+        return this.http.post<Category>(`${this.UrlAPIV1}/categories`, category, super.GetJsonAuthHeader());
     }
 
     deleteCategory(id: Guid): Observable<Category> {
-       return this.http.delete<Category>(`${this.UrlAPIV1}/${id}`, super.GetJsonAuthHeader());
+       return this.http.delete<Category>(`${this.UrlAPIV1}/categories/${id}`, super.GetJsonAuthHeader());
     }
 
     putCategory(category: Category): Observable<Category> {

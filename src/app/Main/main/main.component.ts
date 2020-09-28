@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { CommumMethods } from 'src/app/services/commum-methods';
 import { AccountService } from 'src/app/services/User/user.service';
 
 @Component({
@@ -8,27 +9,14 @@ import { AccountService } from 'src/app/services/User/user.service';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
-
-  routeLoading: boolean = false;
+export class MainComponent extends CommumMethods implements OnInit {
 
   constructor(
     private acts: AccountService,
     private spinner: NgxSpinnerService,
     private router: Router) {
-      this.router.events.subscribe((event) => {
-        if (event instanceof NavigationStart){
-          this.spinner.show();
-        }
-
-        if (event instanceof NavigationEnd ||
-            event instanceof NavigationCancel ||
-            event instanceof NavigationError){
-              setTimeout(() => {
-                this.spinner.hide();
-              }, 3000);
-        }
-      });
+      super();
+      this.LoadingSpinner(this.router, this.spinner);
      }
 
   ngOnInit(): void {

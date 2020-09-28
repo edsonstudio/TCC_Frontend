@@ -1,12 +1,24 @@
+
+::-webkit-scrollbar {
+ display: none;   
+  width: 5px;
+   height: 8px;
+  background-color: whitesmoke;
+}
+
+
 .main-grid {
   display: grid;
   grid-template-columns: 30% auto;
   grid-template-rows: auto;
-
+  height: 90vh;
+  width: auto;
+  
   #categories {
-    background-color: aquamarine;
+    
     grid-area: 1 / 1 / 1 / 2;
-    height: 90vh;
+    height: 100%;
+    overflow-y: auto;
   }
   
   #catalog {
@@ -22,10 +34,9 @@
 .products {
     display: grid;
     grid-column-gap: 1rem;
-    grid-row-gap: 10px;
+    grid-row-gap: 5px;
     height: 100%;
-    padding: 1rem;
-    background-color: brown;
+    
     overflow-x: auto;
     grid-area: 2 / 1 / 4 / 1;
     grid-template-rows: repeat(2, 50%);
@@ -39,3 +50,12 @@
   grid-area: 1 / 1 / 1 / 1;
 }
 
+#inps {
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+/* When the input field gets focus, change its width to 100% */
+#inps:focus {
+  width: 100% !important;
+}
