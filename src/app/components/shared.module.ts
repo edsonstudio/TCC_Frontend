@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgBrazil } from 'ng-brazil';
 import { CustomFormsModule } from 'ngx-custom-validators';
+import { ProductRouterModule } from '../Products/product-routing.module';
 import { CardComponent } from './card/card.component';
 import { FormComponent } from './form/form.component';
 
@@ -12,7 +14,9 @@ import { FormComponent } from './form/form.component';
         FontAwesomeModule,
         ReactiveFormsModule,
         FormsModule,
-        CustomFormsModule
+        CustomFormsModule,
+        ProductRouterModule,
+        NgBrazil
     ],
     declarations: [
         CardComponent,

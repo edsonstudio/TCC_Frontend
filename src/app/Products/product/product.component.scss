@@ -1,0 +1,18 @@
+$primary-green: #6ACA25;
+
+::-webkit-scrollbar {
+    
+     width: 5px;
+      height: 8px;
+     background-color: whitesmoke;
+   }
+  
+    ::-webkit-scrollbar-button {
+     width: 82px;
+      height: 8px;
+      background: $primary-green;
+   }
+  
+    ::-webkit-scrollbar-thumb {
+       background: rgb(61, 61, 61); 
+   }
