@@ -10,13 +10,13 @@
 </div> 
 
 <div class="card h-100 text-dark bg-white mb-3 text-center rounded-0" *ngIf="product">
-  <ng-content select="img"></ng-content>
+  <img src="{{images}}/{{product.image}}" class="card-img-top w-50 mx-auto">
   <div class="card-body" [ngStyle]="styleCard ? {'background-color': styleCard } : {'background-color': 'white'}">
     <h6 class="card-title font-weight-light">{{product.name}}</h6>
-    <div class="row h-100">
-      <div class="col bg-danger">{{product.price}}</div>
+    <div class="row">
+      <div class="col text-secondary">{{product.price | currencyBrazil}}</div>
       <div class="col my-auto">
-        <button class="btn btn-sm btn-warning">Detalhes +</button>
+        <a class="btn btn-sm btn-warning" routerLink="{{product.id}}">Detalhes +</a>
       </div>
     </div>
   </div>

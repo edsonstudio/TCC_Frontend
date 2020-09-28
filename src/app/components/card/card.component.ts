@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Product } from '../../models/Product';
 @Component({
   selector: 'app-card',
@@ -7,6 +8,7 @@ import { Product } from '../../models/Product';
 })
 export class CardComponent implements OnInit {
 
+  images = environment.images;
   constructor() { }
 
   @Input()
