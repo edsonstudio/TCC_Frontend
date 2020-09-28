@@ -1,32 +1,43 @@
-<div class="main-grid">
-  <div id="categories">
-    <ul class="list-group rounded-0">
-      <li class="list-group-item">
-        <ul class="list-group rounded-0">
-          <li class="list-group-item"></li>
-        </ul>
+<div class="main-grid ">
+  <!--Coluna categorias-->
+  <div id="categories" class="py-5">
+    <h6 class="text-center text-white font-weight-light" (click)="getAll()" style="cursor: pointer !important;">TODOS</h6>
+    <ul *ngFor="let category of categories" class="list-group rounded-0">
+      <h6 class="text-center text-white font-weight-light"(click)="filterPrCategory(category.id)" style="cursor: pointer !important;">{{category.name | uppercase}}</h6>
+      <li (click)="filterProducts(category.id, product.brand )" *ngFor="let product of Brands(category)" class="list-group-item list-group-item-secondary py-1 font-weight-light" style="cursor: pointer;">
+        {{product.brand}}
       </li>
-      <li class="list-group-item"></li>
     </ul>
   </div>
+
+<!--Coluna de catalogo-->
   <div id="catalog">
-    <div class="filter px-3 d-flex flex-row-reverse">
-      <div class="single-search">
-        <input class="custom-input" type="text" placeholder="What are you looking for ...">
-        <a href="#" class="icon-area">
-          <fa-icon size="lg" class="my-2 ml-1" [styles]="{'color': '#CBCBCB'}" [icon]="faSearch"></fa-icon>
-        </a>
-      </div>
+    <div class="filter px-3 d-flex flex-row justify-content-end">
+
+      <div class="pagination justify-content-center ">
+        <div>
+            <select #select class="form-control form-control-sm my-1" id="typeConge" name="typeConge" [(ngModel)]="pag">
+                <option type="number" [ngValue]="4">4</option>
+                <option type="number" [ngValue]="8">8</option>
+                <option type="number" [ngValue]="16">16</option>
+                <option type="number" [ngValue]="products.length">Todos</option>
+            </select>
+        </div>
+        <pagination-controls class="my-pagination my-1" (pageChange)="pag = $event" previousLabel="Anterior"
+            nextLabel="Próximo">
+        </pagination-controls>
     </div>
-    <div class="products" [style.grid-template-columns]="'repeat('+colums+', calc(40% - 40px))'">
-      <app-card [styleCard]="'#6ACA25'" [product]="product">
-        <img src="../../../assets/montagemBan.jpg" class="card-img-top w-50 mx-auto">
+
+    <div class="container d-flex justify-content-end my-1 w-25 m-0 p-0">
+      <input class="form-control form-control-sm w-25" id="inps" type="text" [(ngModel)]="search">
+      <fa-icon size="lg"  class="ml-1 my-1" [styles]="{'color': '#CBCBCB'}" [icon]="faSearch"></fa-icon>
+    </div>
+      
+    </div>
+
+    <div class="products p-4" [style.grid-template-columns]="width <= 480 ? 'repeat('+(colums * 4)+', calc(90% - 40px))': width > 481 && width <= 768 ? 'repeat('+(colums * 2)+', calc(60% - 40px))': 'repeat('+colums+', calc(40% - 40px))'">
+      <app-card *ngFor="let product of products | filter: search | paginate: { itemsPerPage: pag, currentPage: actualPag };" [styleCard]="'#6ACA25'" [product]="product">
       </app-card>
-      <div class="container bg-white"></div>
-      <div class="container bg-white"></div>
-      <div class="container bg-white"></div>
-      <div class="container bg-white"></div>
-      <div class="container bg-white"></div> 
     </div>
   </div>
 </div>
