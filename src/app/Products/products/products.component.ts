@@ -46,16 +46,12 @@ export class ProductsComponent implements OnInit {
     console.log(this.width);
 }
 
-  filterProducts(id: Guid, brand: string){
-    this.categoryService.getCategory(id).subscribe(ct => {
-      this.products = ct.products.filter(pr => pr.brand === brand);
-    });
+  filterProducts(category: Category, brand: string){
+    this.products = category.products.filter(pr => pr.brand === brand);
   }
 
-  filterPrCategory(id: Guid){
-    this.categoryService.getCategory(id).subscribe(ct => {
-      this.products = ct.products;
-    });
+  filterPrCategory(category: Category){
+    this.products = category.products;
   }
 
   getCategories(){

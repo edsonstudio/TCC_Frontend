@@ -3,8 +3,8 @@
   <div id="categories" class="py-5">
     <h6 class="text-center text-white font-weight-light" (click)="getAll()" style="cursor: pointer !important;">TODOS</h6>
     <ul *ngFor="let category of categories" class="list-group rounded-0">
-      <h6 class="text-center text-white font-weight-light"(click)="filterPrCategory(category.id)" style="cursor: pointer !important;">{{category.name | uppercase}}</h6>
-      <li (click)="filterProducts(category.id, product.brand )" *ngFor="let product of Brands(category)" class="list-group-item list-group-item-secondary py-1 font-weight-light" style="cursor: pointer;">
+      <h6 class="text-center text-white font-weight-light"(click)="filterPrCategory(category)" style="cursor: pointer !important;">{{category.name | uppercase}}</h6>
+      <li (click)="filterProducts(category, product.brand )" *ngFor="let product of Brands(category)" class="list-group-item list-group-item-secondary py-1 font-weight-light" style="cursor: pointer;">
         {{product.brand}}
       </li>
     </ul>
