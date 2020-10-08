@@ -1,7 +1,7 @@
 import { v4 as Guid } from 'uuid';
 
 export class User {
-    id?: Guid;
+    id?: typeof Guid;
     email: string;
     password: string;
     confirmpassword?: string;

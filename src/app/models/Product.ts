@@ -2,8 +2,8 @@ import { v4 as Guid } from 'uuid';
 import { AssociatedProducts } from './AssociatedProducts';
 
 export class Product {
-    id?: Guid;
-    categoryId?: Guid;
+    id?: typeof Guid;
+    categoryId?: typeof Guid;
     categoryName?: string;
     name: string;
     active: boolean;
