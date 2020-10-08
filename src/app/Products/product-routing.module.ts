@@ -9,8 +9,8 @@ import { ProductsComponent } from './products/products.component';
 const productRouterConfig: Routes = [
     { path: '', component: ProductAppComponent,
     children: [
-        { path: '', component: ProductsComponent },
-        { path: ':id', component: ProductComponent, resolve: { product: ProductResolve } },
+        { path: 'todos', component: ProductsComponent},
+        { path: 'todos/:id', component: ProductComponent, resolve: { product: ProductResolve } },
         { path: 'meu-setup', component: PersonalizedComponent },
         { path: '**', redirectTo: ''}
     ]}
