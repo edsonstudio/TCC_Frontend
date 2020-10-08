@@ -1,1 +1,48 @@
-<p>personalized works!</p>
+  <div class="container-fluid m-0 p-0 d-flex flex-row-reverse w-100">
+    <div class="py-1 ml-auto">
+      <img src="../../../assets/next.png" class="mx-auto d-block" width="30px" alt="Icone avançar">
+      <small class="text-white my-0">Comprar</small>
+    </div>
+
+    <div class="ml-2 py-2 my-0">
+      <img src="../../../assets/amd.png" class="mx-2" alt="Logo AMD" width="30px" (click)="chooseBrand('string')">
+      <img src="../../../assets/intel.png" class="mx-2" alt="Logo Intel" width="35px" (click)="chooseBrand('intel')">
+    </div>
+  </div>
+
+  <content-loader *ngIf="!products">
+    <svg:rect x="0" y="0"  width="25%" height="500" />
+    <svg:rect x="115" y="5"  width="27%" height="50" />
+    <svg:rect x="115" y="70"  width="27%" height="50" />
+    <svg:rect x="250" y="5"  width="27%" height="50" />
+    <svg:rect x="250" y="70"  width="27%" height="50" />
+    <svg:rect x="385" y="5"  width="27%" height="50" />
+    <svg:rect x="385" y="70"  width="27%" height="50" />
+  </content-loader>
+
+  <div class="parent p-2" *ngIf="products">
+
+    <div class="placa-mae" *ngIf="showMotherboards">
+      <h5>Placa mãe</h5>
+      <swiper class="swiper-container" fxFlex="auto" [config]="config">
+        <div class="swiper-slide" *ngFor="let product of filterProductsCat('PROçêSSÁDOR')">
+          <app-card [className]="'scale-inverse'" [product]="product">
+            <button [ngClass]="{'btn btn-sm btn-outline-primary': brand === 'intel', 'btn btn-sm btn-outline-warning': brand === 'amd'}" (click)="filterAssociatedProducts(product)">Adicionar</button>
+          </app-card>
+        </div>
+     </swiper>
+    </div>
+    
+    <ng-container *ngIf="showConfig">
+      <div *ngFor="let category of categories" class="{{category.name | categoryclass}}">
+        <h5>{{category.name}}</h5>
+        <swiper class="swiper-container" fxFlex="auto" [config]="config">
+           <div class="swiper-slide" *ngFor="let product of filterProductsCat(category.name)">
+             <app-card [className]="'scale-inverse'" [product]="product">
+              <button class="btn btn-outline-success btn-sm">Adicionar</button>
+             </app-card>
+           </div>
+        </swiper>
+      </div>
+    </ng-container>
+</div>
