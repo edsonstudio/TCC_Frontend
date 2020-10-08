@@ -1,4 +1,6 @@
+import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Category } from 'src/app/models/Category';
 import { Product } from 'src/app/models/Product';
@@ -15,6 +17,12 @@ import { v4 as Guid } from 'uuid';
 })
 export class ProductsComponent implements OnInit {
 
+  constructor(
+    private productService: ProductService,
+    private categoryService: CategoryService,
+    private router: Router) { }
+
+  prlength: number;
   win = window;
   actualPag = 1;
   search: string;
@@ -32,8 +40,6 @@ export class ProductsComponent implements OnInit {
   set pag(value){
     this._pag = value;
   }
-
-  constructor(private productService: ProductService, private categoryService: CategoryService) { }
 
   ngOnInit() {
     this.getAll();
@@ -66,7 +72,7 @@ export class ProductsComponent implements OnInit {
       if (pr.length % 2 > 0){
         this.colums = (pr.length + 1) / 2;
       }else {this.colums = pr.length; }
-      console.log(this.colums);
+      this.prlength = pr.length;
     });
   }
 
@@ -78,6 +84,10 @@ export class ProductsComponent implements OnInit {
     });
 
     return brands;
+  }
+
+  Navigate(product: Product){
+   this.router.navigate([`Inicio/produtos/todos/${product.id}`]);
   }
 
 }

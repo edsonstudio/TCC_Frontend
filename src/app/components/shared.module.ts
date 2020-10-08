@@ -7,7 +7,15 @@ import { CustomFormsModule } from 'ngx-custom-validators';
 import { ProductRouterModule } from '../Products/product-routing.module';
 import { CardComponent } from './card/card.component';
 import { FormComponent } from './form/form.component';
+import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { SwiperModule } from 'ngx-swiper-wrapper';
+import { CategoryNamePipe } from '../pipes/categoryName.pipe';
 
+const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
+    direction: 'horizontal',
+    slidesPerView: 'auto'
+};
 @NgModule({
     imports: [
         CommonModule,
@@ -16,15 +24,24 @@ import { FormComponent } from './form/form.component';
         FormsModule,
         CustomFormsModule,
         ProductRouterModule,
-        NgBrazil
+        NgBrazil,
+        SwiperModule
     ],
     declarations: [
         CardComponent,
-        FormComponent
+        FormComponent,
+        CategoryNamePipe
     ],
     exports: [
         CardComponent,
-        FormComponent
+        FormComponent,
+        CategoryNamePipe
+    ],
+    providers: [
+        {
+            provide: SWIPER_CONFIG,
+            useValue: DEFAULT_SWIPER_CONFIG
+        }
     ]
 })
 

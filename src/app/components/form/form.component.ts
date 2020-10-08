@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { CustomValidators } from 'ngx-custom-validators';
-import { Observable } from 'rxjs';
 
 
 @Component({
