@@ -20,7 +20,7 @@
                 <option type="number" [ngValue]="4">4</option>
                 <option type="number" [ngValue]="8">8</option>
                 <option type="number" [ngValue]="16">16</option>
-                <option type="number" [ngValue]="products.length">Todos</option>
+                <option type="number" [ngValue]="prlength">Todos</option>
             </select>
         </div>
         <pagination-controls class="my-pagination my-1" (pageChange)="pag = $event" previousLabel="Anterior"
@@ -37,6 +37,7 @@
 
     <div class="products p-4" [style.grid-template-columns]="width <= 480 ? 'repeat('+(colums * 4)+', calc(90% - 40px))': width > 481 && width <= 768 ? 'repeat('+(colums * 2)+', calc(60% - 40px))': 'repeat('+colums+', calc(40% - 40px))'">
       <app-card *ngFor="let product of products | filter: search | paginate: { itemsPerPage: pag, currentPage: actualPag };" [styleCard]="'#6ACA25'" [product]="product">
+        <button class="btn btn-sm btn-warning" (click)="Navigate(product)">Detalhes</button>
       </app-card>
     </div>
   </div>
