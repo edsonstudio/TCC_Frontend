@@ -17,6 +17,9 @@ export class CardComponent implements OnInit {
   @Input()
     product: Product;
 
+  @Input()
+    className = 'scale';
+
   ngOnInit() {
   }
 

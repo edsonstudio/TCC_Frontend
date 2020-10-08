@@ -1,6 +1,8 @@
 import { v4 as Guid } from 'uuid';
+import { Product } from './Product';
 
 export class AssociatedProducts {
-    productFather: Guid;
-    productSon: Guid;
+    id: typeof Guid;
+    productFather: Product;
+    productSon: Product;
 }

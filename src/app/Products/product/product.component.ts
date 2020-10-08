@@ -22,6 +22,9 @@ export class ProductComponent extends CommumMethods implements OnInit {
 
   ngOnInit() {
     this.product = this.route.snapshot.data.product;
+    console.log(this.product.registerDate);
   }
+
+
 
 }

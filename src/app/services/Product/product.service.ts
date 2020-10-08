@@ -19,11 +19,11 @@ export class ProductService extends BaseService{
         return this.http.get<Product[]>(`${this.UrlAPIV1}/Products`, super.GetJsonAuthHeader());
     }
 
-    getProductsByCategory(id: Guid){
+    getProductsByCategory(id: typeof Guid){
         return this.http.get<Product[]>(`${this.UrlAPIV1}/ProductsByCategory/${id}`, super.GetJsonAuthHeader());
     }
 
-    getProduct(id: Guid): Observable<Product>{
+    getProduct(id: typeof Guid): Observable<Product>{
     return this.http.get<Product>(`${this.UrlAPIV1}/products/${id}`, super.GetJsonAuthHeader());
     }
 
@@ -31,7 +31,7 @@ export class ProductService extends BaseService{
         return this.http.post<Product>(`${this.UrlAPIV1}/products`, product, super.GetJsonAuthHeader());
     }
 
-    deleteProduct(id: Guid): Observable<Product> {
+    deleteProduct(id: typeof Guid): Observable<Product> {
        return this.http.delete<Product>(`${this.UrlAPIV1}/products/${id}`, super.GetJsonAuthHeader());
     }
 
