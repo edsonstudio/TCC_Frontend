@@ -2,6 +2,7 @@
     <div class="div1">
       <app-card>
         <img src="../../../assets/montagemBan.jpg" class="card-img-top">
+        <a routerLink="produtos/meu-setup" class="btn btn-danger btn-sm">Setup</a>
         <a (click)="logout()" class="btn d-block m-0 text-white buttonS" style="background-color: #FF9900">Logout</a>
       </app-card>
     </div>
@@ -18,7 +19,7 @@
   
     <div class="div4 px-3">
       <app-card>
-        <a [routerLink]="'produtos'" class="btn d-block m-0 text-white buttonS" style="background-color: #FF9900">Catálogo</a>
+        <a [routerLink]="'produtos/todos'" class="btn d-block m-0 text-white buttonS" style="background-color: #FF9900">Catálogo</a>
       </app-card>
     </div>
   </div>
