@@ -7,15 +7,24 @@ $primary-green: #6ACA25;
     color: dark !important;
     text-align: center;
 
-    &:hover {
-      transform: scale(1.06);
+    &:hover{
       z-index: 2;
       box-shadow: 2px 2px 20px 2px rgba(0, 0, 0, 0.479);
       border: 3px solid $primary-green;
-     }
-
+    }
 }
 
+.scale {
+  &:hover {
+    transform: scale(1.06);
+   }
+}
+
+.scale-inverse {
+  &:hover {
+    transform: scale(.95);
+   }
+}
 
 
 @media screen and (max-width: 350px){
