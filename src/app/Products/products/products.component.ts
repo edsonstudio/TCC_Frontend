@@ -1,4 +1,3 @@
-import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -7,7 +6,7 @@ import { Product } from 'src/app/models/Product';
 import { CategoryService } from 'src/app/services/Category/category.service';
 import { ProductService } from 'src/app/services/Product/product.service';
 import { environment } from 'src/environments/environment';
-import { v4 as Guid } from 'uuid';
+
 
 @Component({
   selector: 'app-products',
@@ -71,7 +70,7 @@ export class ProductsComponent implements OnInit {
       this.products = pr;
       if (pr.length % 2 > 0){
         this.colums = (pr.length + 1) / 2;
-      }else {this.colums = pr.length; }
+      }else {this.colums = pr.length / 2; }
       this.prlength = pr.length;
     });
   }

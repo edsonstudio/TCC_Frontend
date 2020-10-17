@@ -12,12 +12,17 @@ import { ProductResolve } from '../services/Product/product.resolve';
 import { ProductComponent } from './product/product.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductAppComponent } from './product-app';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PersonalizedComponent } from './personalized/personalized.component';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { ContentLoaderModule } from '@ngneat/content-loader';
+import { CartComponent } from './cart/cart.component';
+import { NgBrazil } from 'ng-brazil';
+import { Store } from './cart.store';
+import { CartService } from '../services/Cart_Order/cart.service';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     direction: 'horizontal',
@@ -33,16 +38,23 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     Ng2SearchPipeModule,
     FormsModule,
     SwiperModule,
-    ContentLoaderModule
+    ContentLoaderModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgBrazil,
+    TooltipModule.forRoot()
   ],
   declarations: [
     ProductAppComponent,
     ProductComponent,
     ProductsComponent,
-    PersonalizedComponent
+    PersonalizedComponent,
+    CartComponent
   ],
   providers: [
     ProductResolve,
+    Store,
+    CartService,
     {
       provide: SWIPER_CONFIG,
       useValue: DEFAULT_SWIPER_CONFIG
