@@ -35,7 +35,7 @@
       
     </div>
 
-    <div class="products p-4" [style.grid-template-columns]="width <= 480 ? 'repeat('+(colums * 4)+', calc(90% - 40px))': width > 481 && width <= 768 ? 'repeat('+(colums * 2)+', calc(60% - 40px))': 'repeat('+colums+', calc(40% - 40px))'">
+    <div class="products p-4" [style.grid-template-columns]="width <= 480 ? 'repeat('+(colums)+', calc(90% - 40px))': width > 481 && width <= 768 ? 'repeat('+(colums)+', calc(60% - 40px))': 'repeat('+colums+', calc(40% - 40px))'">
       <app-card *ngFor="let product of products | filter: search | paginate: { itemsPerPage: pag, currentPage: actualPag };" [styleCard]="'#6ACA25'" [product]="product">
         <button class="btn btn-sm btn-warning" (click)="Navigate(product)">Detalhes</button>
       </app-card>

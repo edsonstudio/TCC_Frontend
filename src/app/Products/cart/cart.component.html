@@ -1,0 +1,36 @@
+
+<div class="d-flex mt-3">
+  <div class="table-responsive w-75" style="overflow: auto; max-height: 65vh;">
+    <table class="table table-dark table-hover"
+      style="background: linear-gradient(45deg, #00000062 10%, #ffffff3f 90%) !important; color: rgba(255, 255, 255, 0.733) !important">
+      <tbody>
+         <tr *ngFor="let item of cartItems$ | async">
+          <td class="text-center py-0">
+            <img src="../../../assets/intel.png" width="50">
+          </td>
+          <td class="text-center my-auto">{{item.name}}</td>
+          <td class="text-center my-auto">{{item.price | currencyBrazil}}</td>
+          <td class="text-center bg-white d-flex flex-row-reverse">
+            <form class="form-inline" >
+              <input type="text" class="form-control form-control-sm">
+              <button class="btn btn-sm btn-dark ml-1" tooltip="Editar">Aplicar</button>
+            </form>
+          </td>
+        </tr> 
+      </tbody>
+    </table>
+</div>
+
+<div class="bg-danger container w-25 py-1">
+  <h5>Preço</h5>
+  <form [formGroup]="formCep">
+    <input type="text" class="form-control form-control-sm my-1" formControlName="cep">
+  </form>
+  <button class="btn btn-sm btn-primary" (click)="calcShipping()">Frete</button>
+  <div *ngIf="shippingPrice" class="container bg-secondary my-1 p-3">
+    <h5>Correios</h5>
+    <p *ngIf="shippingPrice">Frete: R${{shippingPrice}}</p>
+    <p *ngIf="deliveryIn">Tempo: {{deliveryIn}} dias</p>
+  </div>
+</div>
+</div>

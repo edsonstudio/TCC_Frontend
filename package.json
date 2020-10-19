@@ -28,6 +28,7 @@
     "@types/uuid": "^8.3.0",
     "angular2-text-mask": "^9.0.0",
     "bootstrap": "^4.5.2",
+    "guid-typescript": "^1.0.9",
     "ng-brazil": "^2.2.2",
     "ng2-search-filter": "^0.5.1",
     "ngx-bootstrap": "^6.1.0",
@@ -41,6 +42,7 @@
     "text-mask-addons": "^3.8.0",
     "tslib": "^1.10.0",
     "uuid": "^8.3.0",
+    "xml-js": "^1.6.11",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
