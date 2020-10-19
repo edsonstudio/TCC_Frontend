@@ -23,6 +23,7 @@ import { NgBrazil } from 'ng-brazil';
 import { Store } from './cart.store';
 import { CartService } from '../services/Cart_Order/cart.service';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { OrderComponent } from './order/order.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     direction: 'horizontal',
@@ -49,7 +50,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     ProductComponent,
     ProductsComponent,
     PersonalizedComponent,
-    CartComponent
+    CartComponent,
+    OrderComponent
   ],
   providers: [
     ProductResolve,

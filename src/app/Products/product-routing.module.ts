@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProductResolve } from '../services/Product/product.resolve';
 import { CartComponent } from './cart/cart.component';
+import { OrderComponent } from './order/order.component';
 import { PersonalizedComponent } from './personalized/personalized.component';
 import { ProductAppComponent } from './product-app';
 import { ProductComponent } from './product/product.component';
@@ -14,6 +15,7 @@ const productRouterConfig: Routes = [
         { path: 'todos/:id', component: ProductComponent, resolve: { product: ProductResolve } },
         { path: 'meu-setup', component: PersonalizedComponent },
         { path: 'carrinho', component: CartComponent },
+        { path: 'pedido', component: OrderComponent }
         { path: '**', redirectTo: ''}
     ]}
 ];
