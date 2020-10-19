@@ -1,8 +1,8 @@
-import { v4 as Guid } from 'uuid';
+import { Guid } from 'guid-typescript';
 import { Product } from './Product';
 
 export class Category {
-    id?: typeof Guid;
+    id?: Guid;
     name: string;
     products?: Product[];
 }

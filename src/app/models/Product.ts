@@ -1,9 +1,9 @@
-import { v4 as Guid } from 'uuid';
 import { AssociatedProducts } from './AssociatedProducts';
+import { Guid } from 'guid-typescript';
 
 export class Product {
-    id?: typeof Guid;
-    categoryId?: typeof Guid;
+    id?: Guid;
+    categoryId?: Guid;
     categoryName?: string;
     name: string;
     active: boolean;
