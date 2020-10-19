@@ -15,7 +15,7 @@ const productRouterConfig: Routes = [
         { path: 'todos/:id', component: ProductComponent, resolve: { product: ProductResolve } },
         { path: 'meu-setup', component: PersonalizedComponent },
         { path: 'carrinho', component: CartComponent },
-        { path: 'pedido', component: OrderComponent }
+        { path: 'pedido', component: OrderComponent },
         { path: '**', redirectTo: ''}
     ]}
 ];

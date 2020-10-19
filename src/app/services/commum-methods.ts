@@ -14,7 +14,7 @@ export abstract class CommumMethods {
                 event instanceof NavigationError){
                     setTimeout(() => {
                         spinner.hide();
-                    }, 4000);
+                    }, 3000);
                 }
         });
     }

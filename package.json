@@ -38,6 +38,7 @@
     "ngx-swiper-wrapper": "^10.0.0",
     "ngx-toastr": "^13.0.0",
     "rxjs": "~6.5.4",
+    "stream": "0.0.2",
     "swiper": "^6.2.0",
     "text-mask-addons": "^3.8.0",
     "tslib": "^1.10.0",

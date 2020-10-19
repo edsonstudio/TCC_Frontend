@@ -28,7 +28,7 @@
       <h5>Placa mãe</h5>
       <swiper class="swiper-container" fxFlex="auto" [config]="config">
         <div class="swiper-slide" *ngFor="let product of filterProductsCat('processador')">
-          <app-card [className]="'scale-inverse'" [product]="product">
+          <app-card [className]="'scale-inverse d-flex flex-row'" [product]="product">
             <button [ngClass]="{'btn btn-sm btn-outline-primary': brand === 'intel', 'btn btn-sm btn-outline-warning': brand === 'amd'}" (click)="filterAssociatedProducts(product)">Adicionar</button>
           </app-card>
         </div>

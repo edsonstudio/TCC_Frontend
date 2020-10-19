@@ -126,7 +126,7 @@ export class PersonalizedComponent implements OnInit {
       produtoId: product.id
     };
 
-    // this.cartService.postCartItem(brItem).subscribe();
+    this.cartService.postCartItem(brItem).subscribe();
   }
 
  }
