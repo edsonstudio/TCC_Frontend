@@ -33,3 +33,11 @@ body {
 input {
     height: 1.6rem !important;
 }
+
+.ng-sidebar {
+    border: 2px solid $primary-green !important;
+    color: aqua;
+    width: 12rem;
+    padding: 10px;
+}
+
