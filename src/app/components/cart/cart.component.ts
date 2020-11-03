@@ -6,6 +6,7 @@ import { Cart } from 'src/app/models/Cart';
 import { CartService } from 'src/app/services/Cart_Order/cart.service';
 import { OrderService } from 'src/app/services/Cart_Order/order.service';
 import { ToastrService } from 'ngx-toastr';
+import { Store } from 'src/app/Products/cart.store';
 
 @Component({
   selector: 'app-cart',
@@ -18,7 +19,8 @@ export class CartComponent implements OnInit {
     private fb: FormBuilder,
     private cart: CartService,
     private orderService: OrderService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private store: Store) { }
 
     @Input()
       cartItems: Cart;
@@ -52,6 +54,7 @@ export class CartComponent implements OnInit {
         }
         else {
           this.shippingPrice = price;
+          this.store.setCep(cep);
           console.log('Preço:', this.shippingPrice);
 
           console.log('Dias:', JSON.parse(convert.xml2json(succ, {compact: true, spaces: 4})).Servicos.cServico.PrazoEntrega._text);
