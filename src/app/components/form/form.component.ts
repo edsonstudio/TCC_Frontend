@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChange
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { MASKS, NgBrazilValidators } from 'ng-brazil';
 import { CustomValidators } from 'ngx-custom-validators';
 
 
@@ -11,6 +12,8 @@ import { CustomValidators } from 'ngx-custom-validators';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit, OnChanges {
+  public MASKS = MASKS;
+  constructor(private fb: FormBuilder) { }
 
   pwd: FormControl;
   confirmPwd: FormControl;
@@ -19,8 +22,6 @@ export class FormComponent implements OnInit, OnChanges {
   private dirty = false;
 
   private _cleanForm: boolean;
-
-  constructor(private fb: FormBuilder) { }
 
   get cleanForm(){
     return this._cleanForm;
@@ -64,6 +65,9 @@ export class FormComponent implements OnInit, OnChanges {
 
      this.formLoRe = this.fb.group({
       email: ['', [Validators.email, Validators.required]],
+      phone: ['', [NgBrazilValidators.telefone, Validators.required]],
+      cpf: ['', [Validators.required, NgBrazilValidators.cpf]],
+      name: ['', [Validators.required, Validators.minLength(10)]],
       password: this.pwd,
       confirmPassword: this.confirmPwd
     });
