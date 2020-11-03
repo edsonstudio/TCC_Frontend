@@ -6,7 +6,7 @@ import { throwError } from 'rxjs';
 export abstract class BaseService {
 
     protected UrlAPIV1: string = environment.apiUrlV1;
-    protected UrlAuth: string = environment.apiAuthUrlV1;
+    protected UrlAuth: string = environment.apiAuthUrlV2;
     protected UrlShopping: string = environment.apiShoppingUrlV1;
     public LocalStorage = new LocalStorageUtils();
 
@@ -28,7 +28,9 @@ export abstract class BaseService {
     }
 
     protected extractData(response: any) {
-        return response.data || {};
+        if (!response) { return {}; }
+
+        return response.data ? response.data : response;
     }
 
     protected serviceError(response: Response | any) {
