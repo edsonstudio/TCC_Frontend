@@ -1,1 +1,156 @@
-<p>order works!</p>
+<div class="container-fluid m-0 p-0 d-flex mt-1 justify-content-center flex-row-reverse w-100">
+    <div class="py-1 ml-auto text-center next" (click)="doOrder()">
+        <i class="fad fa-check-circle fa-2x d-block mx-auto" style="color: antiquewhite;"></i>
+        <small class="text-white d-block mx-auto">Finalizar</small>
+    </div>
+</div>
+
+<div class="container-fluid d-flex mt-2 text-white border border-danger">
+    <div class="container bg-warning px-0 mt-3">
+
+        <form [formGroup]="orderForm" class="p-4">
+            <h5>Pagamento<i class="fas fa-credit-card ml-1"></i></h5>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="cardInp">Número Cartão</label>
+                        <input type="text" [ngClass]="{'is-invalid': orderForm.get('numeroCartao')?.touched && orderForm.get('numeroCartao').errors}" required class="form-control form-control-sm px-1 border border-danger" id="cardInp" formControlName="numeroCartao">
+                        <small *ngIf="orderForm.get('numeroCartao').hasError('required')" class="invalid-feedback">
+                            Campo obrigatório
+                        </small>
+                        <small *ngIf="orderForm.get('numeroCartao').hasError('creditCard')" class="invalid-feedback">
+                            Número inválido
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cardnbInp">Nome Cartão</label>
+                        <input type="text" [ngClass]="{'is-invalid': orderForm.get('nomeCartao')?.touched && orderForm.get('nomeCartao').errors}" required class="form-control form-control-sm  px-1 border-danger" id="cardnbInp" formControlName="nomeCartao">
+                        <small *ngIf="orderForm.get('nomeCartao').hasError('minlength')" class="invalid-feedback">
+                            Digite um nome válido
+                        </small>
+                        <small *ngIf="orderForm.get('nomeCartao').hasError('required')" class="invalid-feedback">
+                            Campo obrigatório
+                        </small>
+                    </div>
+                    <i class="fab fa-cc-visa mr-1"></i>
+                    <i class="fab fa-cc-amex mr-1"></i>
+                    <i class="fab fa-cc-diners-club mr-1"></i>
+                    <i class="fab fa-cc-discover mr-1"></i>
+                    <i class="fab fa-cc-mastercard mr-1"></i>
+               </div>
+    
+               <div class="col">
+                <div class="form-group">
+                    <label for="cardInp">CVV</label>
+                    <input type="text" minlength="3" maxlength="3" required class="form-control form-control-sm px-1 w-25 border border-danger text-center" id="cardInp" formControlName="cvvCartao" [ngClass]="{'is-invalid': orderForm.get('cvvCartao')?.touched && orderForm.get('cvvCartao').errors}">
+                    <small *ngIf="orderForm.get('cvvCartao').hasError('required')" class="invalid-feedback">
+                        Campo obrigatório
+                    </small>
+                    <small *ngIf="orderForm.get('cvvCartao').hasError('minlength')" class="invalid-feedback">
+                        Código inválido
+                    </small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="valInp">Validade</label>
+                    <input type="text" (change)="log($event)" appInputMask required class="form-control form-control-sm w-25 px-1 border-danger" placeholder="05/24" id="valInp" formControlName="expiracaoCartao" [ngClass]="{'is-invalid': orderForm.get('expiracaoCartao')?.touched && orderForm.get('expiracaoCartao').errors}">
+                    <small *ngIf="orderForm.get('expiracaoCartao').errors" class="invalid-feedback">
+                        Data inválida
+                    </small>
+                </div>
+           </div>
+            </div>
+        </form>
+
+        <form [formGroup]="addressForm" class="p-4">
+            <h5>Endereço <i class="fas fa-truck"></i></h5>
+           <div class="row">
+               <div class="col">
+                    <div class="form-group">
+                        <label for="cepInp">CEP</label>
+                        <input type="text" [mask]="'00000-000'" (change)="calcShipping()" required class="form-control form-control-sm px-1 border border-danger" id="cepInp" formControlName="cep" [ngClass]="{'is-invalid':  addressForm.get('cep').errors && addressForm.get('cep')?.touched}">
+                        <small *ngIf="addressForm.get('cep').hasError('required')" class="invalid-feedback">
+                            Campo obrigatório
+                        </small>
+                        <small *ngIf="addressForm.get('cep').hasError('minlength')" class="invalid-feedback">
+                            Insira um CEP válido
+                        </small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="numbInp">Número</label>
+                        <input type="number" required min="0" class="form-control form-control-sm w-50 px-1 border-danger" id="numbInp" formControlName="numero" [ngClass]="{'is-invalid': addressForm.get('numero').errors && addressForm.get('numero')?.touched}">
+                        <small *ngIf="addressForm.get('numero').hasError('required')" class="invalid-feedback">
+                            Insira um número
+                        </small>
+                    </div>
+               </div>
+    
+               <div class="col">
+                    <div class="form-group">
+                        <label for="cityInp">Cidade</label>
+                        <input type="text" required disabled class="form-control form-control-sm px-1 border-success" id="cityInp" formControlName="cidade" [ngClass]="{'is-invalid': addressForm.get('cidade')?.touched && addressForm.get('cidade').errors}">
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="stateInp">Estado</label>
+                        <input type="text" required disabled class="form-control form-control-sm px-1 w-50 border-success" id="stateInp" formControlName="estado" [ngClass]="{'is-invalid': addressForm.get('estado')?.touched && addressForm.get('estado').errors}">
+                    </div>
+               </div>
+    
+               <div class="col-6">
+                    <div class="form-group">
+                        <label for="logradInp">Logradouro</label>
+                        <input type="text" required disabled class="form-control form-control-sm px-1 border-danger" id="logradInp" formControlName="logradouro" [ngClass]="{'is-invalid': addressForm.get('logradouro')?.touched && addressForm.get('logradouro').errors}">
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="compInp">Complemento</label>
+                        <input type="text" placeholder="Ex: Casa 2" class="form-control form-control-sm px-1 border-danger" id="compInp" formControlName="complemento" [ngClass]="{'is-invalid': addressForm.get('complemento')?.touched && addressForm.get('complemento').errors}">
+                        <small class="invalid-feedback">Opcional</small>
+                    </div>
+               </div>
+           </div>   
+        </form>
+        
+    </div>
+
+    <div [loader]="isLoader" class="container bg-primary p-4 mt-3">
+        <h5 class="font-weight-light text-center">Items <i class="fas fa-shopping-cart"></i></h5>
+        <div class="table-responsive" style="overflow: auto; max-height: 50%;">
+            <table class="table table-dark table-sm table-hover">
+              <thead>
+                <tr class="text-center">
+                  <td>#</td>
+                  <td>Produto</td>
+                  <td>Preço</td>
+                  <td>Quantidade</td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                 <tr [loader]="isLoaderRem" *ngFor="let item of cartItems.items; index as inde;" class="table-light text-dark">
+                  <td class="text-center py-0">
+                    <img src="{{urlImages}}/{{item.image}}" width="50">
+                  </td>
+                  <td class="text-center align-middle">{{item.name}}</td>
+                  <td class="text-center align-middle">{{item.price | currencyBrazil}}</td>
+                  <td class="text-center align-middle">
+                      <i class="fal fa-minus-circle next" tooltip="Remover" (click)="removeUnit(inde)"></i> {{item.amount}} <i (click)="addUnit(inde)" class="fal fa-plus-circle next" tooltip="Adicionar"></i></td>
+                  <td class="text-center align-middle">
+                      <button class="btn btn-sm btn-danger mr-1" tooltip="Excluir"><i class="fad fa-trash-alt"></i></button>
+                  </td>
+                </tr> 
+              </tbody>
+            </table>
+        </div>
+        <div class="container text-right bg-secondary">
+            <h6 class="mb-0" *ngIf="cartItems.voucherUtilizado">Total: {{cartItems.totalPrice + cartItems.desconto}}</h6>
+            <small *ngIf="cartItems.voucherUtilizado && cartItems.voucher.percentual">Desconto: {{cartItems.voucher.percentual}}%</small>
+            <small *ngIf="cartItems.voucherUtilizado && cartItems.voucher.valorDesconto">Desconto: {{cartItems.voucher.valorDesconto}}</small>
+            <h6 *ngIf="cartItems.voucherUtilizado && cartItems.voucher.percentual">Final: {{cartItems.totalPrice}}</h6>
+        </div>
+        
+    </div>
+</div>

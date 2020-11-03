@@ -11,7 +11,12 @@ import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { CategoryNamePipe } from '../pipes/categoryName.pipe';
+import { CartComponent } from './cart/cart.component';
+import { TextMaskModule } from 'angular2-text-mask';
+import { InputMaskDirective } from './input-mask.directive';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     direction: 'horizontal',
     slidesPerView: 'auto'
@@ -25,17 +30,23 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
         CustomFormsModule,
         ProductRouterModule,
         NgBrazil,
-        SwiperModule
+        TextMaskModule,
+        SwiperModule,
+        NgxMaskModule.forRoot()
     ],
     declarations: [
         CardComponent,
         FormComponent,
-        CategoryNamePipe
+        CategoryNamePipe,
+        CartComponent,
+        InputMaskDirective
     ],
     exports: [
         CardComponent,
         FormComponent,
-        CategoryNamePipe
+        CategoryNamePipe,
+        CartComponent,
+        InputMaskDirective
     ],
     providers: [
         {

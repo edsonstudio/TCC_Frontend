@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CartGuard } from '../services/Cart_Order/cart.guard';
+import { OrderGuard } from '../services/Cart_Order/order.guard';
 import { ProductResolve } from '../services/Product/product.resolve';
-import { CartComponent } from './cart/cart.component';
+import { CartPageComponent } from './cart-page/cart-page.component';
 import { OrderComponent } from './order/order.component';
 import { PersonalizedComponent } from './personalized/personalized.component';
 import { ProductAppComponent } from './product-app';
@@ -14,8 +16,8 @@ const productRouterConfig: Routes = [
         { path: 'todos', component: ProductsComponent },
         { path: 'todos/:id', component: ProductComponent, resolve: { product: ProductResolve } },
         { path: 'meu-setup', component: PersonalizedComponent },
-        { path: 'carrinho', component: CartComponent },
-        { path: 'pedido', component: OrderComponent },
+        { path: 'carrinho', component: CartPageComponent, canActivate: [CartGuard] },
+        { path: 'pedido', component: OrderComponent, canActivate: [OrderGuard] },
         { path: '**', redirectTo: ''}
     ]}
 ];

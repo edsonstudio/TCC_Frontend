@@ -18,13 +18,19 @@ import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { ContentLoaderModule } from '@ngneat/content-loader';
-import { CartComponent } from './cart/cart.component';
 import { NgBrazil } from 'ng-brazil';
 import { Store } from './cart.store';
 import { CartService } from '../services/Cart_Order/cart.service';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { OrderComponent } from './order/order.component';
+import { CartPageComponent } from './cart-page/cart-page.component';
+import { OrderService } from '../services/Cart_Order/order.service';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import {NgxLoaderIndicatorModule} from 'ngx-loader-indicator';
+import { CartGuard } from '../services/Cart_Order/cart.guard';
+import { OrderGuard } from '../services/Cart_Order/order.guard';
 
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     direction: 'horizontal',
     slidesPerView: 'auto'
@@ -43,20 +49,25 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     ReactiveFormsModule,
     FormsModule,
     NgBrazil,
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    NgxMaskModule.forRoot(),
+    NgxLoaderIndicatorModule.forRoot()
   ],
   declarations: [
     ProductAppComponent,
     ProductComponent,
     ProductsComponent,
     PersonalizedComponent,
-    CartComponent,
-    OrderComponent
+    OrderComponent,
+    CartPageComponent
   ],
   providers: [
     ProductResolve,
     Store,
     CartService,
+    OrderService,
+    CartGuard,
+    OrderGuard,
     {
       provide: SWIPER_CONFIG,
       useValue: DEFAULT_SWIPER_CONFIG

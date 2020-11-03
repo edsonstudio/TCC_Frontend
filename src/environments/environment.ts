@@ -9,7 +9,7 @@ export const environment = {
   apiAuthUrlV1: 'https://localhost:5101/api/v1/identity',
   apiAuthUrlV2: 'https://localhost:5101/api/v2/identity',
   apiShoppingUrlV1: 'https://localhost:5501/api/v1/compras',
-  images: 'https://localhost:5305/'
+  images: 'https://localhost:5305'
 };
 
 /*

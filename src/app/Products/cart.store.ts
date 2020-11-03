@@ -1,13 +1,15 @@
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CartItem } from '../models/CartItem';
 import { map } from 'rxjs/operators';
+import { Cart } from '../models/Cart';
 
 export interface State {
-    cartItems: CartItem[];
+    cart: Cart;
+    cep: string;
 }
 
 const state: State = {
-    cartItems: []
+    cart: {},
+    cep: ''
 };
 
 export class Store {
@@ -24,8 +26,19 @@ export class Store {
         });
     }
 
-    public getCartItems(): Observable<CartItem[]>{
+    setCep(cepS){
+        this.subject.next({
+            ...this.value, cep: cepS
+        });
+    }
+
+    public getCep(): Observable<string>{
         return this.store
-            .pipe(map(store => store.cartItems));
+            .pipe(map(store => store.cep));
+    }
+
+    public getCart(): Observable<Cart>{
+        return this.store
+            .pipe(map(store => store.cart));
     }
 }
