@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { TabsetComponent } from 'ngx-bootstrap/tabs';
 @Component({
   selector: 'app-management',
   templateUrl: './management.component.html',
@@ -9,7 +9,20 @@ export class ManagementComponent implements OnInit {
 
   constructor() { }
 
+  _opened: boolean = false;
+  section = 'products';
+
+  @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
+
   ngOnInit() {
+  }
+
+  _toggleSidebar() {
+    this._opened = !this._opened;
+  }
+
+  selectTab(tabId: number) {
+    this.staticTabs.tabs[tabId].active = true;
   }
 
 }

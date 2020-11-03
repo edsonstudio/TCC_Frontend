@@ -1,3 +1,16 @@
-<p>
-  management works!
-</p>
+<!-- Container for sidebar(s) + page content -->
+<ng-sidebar-container style="height: 90vh;">
+ 
+  
+    <ng-sidebar #sidebar [mode]="'slide'" [opened]="'true'" [trapFocus]="'true'" [closeOnClickOutside]="'true'">
+    <p>Sidebar contents</p>
+  </ng-sidebar>
+  
+  
+  <div ng-sidebar-content>
+    <button (click)="_toggleSidebar()">Toggle sidebar</button>
+    <app-admproducts *ngIf="section === 'products'"></app-admproducts>
+    <app-admusers *ngIf="section === 'users'"></app-admusers>
+  </div>
+
+</ng-sidebar-container>
