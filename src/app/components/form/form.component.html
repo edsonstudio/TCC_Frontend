@@ -1,6 +1,6 @@
 <div class="container w-50 mx-auto py-5 px-4 text-white rounded-lg border-success">
-  <div class="row">
-    <div class="col">
+  <div class="row justify-content-center">
+    <div class="col col-md-6">
       <span>
       <fa-icon [icon]="faUser" size="lg" class="mr-2" [styles]="{'color':'black'}"></fa-icon>
       <h5 *ngIf="mode == 'login'" class="d-inline-block">Login</h5>
@@ -8,10 +8,21 @@
       </span>
   
       <form class="mt-4" [formGroup]="formLoRe">
-        
+        <div *ngIf="mode == 'register'" class="form-group">
+          <label for="nameInp">Nome</label>
+          <input type="text" id="nameInp" class="form-control form-control-sm border-success" formControlName="name"
+          [ngClass]="{'is-invalid': formLoRe.get('name').errors && formLoRe.get('name').touched}" (change)="dirtyForm()">
+          <small *ngIf="formLoRe.get('name').hasError('required')" class="invalid-feedback">
+            Campo obrigatório
+          </small>
+          <small *ngIf="formLoRe.get('name').hasError('minlength')" class="invalid-feedback">
+            Insira nome completo
+          </small>
+        </div>
+
         <div class="form-group">
           <label for="emailInp">Email</label>
-          <input type="email" id="emailInp" class="form-control border-success" formControlName="email"
+          <input type="email" id="emailInp" class="form-control form-control-sm border-success" formControlName="email"
           [ngClass]="{'is-invalid': formLoRe.get('email').errors && formLoRe.get('email').touched}" (change)="dirtyForm()">
           <small *ngIf="formLoRe.get('email').hasError('required')" class="invalid-feedback">
             Campo obrigatório
@@ -20,11 +31,34 @@
             Email inválido
           </small>
         </div>
-        
+
+        <div *ngIf="mode == 'register'" class="form-group">
+          <label for="cpfInp">CPF</label>
+          <input type="text" id="cpfInp"  class="form-control form-control-sm border-success" cpf [textMask]="{mask: MASKS.cpf.textMask}" formControlName="cpf"
+          [ngClass]="{'is-invalid': formLoRe.get('cpf').errors && formLoRe.get('cpf').touched}" (change)="dirtyForm()">
+          <small *ngIf="formLoRe.get('cpf').hasError('required')" class="invalid-feedback">
+            Campo obrigatório
+          </small>
+          <small *ngIf="formLoRe.get('cpf').hasError('cpf')" class="invalid-feedback">
+            CPF inválido
+          </small>
+        </div>
+
+        <div *ngIf="mode == 'register'" class="form-group">
+          <label for="phoneInp">Telefone</label>
+          <input telefone #telefone [textMask]="{mask: MASKS.telefone.textMaskFunction}" type="tel" id="phoneInp" class="form-control form-control-sm border-success" formControlName="phone"
+          [ngClass]="{'is-invalid': formLoRe.get('phone').errors && formLoRe.get('phone').touched}" (change)="dirtyForm()">
+          <small *ngIf="formLoRe.get('phone').hasError('required')" class="invalid-feedback">
+            Campo obrigatório
+          </small>
+          <small *ngIf="formLoRe.get('phone').hasError('telefone')" class="invalid-feedback">
+            Telefone inválido
+          </small>
+        </div>
     
         <div class="form-group">
           <label for="pwdInp">Senha</label>
-          <input type="password" class="form-control border-success" formControlName="password" required 
+          <input type="password" class="form-control form-control-sm border-success" formControlName="password" required 
           [ngClass]="{'is-invalid': formLoRe.get('password').errors && formLoRe.get('password').touched}" (change)="dirtyForm()">
           <small *ngIf="formLoRe.get('password').hasError('required')" class="invalid-feedback">
             Campo obrigatório
@@ -36,13 +70,17 @@
         
         <div *ngIf="mode == 'register'" class="form-group">
           <label for="pwdInp">Confirmar Senha</label>
-          <input type="password" name="confirm" class="form-control border-success" formControlName="confirmPassword" [equalTo]="pwd"
+          <input type="password" name="confirm" class="form-control form-control-sm border-success" required formControlName="confirmPassword" [equalTo]="pwd"
           [ngClass]="{'is-invalid': confirmPwd.errors?.equalTo && formLoRe.get('confirmPassword').touched}" (change)="dirtyForm()">
           <small *ngIf="confirmPwd.errors?.equalTo && formLoRe.get('confirmPassword').touched">
             Senhas incompatíveis
           </small>
+          <small *ngIf="formLoRe.get('confirmPassword').hasError('required')" class="invalid-feedback">
+            Campo obrigatório
+          </small>
         </div>
-        <p>{{formLoRe.value | json}}</p>
+        
+        <!-- <p>{{formLoRe.value | json}}</p> -->
         <div class="row mt-5">
           <div *ngIf="mode == 'login'" class="col mx-auto">
             <button type="submit" class="btn btn-sm btn-success btn-block" (click)="emitLogin()" [disabled]="formLoRe.get('email').invalid || formLoRe.get('password').invalid">Entrar</button>

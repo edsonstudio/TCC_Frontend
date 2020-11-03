@@ -23,7 +23,7 @@ export class AccountService extends BaseService {
 
     Login(user: User): Observable<User> {
         const response = this.http
-            .post(`${this.UrlAuth}/entrar`, user, this.GetJsonHeader())
+            .post(`${this.UrlAuth}/autenticar`, user, this.GetJsonHeader())
             .pipe(
                 map(this.extractData),
                 catchError(this.serviceError));

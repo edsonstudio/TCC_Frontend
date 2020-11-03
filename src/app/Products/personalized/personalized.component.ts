@@ -118,15 +118,15 @@ export class PersonalizedComponent implements OnInit {
       this.productPersonalized.push(item);
     }
 
-    const brItem = {
-      nome: product.name,
-      quantidade: amountPr,
-      imagem: product.image,
-      valor: product.price,
-      produtoId: product.id
+    const brItem: CartItem = {
+      name: product.name,
+      amount: amountPr,
+      image: product.image,
+      price: product.price,
+      productId: product.id
     };
 
-    this.cartService.postCartItem(brItem).subscribe();
+    this.cartService.postCartItem(brItem).subscribe(() => console.log('Added to cart'));
   }
 
  }
