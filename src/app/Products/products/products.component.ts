@@ -72,6 +72,7 @@ export class ProductsComponent implements OnInit {
         this.colums = (pr.length + 1) / 2;
       }else {this.colums = pr.length / 2; }
       this.prlength = pr.length;
+      console.log(this.products);
     });
   }
 

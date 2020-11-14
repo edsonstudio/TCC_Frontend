@@ -1,7 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/swiper/swiper.scss';
+@import './colors.scss';
+@import "~@ng-select/ng-select/themes/material.theme.css";
 $primary-gradient: #686868, #282828;
-$primary-green: #6ACA25;
+
 
 @mixin gradient($direction, $list) { 
     background: -webkit-linear-gradient($direction, $list) !important;
@@ -34,6 +36,10 @@ input {
     height: 1.6rem !important;
 }
 
+select {
+    height: 1.6rem !important;
+}
+
 .ng-sidebar {
     border: 2px solid $primary-green !important;
     color: aqua;
@@ -41,3 +47,16 @@ input {
     padding: 10px;
 }
 
+.ng-sidebar--opened {
+    box-shadow: 8px 55px 588px 15px blue;
+    
+}
+
+::-webkit-scrollbar { 
+    width: 5px;
+    background-color: $primary-green;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #000; 
+}

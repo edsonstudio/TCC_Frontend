@@ -7,7 +7,9 @@ export abstract class BaseService {
 
     protected UrlAPIV1: string = environment.apiUrlV1;
     protected UrlAuth: string = environment.apiAuthUrlV2;
+    protected UrlChat: string = environment.apiChatUrl;
     protected UrlShopping: string = environment.apiShoppingUrlV1;
+    protected UrlImages: string = environment.images;
     public LocalStorage = new LocalStorageUtils();
 
     protected GetJsonHeader() {

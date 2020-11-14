@@ -74,7 +74,7 @@ export class PersonalizedComponent implements OnInit {
 
   filterAssociatedProducts(product: Product): Product[]{
     this.showConfig = true;
-    return product.associatedProduct.map(associated => associated.productSon);
+    return product.associatedProducts.map(associated => associated.productSon);
   }
 
   removeAccent(text: string): string{

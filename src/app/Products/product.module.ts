@@ -29,6 +29,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import {NgxLoaderIndicatorModule} from 'ngx-loader-indicator';
 import { CartGuard } from '../services/Cart_Order/cart.guard';
 import { OrderGuard } from '../services/Cart_Order/order.guard';
+import { ProductService } from '../services/Product/product.service';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -68,6 +69,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     OrderService,
     CartGuard,
     OrderGuard,
+    ProductService,
     {
       provide: SWIPER_CONFIG,
       useValue: DEFAULT_SWIPER_CONFIG

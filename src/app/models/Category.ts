@@ -3,6 +3,6 @@ import { Product } from './Product';
 
 export class Category {
     id?: Guid;
-    name: string;
+    name?: string;
     products?: Product[];
 }

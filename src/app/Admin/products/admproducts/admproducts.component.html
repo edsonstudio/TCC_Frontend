@@ -1,0 +1,401 @@
+<div id="test">
+    <h4 class="text-center font-weight-light">Produtos</h4>
+    <tabset>
+      <tab heading="Todos">
+        <div class="table-responsive" style="overflow: auto; max-height: 28rem;">
+          <table class="table table-dark table-hover">
+            <thead style="background: linear-gradient(to top, #00000062 10%, #ffffff3f 90%) !important;">
+              <tr>
+                <th scope="col" class="text-center mr-0">Categoria</th>
+                <th scope="col" class="text-center mx-auto">Marca</th>
+                <th scope="col" class="text-center mx-auto">Modelo</th>
+                <th scope="col" class="text-center mx-auto">Quantidade</th>
+                <th scope="col" class="text-center">Preço</th>
+                <th scope="col" class="text-center">Imagem</th>
+                <th scope="col" class="d-flex justify-content-center">
+                  <div class="form-inline">
+                    <div class="form-group">
+                      <input type="text" class="form-control border-secondary form-control-sm text-center"
+                        placeholder="Filtrar" [(ngModel)]='productFilter'>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody *ngIf="products && products.length">
+              <tr
+                *ngFor="let product of products | filter: productFilter">
+                <td class="text-center">{{product.categoryName}}</td>
+                <td class="text-center my-auto">{{product.brand}}</td>
+                <td class="text-center my-auto">{{product.model}}</td>
+                <td class="text-center">{{product.amount}}</td>
+                <td class="text-center">{{product.price | currency:'BRL':true:'1.2-2':'pt'}}</td>
+                <td class="text-center"><img src="{{urlImg}}/{{product.image}}" width="45px" alt="Imagem {{product.model}}"></td>
+                <td class="text-center">
+                  <button class="btn btn-sm btn-warning mr-1" tooltip="Editar" (click)="putProduct(template, product)"><i
+                    class="fad fa-edit"></i></button>
+                  <button class="btn btn-sm btn-danger border border-dark shadow-sm" (click)="deleteProduct(product)"><i
+                      class="fad fa-eraser" tooltip="Excluir"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </tab>
+
+       <!-- <tab heading="Adicionar" class="p-4">
+        <form class="text-white text-center" [formGroup]="registerForm">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputTitle">Título</label>
+                <input type="text" class="form-control" id="inputTitle" formControlName="name"
+                  [ngClass]="{'is-invalid': registerForm.get('name')?.touched && registerForm.get('name').errors}">
+                <div *ngIf="registerForm.get('name').hasError('required')" class="invalid-feedback">
+                  Campo obrigatório
+                </div>
+                <div *ngIf="registerForm.get('name').hasError('minlength')" class="invalid-feedback">
+                  Mínimo de 15 caracteres
+                </div>
+                <div *ngIf="registerForm.get('name').hasError('maxlength')" class="invalid-feedback">
+                  Máximo de 60 caracteres
+                </div>
+              </div>
+  
+              <div class="form-group col-md-3">
+                <label for="inputBrand">Marca</label>
+                <input type="text" class="form-control" id="inputBrand" formControlName="brand"
+                  [ngClass]="{'is-invalid':registerForm.get('brand')?.touched &&  registerForm.get('brand').errors}">
+                <div *ngIf="registerForm.get('brand').hasError('required')" class="invalid-feedback">
+                  Campo obrigatório
+                </div>
+                <div *ngIf="registerForm.get('brand').hasError('minlength')" class="invalid-feedback">
+                  Mínimo de 2 caracteres
+                </div>
+              </div>
+  
+              <div class="form-group col-md-3">
+                <label for="inputModel">Modelo</label>
+                <input type="text" class="form-control" id="inputModel" formControlName="model"
+                  [ngClass]="{'is-invalid':registerForm.get('model')?.touched && registerForm.get('model').errors}">
+  
+                <div *ngIf="registerForm.get('model').hasError('required')" class="invalid-feedback">
+                  Campo obrigatório
+                </div>
+                <div *ngIf="registerForm.get('model').hasError('minlength')" class="invalid-feedback">
+                  Mínimo de 5 caracteres
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label for="inputDescription">Descrição</label>
+              <textarea style="resize: none;" id="inputDescription" class="form-control border border-warning" cols="30" rows="3" formControlName="description"
+                [ngClass]="{'is-invalid':registerForm.get('description')?.touched && registerForm.get('description').errors}"></textarea>
+              <div *ngIf="registerForm.get('description').hasError('required')" class="invalid-feedback">
+                Campo obrigatório
+              </div>
+              <div *ngIf="registerForm.get('description').hasError('minlength')" class="invalid-feedback">
+                Mínimo de 15 caracteres
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <div class="container d-flex flex-column">
+                  <label for="inputPrice">Imagem</label>
+                  <button class="btn btn-danger" (click)="file.click()">
+                    <i class="fad fa-file-search"></i>
+                  </button>
+                  <input type="file" #file id="inputImage" class="d-none" accept="image/*"
+                  (change)="fileChangeEvent($event)">
+                </div>
+                <small *ngIf="imageName" for="inputPrice"> {{imageName}}</small>
+                <div *ngIf="imageError" class="invalid-feedback">
+                  {{imageError}}
+                </div>
+              </div>
+                
+              <div class="form-group col-md-2">
+                <label for="inputPrice">Preço</label>
+                <input type="number" class="form-control" id="inputPrice" formControlName="price"
+                  [ngClass]="{'is-invalid':registerForm.get('price')?.touched && registerForm.get('price').errors}">
+                <div *ngIf="registerForm.get('price').hasError('required')" class="invalid-feedback">
+                  Campo obrigatório
+                </div>
+                <div *ngIf="registerForm.get('price').hasError('min')" class="invalid-feedback">
+                  Mínimo de R$1
+                </div>
+              </div>
+  
+              <div class="form-group col-md-1">
+                <label for="inputAmount">Qtd</label>
+                <input type="number" class="form-control" id="inputAmount" formControlName="amount"
+                  [ngClass]="{'is-invalid':registerForm.get('amount')?.touched && registerForm.get('amount').errors}">
+                <div *ngIf="registerForm.get('amount').hasError('required')" class="invalid-feedback">
+                  Campo obrigatório
+                </div>
+                <div *ngIf="registerForm.get('amount').hasError('min')" class="invalid-feedback">
+                  Mínimo de 1 item
+                </div>
+              </div>
+
+              <div class="form-group col-md-2">
+                <label for="inputState">Estado</label>
+                <select id="inputState" (change)="conss()" class="form-control form-control-sm" formControlName="active"
+                  [ngClass]="{'is-invalid':registerForm.get('active')?.touched && registerForm.get('active').errors}">
+                  <option disabled selected></option>
+                  <option [value]="true">Ativo</option>
+                  <option [value]="false">Inativo</option>
+                </select>
+                <div *ngIf="registerForm.get('active').hasError('active')" class="invalid-feedback">
+                  Campo obrigatório
+                </div>
+              </div>
+
+              <div class="form-group col-md-2">
+                <label for="inputState">Categoria</label>
+                <select id="inputState" class="form-control form-control-sm" formControlName="categoryId"
+                  [ngClass]="{'is-invalid':registerForm.get('categoryId')?.touched && registerForm.get('categoryId').errors}">
+                  <option disabled selected></option>
+                  <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+                </select>
+                <div *ngIf="registerForm.get('categoryId').hasError('required')" class="invalid-feedback">
+                  Campo obrigatório
+                </div>
+              </div>
+
+              <div class="col d-flex align-items-center justify-content-end">
+                <button class="btn btn-sm btn-success" (click)="postProduct()" [disabled]="!this.registerForm.valid">
+                  Adicionar
+                  <i class="fad fa-check-double"></i>
+                </button>
+              </div>
+              
+            </div>
+          </form>
+      </tab> -->
+
+      <!-- <tab heading="Associação">
+        <ng-select [(ngModel)]="selectedCat">
+          <ng-option *ngFor="let car of categories" [value]="{products: car.products, id: car.id}">{{car.name}}</ng-option>
+        </ng-select>
+
+        <button class="btn btn-danger btn-sm" *ngIf="selectedCat" (click)="associateMode = 'remove'">Remover</button>
+        <button class="btn btn-primary btn-sm" *ngIf="selectedCat" (click)="associateMode = 'add'">Associar</button>
+
+        <ng-container class="mt-2" *ngIf="selectedCat && associateMode">
+          <h5>Principal</h5>
+          <ng-select [items]="selectedCat.products" bindLabel="name" bindValue="name" (change)="con($event, 'father')">
+            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                <div style="margin: 10px 0;" class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">{{item.name}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">{{item.categoryName}}</h6>
+                        <p class="card-text">
+                            <img height="25" width="25" src="{{urlImg}}/{{item.image}}"/>
+                            {{item.model}}
+                        </p>
+                    </div>
+                </div>
+            </ng-template>
+          </ng-select>
+        </ng-container>
+        
+
+      <ng-container *ngIf="associateMode === 'add'">
+        <h5 *ngIf="forAssociate">Relacionado</h5>
+        <ng-select *ngIf="forAssociate" [items]="forAssociate | async" bindLabel="name" bindValue="name" (change)="con($event, 'son')">
+          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+              <div style="margin: 10px 0;" class="card">
+                  <div class="card-body">
+                      <h6 class="card-title">{{item.name}}</h6>
+                      <h6 class="card-subtitle mb-2 text-muted">{{item.categoryName}}</h6>
+                      <p class="card-text">
+                          <img height="25" width="25" src="{{urlImg}}/{{item.image}}"/>
+                          {{item.model}}
+                      </p>
+                  </div>
+              </div>
+          </ng-template>
+        </ng-select>
+      </ng-container>
+
+      <ng-container *ngIf="associateMode === 'remove'">
+        <h5>Relacionado</h5>
+        <ng-select *ngIf="associateds" (change)="preloadRemove($event)" [items]="associateds | async" bindLabel="name" bindValue="name">
+          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+              <div style="margin: 10px 0;" class="card">
+                  <div class="card-body">
+                      <h6 class="card-title">{{item.name}}</h6>
+                      <h6 class="card-subtitle mb-2 text-muted">{{item.categoryName}}</h6>
+                      <p class="card-text">
+                          <img height="25" width="25" src="{{urlImg}}/{{item.image}}"/>
+                          {{item.model}}
+                      </p>
+                  </div>
+              </div>
+          </ng-template>
+        </ng-select>
+      </ng-container>
+      
+
+      <div class="col d-flex align-items-center justify-content-end">
+        <button class="btn btn-sm btn-success" *ngIf="associateMode === 'add'" (click)="postAssociate()" [disabled]="!this.associateForm.valid">
+          Adicionar
+          <i class="fad fa-check-double"></i>
+        </button>
+        <button class="btn btn-sm btn-danger" *ngIf="associateMode === 'remove'" (click)="removeAssociate()" [disabled]="!canRemove">
+          Remover
+          <i class="fad fa-check-double"></i>
+        </button>
+      </div>
+
+      </tab> -->
+    </tabset>
+
+    
+  </div>
+
+<!--Modal Produto-->
+      <div class="modal fade" tabindex="-1" role="dialog" bsModal #template="bs-modal" [config]="{backdrop:'static'}"
+      aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title pull-left font-weight-light">Produtos</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal(template)">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!--Registro-->
+            <form class="text-white text-center" [formGroup]="registerForm">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <input type="text" hidden formControlName="id">
+                  <label for="inputTitle">Título</label>
+                  <input type="text" class="form-control" id="inputTitle" formControlName="name"
+                    [ngClass]="{'is-invalid': registerForm.get('name')?.touched && registerForm.get('name').errors}">
+                  <div *ngIf="registerForm.get('name').hasError('required')" class="invalid-feedback">
+                    Campo obrigatório
+                  </div>
+                  <div *ngIf="registerForm.get('name').hasError('minlength')" class="invalid-feedback">
+                    Mínimo de 15 caracteres
+                  </div>
+                  <div *ngIf="registerForm.get('name').hasError('maxlength')" class="invalid-feedback">
+                    Máximo de 60 caracteres
+                  </div>
+                </div>
+        
+                <div class="form-group col-md-3">
+                  <label for="inputBrand">Marca</label>
+                  <input type="text" class="form-control" id="inputBrand" formControlName="brand"
+                    [ngClass]="{'is-invalid':registerForm.get('brand')?.touched &&  registerForm.get('brand').errors}">
+                  <div *ngIf="registerForm.get('brand').hasError('required')" class="invalid-feedback">
+                    Campo obrigatório
+                  </div>
+                  <div *ngIf="registerForm.get('brand').hasError('minlength')" class="invalid-feedback">
+                    Mínimo de 2 caracteres
+                  </div>
+                </div>
+        
+                <div class="form-group col-md-3">
+                  <label for="inputModel">Modelo</label>
+                  <input type="text" class="form-control" id="inputModel" formControlName="model"
+                    [ngClass]="{'is-invalid':registerForm.get('model')?.touched && registerForm.get('model').errors}">
+        
+                  <div *ngIf="registerForm.get('model').hasError('required')" class="invalid-feedback">
+                    Campo obrigatório
+                  </div>
+                  <div *ngIf="registerForm.get('model').hasError('minlength')" class="invalid-feedback">
+                    Mínimo de 5 caracteres
+                  </div>
+                </div>
+              </div>
+        
+              <div class="form-group">
+                <label for="inputDescription">Descrição</label>
+                <textarea style="resize: none;" id="inputDescription" class="form-control border border-warning" cols="30" rows="3" formControlName="description"
+                  [ngClass]="{'is-invalid':registerForm.get('description')?.touched && registerForm.get('description').errors}"></textarea>
+                <div *ngIf="registerForm.get('description').hasError('required')" class="invalid-feedback">
+                  Campo obrigatório
+                </div>
+                <div *ngIf="registerForm.get('description').hasError('minlength')" class="invalid-feedback">
+                  Mínimo de 15 caracteres
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-2">
+                  <div class="container d-flex flex-column">
+                    <label for="inputPrice">Imagem</label>
+                    <button class="btn btn-danger" (click)="file.click()">
+                      <i class="fad fa-file-search"></i>
+                    </button>
+                    <input type="file" #file id="inputImage" class="d-none" accept="image/*"
+                    (change)="fileChangeEvent($event)">
+                  </div>
+                  <small *ngIf="imageName" for="inputPrice"> {{imageName}}</small>
+                  <div *ngIf="imageError" class="invalid-feedback">
+                    {{imageError}}
+                  </div>
+                </div>
+                  
+                <div class="form-group col-md-2">
+                  <label for="inputPrice">Preço</label>
+                  <input type="number" class="form-control" id="inputPrice" formControlName="price"
+                    [ngClass]="{'is-invalid':registerForm.get('price')?.touched && registerForm.get('price').errors}">
+                  <div *ngIf="registerForm.get('price').hasError('required')" class="invalid-feedback">
+                    Campo obrigatório
+                  </div>
+                  <div *ngIf="registerForm.get('price').hasError('min')" class="invalid-feedback">
+                    Mínimo de R$1
+                  </div>
+                </div>
+        
+                <div class="form-group col-md-1">
+                  <label for="inputAmount">Qtd</label>
+                  <input type="number" class="form-control form-control-sm" id="inputAmount" formControlName="amount"
+                    [ngClass]="{'is-invalid':registerForm.get('amount')?.touched && registerForm.get('amount').errors}">
+                  <div *ngIf="registerForm.get('amount').hasError('required')" class="invalid-feedback">
+                    Campo obrigatório
+                  </div>
+                  <div *ngIf="registerForm.get('amount').hasError('min')" class="invalid-feedback">
+                    Mínimo de 1 item
+                  </div>
+                </div>
+        
+                <div class="form-group col-md-2">
+                  <label for="inputState">Estado</label>
+                  <select id="inputState" (change)="conss()" class="form-control form-control-sm" formControlName="active"
+                    [ngClass]="{'is-invalid':registerForm.get('active')?.touched && registerForm.get('active').errors}">
+                    <option disabled selected></option>
+                    <option [value]="true">Ativo</option>
+                    <option [value]="false">Inativo</option>
+                  </select>
+                  <div *ngIf="registerForm.get('active').hasError('active')" class="invalid-feedback">
+                    Campo obrigatório
+                  </div>
+                </div>
+        
+                <div class="form-group col-md-2">
+                  <label for="inputState">Categoria</label>
+                  <select id="inputState" class="form-control form-control-sm" formControlName="categoryId"
+                    [ngClass]="{'is-invalid':registerForm.get('categoryId')?.touched && registerForm.get('categoryId').errors}">
+                    <option disabled selected></option>
+                    <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+                  </select>
+                  <div *ngIf="registerForm.get('categoryId').hasError('required')" class="invalid-feedback">
+                    Campo obrigatório
+                  </div>
+                </div>
+                
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer text-align-right">
+            <button class="btn btn-sm btn-dark mr-1" (click)='closeModal(template)'>Cancelar</button>
+            <button type="submit" class="btn btn-sm btn-danger" [disabled]="!registerForm.valid"
+              (click)="saveChanges(template)" tooltip="Inserir"><i class="fa fa-check" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        </div>
+      </div>

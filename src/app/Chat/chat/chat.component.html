@@ -1,3 +1,59 @@
-<p>
-  chat works!
-</p>
+<div class="fluid-container d-flex py-2" style="height: 90vh !important;">
+  <div class="container w-50">
+    <!-- <p-accordion>
+      <p-accordionTab>
+        <ng-template pTemplate="header"><i class="pi pi-users"></i>Usuários</ng-template>
+        <ng-template pTemplate="content">Body Content</ng-template>
+      </p-accordionTab>
+  </p-accordion> -->
+  <p-orderList [value]="users" dragdrop="false" filterBy="username">
+    <ng-template let-user pTemplate="item">
+        <div (click)="con(user)">
+            <img src="{{user.avatarFileName}}" style="display:inline-block;margin:2px 0 2px 2px" width="48">
+            <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{user.username}}</div>
+        </div>
+    </ng-template>
+  </p-orderList>
+  </div>
+  <div class="container">  
+    <div class="messaging">  
+      <div class="inbox_msg">  
+        <div class="mesgs">  
+          <div class="msg_history">  
+            <div *ngFor="let msg of messages">  
+  
+            <div class="incoming_msg" *ngIf="msg.type == 'received'">  
+              <div class="incoming_msg_img"> </div>  
+              <div class="received_msg">  
+                <div class="received_withd_msg">  
+                  <p>  
+                   {{msg.text}}   
+                  </p>  
+                  <span class="time_date"> {{msg.time | date:'medium'}} </span>  
+                </div>  
+              </div>  
+            </div>
+  
+            <div class="outgoing_msg" *ngIf="msg.type == 'sent'">  
+              <div class="sent_msg">  
+                <p>  
+                    {{msg.text}}   
+                </p>  
+                <span class="time_date"> {{msg.time | date:'medium'}}</span>  
+              </div>  
+            </div>  
+          </div>  
+          </div>  
+          <div class="type_msg">  
+            <div class="input_msg_write">  
+              <input type="text" class="write_msg" [value]="txtMessage"  
+              (input)="txtMessage=$event.target.value" (keydown.enter)="sendMessage()" placeholder="Type a message"/>  
+              <button class="msg_send_btn" type="button"  (click)="sendMessage()"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>  
+            </div>  
+          </div>  
+        </div>  
+      </div>  
+    
+    </div>  
+  </div>  
+</div>
