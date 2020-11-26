@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
   }
 
   proccessFail(response){
-    this.errorsResponse = response.error.errors;
+    this.errorsResponse = response.error.errors.Mensagens;
     this.toastr.error(this.errorsResponse.length > 0 && this.errorsResponse.length < 2 ? 'Ocorreu um erro'
     : `Ocorreram ${this.errorsResponse.length} erros`, 'Opa :(');
   }
