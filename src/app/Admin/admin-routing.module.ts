@@ -5,7 +5,7 @@ import { ManagementComponent } from './management/management.component';
 
 const adminRouteConfig: Routes = [
     { path: '', component: ManagementComponent,
-        data: [{claim: {name: 'Products', value: 'Adicionar, Excluir, Editar'}}], canActivate: [UserAccessGuard] }
+        data: [{claim: {name: 'Products', value: 'Editar, Adicionar, Excluir'}}], canActivate: [UserAccessGuard] }
 ];
 
 @NgModule({
