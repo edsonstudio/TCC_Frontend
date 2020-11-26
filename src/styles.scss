@@ -1,9 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
-@import '../node_modules/swiper/swiper.scss';
+@import '../node_modules/swiper/swiper-bundle.css';
+@import '../node_modules/swiper/swiper-bundle.min.css';
 @import './colors.scss';
 @import "~@ng-select/ng-select/themes/material.theme.css";
+@import "../node_modules/primeicons/primeicons.css";
+@import "../node_modules/primeng/resources/themes/arya-green/theme.css";
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeflex/primeflex.css";
+
 $primary-gradient: #686868, #282828;
 
+html{
+    scroll-behavior: smooth !important;
+    overflow-x: hidden !important;
+}
+.swiper-container {
+    width: 100%;
+    height: 100%;
+    // margin-left: auto;
+    // margin-right: auto;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
 
 @mixin gradient($direction, $list) { 
     background: -webkit-linear-gradient($direction, $list) !important;
@@ -14,26 +50,45 @@ $primary-gradient: #686868, #282828;
 
 body {
     @include gradient(to right, $primary-gradient);
-    overflow-x: hidden;
+    
 
     a {
         text-decoration: none !important;
     }
+
+width: 100% !important;
+}
+
+.p-carousel {
+    width: 100% !important;
 }
 
 .buttonS {
-    -webkit-box-shadow: 0px 9px 25px rgba(0, 0, 0, .7);
-    -moz-box-shadow:  0px 9px 25px rgba(0, 0, 0, .7);
-    box-shadow:  0px 9px 25px rgba(0, 0, 0, .7);
+    -webkit-box-shadow: 0px 7px 10px rgba(0, 0, 0, .7);
+    -moz-box-shadow:  0px 7px 10px rgba(0, 0, 0, .7);
+    box-shadow:  0px 7px 10px rgba(0, 0, 0, .7);
     z-index: 2;
 }
+
+.p-sidebar-full{
+    @include gradient(to left, $primary-gradient);
+  }
 
 .next {
     cursor: pointer;
 }
 
 input {
-    height: 1.6rem !important;
+    height: 1.9rem !important;
+
+    &:hover{
+        border-color: $primary-green !important;
+    }
+}
+
+.btn-success {
+    background-color: $primary-green !important;
+    border-color: $primary-green !important;
 }
 
 select {
