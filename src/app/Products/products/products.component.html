@@ -1,45 +1,103 @@
-<div class="main-grid ">
-  <!--Coluna categorias-->
-  <div id="categories" class="py-5">
-    <h6 class="text-center text-white font-weight-light" (click)="getAll()" style="cursor: pointer !important;">TODOS</h6>
-    <ul *ngFor="let category of categories" class="list-group rounded-0">
-      <h6 class="text-center text-white font-weight-light"(click)="filterPrCategory(category)" style="cursor: pointer !important;">{{category.name | uppercase}}</h6>
-      <li (click)="filterProducts(category, product.brand )" *ngFor="let product of Brands(category)" class="list-group-item list-group-item-secondary py-1 font-weight-light" style="cursor: pointer;">
-        {{product.brand}}
-      </li>
-    </ul>
-  </div>
-
-<!--Coluna de catalogo-->
-  <div id="catalog">
-    <div class="filter px-3 d-flex flex-row justify-content-end">
-
-      <div class="pagination justify-content-center ">
-        <div>
-            <select #select class="form-control form-control-sm my-1" id="typeConge" name="typeConge" [(ngModel)]="pag">
-                <option type="number" [ngValue]="4">4</option>
-                <option type="number" [ngValue]="8">8</option>
-                <option type="number" [ngValue]="16">16</option>
-                <option type="number" [ngValue]="prlength">Todos</option>
-            </select>
-        </div>
-        <pagination-controls class="my-pagination my-1" (pageChange)="pag = $event" previousLabel="Anterior"
-            nextLabel="Próximo">
-        </pagination-controls>
-    </div>
-
-    <div class="container d-flex justify-content-end my-1 w-25 m-0 p-0">
-      <input class="form-control form-control-sm w-25" id="inps" type="text" [(ngModel)]="search">
-      <fa-icon size="lg"  class="ml-1 my-1" [styles]="{'color': '#CBCBCB'}" [icon]="faSearch"></fa-icon>
-    </div>
-      
-    </div>
-
-    <div class="products p-4" [style.grid-template-columns]="width <= 480 ? 'repeat('+(colums)+', calc(90% - 40px))': width > 481 && width <= 768 ? 'repeat('+(colums)+', calc(60% - 40px))': 'repeat('+colums+', calc(40% - 40px))'">
-      <app-card *ngFor="let product of products | filter: search | paginate: { itemsPerPage: pag, currentPage: actualPag };" [styleCard]="'#6ACA25'" [product]="product">
-        <button class="btn btn-sm btn-warning" (click)="Navigate(product)">Detalhes</button>
-      </app-card>
-    </div>
+<p-breadcrumb [model]="bread" [home]="home"></p-breadcrumb>
+<div class="p-grid" id="main-grid">
+  <div class="p-col-12 p-md-3 p-sm-12">
+    <p-panel [header]="'Categorias'" [toggleable]="true">
+      <button pButton pRipple type="button" label="Todas" class="p-button-text"></button>
+      <p-panel [expandIcon]="'pi pi-angle-double-down'" [collapseIcon]="'pi pi-angle-double-up'" *ngFor="let category of categories" [header]="category.name" [collapsed]="true" [toggleable]="true">
+        <span class="next" (click)="filterPrCategory(category)">Todos</span>
+        <span (click)="filterProducts(category, brand )" *ngFor="let brand of Brands(category)" class="next d-block text-success">
+           <i class="pi pi-angle-right"></i> {{brand}}
+        </span>
+      </p-panel>
+    </p-panel>
+</div>
+  
+  <div class="p-col-12 p-md-9 p-sm-12" style="height: 100% !important; overflow: auto;">
+    <p-dataView id="datavww" [emptyMessage]="'Produto não encontrado'" [loading]="products ? false : true" #dv [value]="products" [paginator]="true" [rows]="9" filterBy="name"
+            [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
+            <ng-template pTemplate="header">
+                <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+                    <p-dropdown [options]="sortOptions"  placeholder="Organizar por Preço" (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
+                    <span class="p-input-icon-left p-mb-2 ">
+                        <i class="pi pi-search"></i>
+                        <input type="search" pInputText placeholder="Buscar" (input)="dv.filter($event.target.value)">
+                    </span>
+                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                </div>
+            </ng-template>
+            <ng-template let-product pTemplate="listItem">                
+                <div class="p-col-12">
+                    <div class="product-list-item">
+                        <img src="{{images}}/{{product.image}}" width="10%" [alt]="product.name"/>
+                        <div class="product-list-detail">
+                            <div class="product-name">{{product.name}}</div>
+                            <div class="product-description">{{product.brand}}</div>
+                            <p-rating [ngModel]="val" [readonly]="false" [cancel]="false"></p-rating>
+                            <i class="pi pi-tag product-category-icon"></i><span class="product-category">{{product.categoryName}}</span>
+                        </div>
+                        <div class="product-list-action">
+                            <span class="product-price">{{product.price |currencyBrazil}}</span>
+                            <p-button icon="pi pi-shopping-cart" (onClick)="buyItem(product)" label="Adicionar" [disabled]="!product.active"></p-button>
+                            <small class='bg-warning rounded p-1' *ngIf="product.amount < 10">Estoque Baixo</small>
+                            <small class='bg-success rounded p-1' *ngIf="product.amount > 10">Disponível</small>
+                            <small class='bg-warning rounded p-1' *ngIf="product.amount === 0">Indisponível</small>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template let-product pTemplate="gridItem">
+                <div class="p-col-8 p-md-4">
+                    <div class="product-grid-item card text-dark p-4">
+                        <div class="product-grid-item-top">
+                            <div>
+                                <i class="pi pi-tag product-category-icon"></i>
+                                <span class="product-category">{{product.categoryName}}</span>
+                            </div>
+                            
+                            <small class='bg-warning rounded p-1' *ngIf="product.amount < 10">Estoque Baixo</small>
+                            <small class='bg-success rounded p-1' *ngIf="product.amount > 10">Disponível</small>
+                            <small class='bg-warning rounded p-1' *ngIf="product.amount === 0">Indisponível</small>
+                            
+                        </div>
+                        <div class="product-grid-item-content">
+                            <img src="{{images}}/{{product.image}}" width="100%" [alt]="product.name"/>
+                            <div class="product-name">{{product.name}}</div>
+                            <p-rating [ngModel]="val" [readonly]="false" [cancel]="false"></p-rating>
+                        </div>
+                        <div class="product-grid-item-bottom">
+                            <span class="product-price">{{product.price |currencyBrazil}}</span>
+                            <p-button icon="pi pi-shopping-cart" (onClick)="buyItem(product)" [disabled]="!product.active"></p-button>
+                            <p-button icon="pi pi-cog" (onClick)="show(product)" [disabled]="!product.active"></p-button>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-dataView>
   </div>
 </div>
+<p-dialog header="Ops" [position]="'left'" [blockScroll]="true" [modal]="true" (onHide)="navigateToLogin()" [(visible)]="warningLogin">
+    Necessário fazer login.
+</p-dialog>
+<p-toast></p-toast>
+<p-toast position="bottom-center" key="c" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div class="p-flex p-flex-column" style="flex: 1">
+            <div class="p-text-center">
+                <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+                <h4>{{message.summary}}</h4>
+                <p>{{message.detail}}</p>
+            </div>
+            <div class="p-grid p-fluid">
+                <div class="p-col-6">
+                    <button type="button" pButton  label="Sim" (click)="navigateToLogin()" class="p-button-success"></button>
+                </div>
+                <div class="p-col-6">
+                    <button type="button" pButton label="Não" (click)="clearMessages()" class="p-button-secondary"></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+
+
 

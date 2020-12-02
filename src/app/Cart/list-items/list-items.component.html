@@ -1,0 +1,31 @@
+<p-table #dt1 [value]="items" [globalFilterFields]="['name']" styleClass="p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+    <ng-template pTemplate="caption">
+        <div class="p-d-flex p-ai-center p-jc-between">
+            <span>No total há {{items ? items.length : 0 }} produtos.</span>
+          <span class="p-input-icon-left p-ml-auto">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+        </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="text-center">Nome</th>
+            <th class="text-center">Imagem</th>
+            <th class="text-center">Preço</th>
+            <th class="text-center">Quantidade</th>
+            <th class="text-center">Remover</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+        <tr>
+            <td class="text-center">{{product.name}}</td>
+            <td class="text-center"><img [src]="urlImages + '/' + product.image" [alt]="product.name" width="100" class="p-shadow-4"/></td>
+            <td class="text-center">{{product.price | currencyBrazil}}</td>
+            <td class="text-center">{{product.amount}} </td>
+            <td class="text-center">
+                <i pRipple (click)="removeItem(product.productId)" class="pi pi-trash next"></i>
+            </td>
+        </tr>
+    </ng-template>
+  </p-table>

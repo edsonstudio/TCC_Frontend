@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { MASKS, NgBrazilValidators } from 'ng-brazil';
 import { CustomValidators } from 'ngx-custom-validators';
+import { PrimeNGConfig } from 'primeng/api';
 
 
 @Component({
@@ -13,7 +14,10 @@ import { CustomValidators } from 'ngx-custom-validators';
 })
 export class FormComponent implements OnInit, OnChanges {
   public MASKS = MASKS;
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private primengConfig: PrimeNGConfig
+    ) { }
 
   pwd: FormControl;
   confirmPwd: FormControl;
@@ -48,6 +52,7 @@ export class FormComponent implements OnInit, OnChanges {
     formDirty: EventEmitter<boolean> = new EventEmitter();
 
   ngOnInit() {
+    this.primengConfig.ripple = true;
     this.validate();
   }
 

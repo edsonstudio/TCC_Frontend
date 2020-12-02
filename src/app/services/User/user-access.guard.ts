@@ -12,14 +12,14 @@ export class UserAccessGuard implements CanActivate{
     canActivate(routeAc: ActivatedRouteSnapshot, state: RouterStateSnapshot){
 
         if (!this.localStorage.getUserToken()){
-            this.route.navigate(['conta/login']);
+            this.route.navigate(['/Inicio/conta/entrar']);
         }
 
         const user = this.localStorage.getUser();
         const claim = routeAc.data[0];
 
         if (claim !== undefined){
-            let claim = routeAc.data[0].claim;
+            const claim = routeAc.data[0].claim;
 
             if (claim){
                 if (!user.claims){
@@ -32,9 +32,18 @@ export class UserAccessGuard implements CanActivate{
                     this.accessDenied();
                 }
 
-                const claimsValue = userClaims.value as string;
+                const uservalues: Array<string> = userClaims.value.split(',');
+                const localvalues: Array<string> = claim.value.split(',');
 
-                if (!claimsValue.includes(claim.value)){
+                let cont = 0;
+                localvalues.forEach(local => {
+                    uservalues.forEach(userc => {
+                        if (local.includes(userc)){
+                            cont++;
+                        }
+                    });
+                });
+                if (cont < localvalues.length){
                     this.accessDenied();
                 }
             }
@@ -44,6 +53,6 @@ export class UserAccessGuard implements CanActivate{
     }
 
     accessDenied(){
-        this.route.navigate(['conta/login']);
+        this.route.navigate(['/Inicio/conta/entrar']);
     }
 }

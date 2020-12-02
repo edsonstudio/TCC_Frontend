@@ -1,3 +1,79 @@
-<p>
-  chat works!
-</p>
+<p-breadcrumb  [home]="home" [model]="bread"></p-breadcrumb>
+<div class="p-grid">
+  <div class="p-col-12 p-md-2 p-lg-4 p-xl-4">
+    <p-accordion>
+      <p-accordionTab>
+        <ng-template pTemplate="header"><i class="pi pi-users mr-1"></i>Usuários</ng-template>
+        <ng-template pTemplate="content">
+          <p-listbox [options]="users" filter="username">
+            <ng-template let-user let-i="index" pTemplate="item">
+                <div (click)="createThread(user)">
+                    <img src="{{user.avatarFileName}}" style="display:inline-block;margin:5px 0 0 5px" width="28">
+                    <span style="float:right;margin:7px 10px 0 5px"> {{user.username | username}} {{user.isOnline}}</span>
+                </div>
+            </ng-template>
+          </p-listbox>  
+        </ng-template>
+      </p-accordionTab>
+
+      <p-accordionTab>
+        <ng-template pTemplate="header"><i class="pi pi-envelope mr-1"></i>Conversas</ng-template>
+        <ng-template pTemplate="content">
+          <p-listbox [options]="threads">
+            <ng-template let-thread let-i="index" pTemplate="item">
+                <div (click)="loadThread(thread)">
+                    <img src="{{thread.oponentVM.avatarFileName}}" style="display:inline-block;margin:5px 0 0 5px" width="28">
+                    <span style="float:right;margin:7px 10px 0 5px"> {{thread.oponentVM.username | username}} {{thread.lastMessage.date |date:'short'}}</span>
+                </div>
+            </ng-template>
+          </p-listbox>  
+        </ng-template>
+      </p-accordionTab>
+  </p-accordion>
+  
+  </div>
+
+  <div class="p-col-12 p-md-10 p-lg-8 p-xl-8">  
+    <div id="back" class="p-card"  *ngIf="messages.length > 0">
+      <div class="messaging" style="height: 100% !important;">
+        <div class="inbox_msg">  
+          <h6 class="text-center text-white" *ngIf="currentOponentVM">{{currentOponentVM.username | username}}</h6>
+          <h6 style="font-size: 10px;" class="text-center text-success" *ngIf="currentOponentVM && currentOponentVM.isOnline">Online</h6>
+          <h6 style="font-size: 10px;" class="text-center text-danger" *ngIf="currentOponentVM && !currentOponentVM.isOnline">Offline</h6>
+          <div class="mesgs">  
+            <div class="msg_history">  
+              <div *ngFor="let msg of messages">  
+    
+              <div class="incoming_msg" *ngIf="msg.type == 'received'">  
+                <div class="incoming_msg_img"> </div>  
+                <div class="received_msg">  
+                  <div class="received_withd_msg">  
+                    <p><img src="{{currentOponentVM.avatarFileName}}" width="20px"> {{msg.text}} </p>  
+                    <span class="time_date"> {{msg.time | date:'medium'}} </span>  
+                  </div>  
+                </div>  
+              </div>
+    
+              <div class="outgoing_msg" *ngIf="msg.type == 'sent'">  
+                <div class="sent_msg">  
+                  <p>{{msg.text}}</p>  
+                  <span class="time_date"> {{msg.time | date:'medium'}}</span>  
+                </div>  
+              </div>  
+            </div>  
+            </div>   
+          </div>  
+        </div>  
+        <div class="type_msg">  
+          <div class="input_msg_write">
+            <span class="p-input-icon-right w-100">
+              <i (click)="sendMessage()" class="pi pi-send"></i>
+              <input type="text" class="write_msg" pInputText [value]="txtMessage"  
+              (input)="txtMessage=$event.target.value" (keydown.enter)="sendMessage()" placeholder="Digite uma mensagem"/>  
+            </span>
+          </div>  
+        </div> 
+      </div>
+    </div>
+  </div>  
+</div>

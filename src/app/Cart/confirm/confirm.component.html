@@ -1,0 +1,78 @@
+<div class="p-card">
+    <div class="p-grid p-2">
+        <div class="p-col-4">
+            <h6 class="my-2"><i class="far fa-truck"></i> Endereço</h6>
+
+            <div class="p-field">
+                <label>CEP</label>
+                <b>{{finalOrder.Endereco.cep}}</b>
+            </div>
+
+            <div class="p-field">
+                <label>Cidade</label>
+                <b>{{finalOrder.Endereco.cidade}}</b>
+            </div>
+
+            <div class="p-field">
+                <label>Bairro</label>
+                <b>{{finalOrder.Endereco.bairro}}</b>
+            </div>
+
+            <div class="p-field">
+                <label *ngIf="finalOrder.Endereco.complemento">Complemento</label>
+                <b *ngIf="finalOrder.Endereco.complemento">{{finalOrder.Endereco.complemento}}</b>
+            </div>
+
+            <div class="p-field">
+                <label>Número</label>
+                <b>{{finalOrder.Endereco.numero}}</b>
+            </div>
+        </div>
+        <div class="p-col-4">
+            <h6 class="my-2"><i class="pi pi-wallet"></i> Pagamento</h6>
+            <div class="p-field">
+                <label for="class">Nome Cartão</label>
+                <b>{{finalOrder.nomeCartao}}</b>
+            </div>
+
+            <div class="p-field">
+                <label for="Age">Número Cartão</label>
+                <b>{{finalOrder.numeroCartao}}</b>
+            </div>
+
+            <div class="p-field">
+                <label for="Age">CVV</label>
+                <b>{{finalOrder.cvvCartao}}</b>
+            </div>
+
+            <div class="p-field">
+                <label for="Age">Validade</label>
+                <b>{{finalOrder.expiracaoCartao}}</b>
+            </div>
+        </div>
+        
+
+        <div class="p-col-4">
+            <h6 class="my-2"><i class="pi pi-shopping-cart"></i> Pedido</h6>
+            <div class="p-field">
+                <label for="Age">Valor Total</label>
+                <b>{{finalOrder.valorTotal|currencyBrazil}}</b>
+            </div>
+
+            <div class="p-field">
+                <label for="Age">Voucher</label>
+                <b *ngIf="finalOrder.voucherCodigo">{{finalOrder.voucherCodigo}}</b>
+                <b *ngIf="!finalOrder.voucherCodigo">N/A</b>
+            </div>
+
+            <div class="p-field">
+                <button pButton label="Items" (click)="seeItems()" class="p-button-sm"></button>        
+            </div>
+        </div>
+       
+    </div>
+    <div class="p-grid p-2 p-nogutter p-justify-between">
+        <p-button label="Voltar" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
+        <p-button label="Completar" (onClick)="doOrder()" icon="pi pi-angle-right" iconPos="right" styleClass="p-button-success"></p-button>
+    </div>
+</div>

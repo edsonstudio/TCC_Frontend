@@ -19,6 +19,10 @@ export class CartService extends BaseService {
     getCart$: Observable<Cart> = this.http.get<Cart>(`${this.UrlShopping}/carrinho`, this.GetJsonAuthHeader())
         .pipe(tap(next => this.store.set('cart', next)));
 
+    cartAmount(): Observable<number>{
+        return this.http.get<number>(`${this.UrlShopping}/carrinho-quantidade`, this.GetJsonAuthHeader());
+    }
+
     postCartItem(item: CartItem): Observable<CartItem>{
        return this.http.post<CartItem>(`${this.UrlShopping}/carrinho/items`, item, this.GetJsonAuthHeader());
     }

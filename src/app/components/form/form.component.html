@@ -3,64 +3,78 @@
     <div class="col col-md-6">
       <span>
       <fa-icon [icon]="faUser" size="lg" class="mr-2" [styles]="{'color':'black'}"></fa-icon>
-      <h5 *ngIf="mode == 'login'" class="d-inline-block">Login</h5>
-      <h5 *ngIf="mode == 'register'" class="d-inline-block">Cadastrar</h5>
+      <h5 *ngIf="mode == 'login'" class="d-inline-block">Entrar</h5>
+      <h5 *ngIf="mode == 'register'" class="d-inline-block font-weight-light">Cadastrar</h5>
       </span>
   
       <form class="mt-4" [formGroup]="formLoRe">
-        <div *ngIf="mode == 'register'" class="form-group">
-          <label for="nameInp">Nome</label>
-          <input type="text" id="nameInp" class="form-control form-control-sm border-success" formControlName="name"
-          [ngClass]="{'is-invalid': formLoRe.get('name').errors && formLoRe.get('name').touched}" (change)="dirtyForm()">
-          <small *ngIf="formLoRe.get('name').hasError('required')" class="invalid-feedback">
+        <div *ngIf="mode == 'register'" class="p-field my-4">
+          <span class="p-float-label">
+            <input pRipple required pInputText type="text" id="nameInp" formControlName="name"
+            [ngClass]="{'p-invalid': formLoRe.get('name').errors && formLoRe.get('name').touched}" (change)="dirtyForm()">
+            <label for="nameInp">Nome</label>
+          </span>
+          <small *ngIf="formLoRe.get('name').hasError('required') && formLoRe.get('name').touched" class="p-invalid">
             Campo obrigatório
           </small>
-          <small *ngIf="formLoRe.get('name').hasError('minlength')" class="invalid-feedback">
+          <small *ngIf="formLoRe.get('name').hasError('minlength')" class="p-invalid">
             Insira nome completo
           </small>
         </div>
 
-        <div class="form-group">
-          <label for="emailInp">Email</label>
-          <input type="email" id="emailInp" class="form-control form-control-sm border-success" formControlName="email"
-          [ngClass]="{'is-invalid': formLoRe.get('email').errors && formLoRe.get('email').touched}" (change)="dirtyForm()">
-          <small *ngIf="formLoRe.get('email').hasError('required')" class="invalid-feedback">
+        <div class="p-field my-4">
+          <span class="p-float-label">
+            <input pRipple pInputText type="email" id="emailInp" formControlName="email" [ngClass]="{'p-invalid': formLoRe.get('email').errors && formLoRe.get('email').touched}" (change)="dirtyForm()">
+            <label for="emailInp">Email</label>
+          </span>
+          <small *ngIf="formLoRe.get('email').touched  && formLoRe.get('email').hasError('required')" class="p-invalid">
             Campo obrigatório
           </small>
-          <small *ngIf="formLoRe.get('email').hasError('email')" class="invalid-feedback">
+          <small *ngIf="formLoRe.get('email').touched  && formLoRe.get('email').hasError('email')" class="p-invalid">
             Email inválido
           </small>
         </div>
 
-        <div *ngIf="mode == 'register'" class="form-group">
-          <label for="cpfInp">CPF</label>
-          <input type="text" id="cpfInp"  class="form-control form-control-sm border-success" cpf [textMask]="{mask: MASKS.cpf.textMask}" formControlName="cpf"
-          [ngClass]="{'is-invalid': formLoRe.get('cpf').errors && formLoRe.get('cpf').touched}" (change)="dirtyForm()">
-          <small *ngIf="formLoRe.get('cpf').hasError('required')" class="invalid-feedback">
+        <div *ngIf="mode == 'register'" class="p-field my-4">
+          <span class="p-float-label">
+            <input pRipple type="text" id="cpfInp" pInputText cpf [textMask]="{mask: MASKS.cpf.textMask}" formControlName="cpf"
+            [ngClass]="{'p-invalid': formLoRe.get('cpf').errors && formLoRe.get('cpf').touched}" (change)="dirtyForm()">
+            <label for="cpfInp">CPF</label>
+          </span>
+          <small *ngIf="formLoRe.get('cpf').touched && formLoRe.get('cpf').hasError('required')" class="p-invalid">
             Campo obrigatório
           </small>
-          <small *ngIf="formLoRe.get('cpf').hasError('cpf')" class="invalid-feedback">
+          <small *ngIf="formLoRe.get('cpf').touched && formLoRe.get('cpf').hasError('cpf')" class="p-invalid">
             CPF inválido
           </small>
         </div>
 
-        <div *ngIf="mode == 'register'" class="form-group">
-          <label for="phoneInp">Telefone</label>
-          <input telefone #telefone [textMask]="{mask: MASKS.telefone.textMaskFunction}" type="tel" id="phoneInp" class="form-control form-control-sm border-success" formControlName="phone"
-          [ngClass]="{'is-invalid': formLoRe.get('phone').errors && formLoRe.get('phone').touched}" (change)="dirtyForm()">
-          <small *ngIf="formLoRe.get('phone').hasError('required')" class="invalid-feedback">
-            Campo obrigatório
-          </small>
-          <small *ngIf="formLoRe.get('phone').hasError('telefone')" class="invalid-feedback">
+        <div *ngIf="mode == 'register'" class="p-field my-4">
+          <span class="p-float-label">
+            <input pRipple telefone pInputText #telefone [textMask]="{mask: MASKS.telefone.textMaskFunction}" type="tel" id="phoneInp" formControlName="phone"
+            [ngClass]="{'p-invalid': formLoRe.get('phone').errors && formLoRe.get('phone').touched}" (change)="dirtyForm()">
+            <label for="phoneInp">Telefone</label>
+          </span>
+        
+          <small *ngIf="formLoRe.get('phone').touched && formLoRe.get('phone').hasError('telefone')" class="p-invalid">
             Telefone inválido
+          </small>
+          <small *ngIf="formLoRe.get('phone').touched && formLoRe.get('phone').hasError('required')" class="p-invalid">
+            Campo obrigátorio
           </small>
         </div>
     
-        <div class="form-group">
-          <label for="pwdInp">Senha</label>
-          <input type="password" class="form-control form-control-sm border-success" formControlName="password" required 
-          [ngClass]="{'is-invalid': formLoRe.get('password').errors && formLoRe.get('password').touched}" (change)="dirtyForm()">
-          <small *ngIf="formLoRe.get('password').hasError('required')" class="invalid-feedback">
+        <div class="p-field my-4">
+          <span class="p-float-label">
+            <input *ngIf="mode === 'register'" pRipple pPassword [promptLabel]="'Digite sua senha'" [weakLabel]="'Fraca'" [mediumLabel]="'Média'" [strongLabel]="'Forte'" type="password" formControlName="password" required 
+            [ngClass]="{'p-invalid': formLoRe.get('password').errors && formLoRe.get('password').touched}" (change)="dirtyForm()">
+
+            <input pRipple pInputText *ngIf="mode === 'login'" type="password" formControlName="password" required 
+            [ngClass]="{'p-invalid': formLoRe.get('password').errors && formLoRe.get('password').touched}" (change)="dirtyForm()">
+            <label for="pwdInp">Senha</label>
+          </span>
+
+          <small *ngIf="formLoRe.get('password').touched && formLoRe.get('password').hasError('required')" class="p-invalid">
             Campo obrigatório
           </small>
           <small *ngIf="pwd.errors?.rangeLength && formLoRe.get('password').touched">
@@ -68,28 +82,28 @@
           </small>
         </div>
         
-        <div *ngIf="mode == 'register'" class="form-group">
-          <label for="pwdInp">Confirmar Senha</label>
-          <input type="password" name="confirm" class="form-control form-control-sm border-success" required formControlName="confirmPassword" [equalTo]="pwd"
-          [ngClass]="{'is-invalid': confirmPwd.errors?.equalTo && formLoRe.get('confirmPassword').touched}" (change)="dirtyForm()">
-          <small *ngIf="confirmPwd.errors?.equalTo && formLoRe.get('confirmPassword').touched">
+        <div *ngIf="mode == 'register'" class="p-field my-4">
+          <span class="p-float-label">
+            <input pRipple pPassword [promptLabel]="'Digite sua senha'" [weakLabel]="'Fraca'" [mediumLabel]="'Média'" [strongLabel]="'Forte'" type="password" name="confirm" required formControlName="confirmPassword" [equalTo]="pwd"
+            [ngClass]="{'p-invalid': confirmPwd.errors?.equalTo && formLoRe.get('confirmPassword').touched}" (change)="dirtyForm()">
+            <label for="pwdInp">Confirmar Senha</label>
+          </span>
+          <small *ngIf="confirmPwd.errors?.equalTo && formLoRe.get('confirmPassword').touched" class="p-invalid d-block">
             Senhas incompatíveis
           </small>
-          <small *ngIf="formLoRe.get('confirmPassword').hasError('required')" class="invalid-feedback">
+          <small *ngIf="formLoRe.get('confirmPassword').hasError('required') && formLoRe.get('confirmPassword').touched" class="p-invalid">
             Campo obrigatório
           </small>
         </div>
-        
-        <!-- <p>{{formLoRe.value | json}}</p> -->
+      
         <div class="row mt-5">
           <div *ngIf="mode == 'login'" class="col mx-auto">
-            <button type="submit" class="btn btn-sm btn-success btn-block" (click)="emitLogin()" [disabled]="formLoRe.get('email').invalid || formLoRe.get('password').invalid">Entrar</button>
+            <button pRipple type="submit" class="btn btn-sm btn-success btn-block" (click)="emitLogin()" [disabled]="formLoRe.get('email').invalid || formLoRe.get('password').invalid">Entrar</button>
           </div>
           <div *ngIf="mode == 'register'" class="col mx-auto">
-            <button type="submit" class="btn btn-sm btn-dark btn-block" (click)="emitRegister()"  [disabled]="!formLoRe.valid">Cadastrar</button>
+            <button pRipple type="submit" class="btn btn-sm btn-dark btn-block" (click)="emitRegister()"  [disabled]="!formLoRe.valid">Cadastrar</button>
           </div>
         </div>
-  
       </form>
     </div>
 

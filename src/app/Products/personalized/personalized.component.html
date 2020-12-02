@@ -1,55 +1,711 @@
-  <div class="container-fluid m-0 p-0 d-flex flex-row-reverse mt-1 w-100">
-    <div class="py-1 ml-auto next" (click)="navigate()">
-      <img src="../../../assets/next.png" class="mx-auto d-block" width="30px" alt="Icone avançar">
-      <small class="text-white my-0">Comprar</small>
+<p-breadcrumb [home]="home" [model]="bread"></p-breadcrumb>
+<div id="stepper2" class="bs-stepper">
+  <div class="bs-stepper-header" role="tablist">
+    <!-- your steps here -->
+    <div class="step" data-target="#plataform">
+      <button type="button" class="step-trigger" role="tab" aria-controls="plataform" id="plataform-trigger">
+        <span class="bs-stepper-circle">1</span>
+        <span class="bs-stepper-label">Plataforma</span>
+      </button>
     </div>
 
-    <div class="ml-2 py-2 my-0">
-      <img src="../../../assets/amd.png" class="mx-2" alt="Logo AMD" width="30px" (click)="chooseBrand('string')">
-      <img src="../../../assets/intel.png" class="mx-2" alt="Logo Intel" width="35px" (click)="chooseBrand('intel')">
+    <div class="line"></div>
+    
+    <div class="step" data-target="#mainboard">
+      <button type="button" class="step-trigger" role="tab" aria-controls="mainboard" id="mainboard-trigger">
+        <span class="bs-stepper-circle">2</span>
+        <span class="bs-stepper-label">Placa Mãe</span>
+      </button>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="step" data-target="#processor">
+      <button type="button" class="step-trigger" role="tab" aria-controls="processor" id="processor-trigger">
+        <span class="bs-stepper-circle">3</span>
+        <span class="bs-stepper-label">Processador</span>
+      </button>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="step" data-target="#memory">
+      <button type="button" class="step-trigger" role="tab" aria-controls="memory" id="memory-trigger">
+        <span class="bs-stepper-circle">4</span>
+        <span class="bs-stepper-label">Memória RAM</span>
+      </button>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="step" data-target="#vga">
+      <button type="button" class="step-trigger" role="tab" aria-controls="vga" id="vga-trigger">
+        <span class="bs-stepper-circle">5</span>
+        <span class="bs-stepper-label">Placa de Vídeo</span>
+      </button>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="step" data-target="#hd">
+      <button type="button" class="step-trigger" role="tab" aria-controls="hd" id="hd-trigger">
+        <span class="bs-stepper-circle">6</span>
+        <span class="bs-stepper-label">HD</span>
+      </button>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="step" data-target="#ssd">
+      <button type="button" class="step-trigger" role="tab" aria-controls="ssd" id="ssd-trigger">
+        <span class="bs-stepper-circle">7</span>
+        <span class="bs-stepper-label">SSD</span>
+      </button>
+    </div>
+    
+    <div class="line"></div>
+
+    <div class="step" data-target="#powers">
+      <button type="button" class="step-trigger" role="tab" aria-controls="powers" id="powers-trigger">
+        <span class="bs-stepper-circle">8</span>
+        <span class="bs-stepper-label">Fonte</span>
+      </button>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="step" data-target="#gabinet">
+      <button type="button" class="step-trigger" role="tab" aria-controls="gabinet" id="gabinet-trigger">
+        <span class="bs-stepper-circle">9</span>
+        <span class="bs-stepper-label">Gabinete</span>
+      </button>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="step" data-target="#watercool">
+      <button type="button" class="step-trigger" role="tab" aria-controls="watercool" id="watercool-trigger">
+        <span class="bs-stepper-circle">10</span>
+        <span class="bs-stepper-label">WaterCooler</span>
+      </button>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="step" data-target="#monitor">
+      <button type="button" class="step-trigger" role="tab" aria-controls="monitor" id="monitor-trigger">
+        <span class="bs-stepper-circle">11</span>
+        <span class="bs-stepper-label">Monitor</span>
+      </button>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="step" data-target="#teclado">
+      <button type="button" class="step-trigger" role="tab" aria-controls="teclado" id="teclado-trigger">
+        <span class="bs-stepper-circle">12</span>
+        <span class="bs-stepper-label">Teclado</span>
+      </button>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="step" data-target="#mouse">
+      <button type="button" class="step-trigger" role="tab" aria-controls="mouse" id="mouse-trigger">
+        <span class="bs-stepper-circle">13</span>
+        <span class="bs-stepper-label">Mouse</span>
+      </button>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="step" data-target="#headset">
+      <button type="button" class="step-trigger" role="tab" aria-controls="headset" id="headset-trigger">
+        <span class="bs-stepper-circle">14</span>
+        <span class="bs-stepper-label">HeadSet</span>
+      </button>
+    </div>
+
+  </div>
+  <div class="bs-stepper-content">
+    <!-- your steps content here -->
+    <div id="plataform" class="content" role="tabpanel" aria-labelledby="plataform-trigger">
+      <div class="p-card p-5 d-flex justify-content-center">
+        <img src="../../../assets/amd.png" class="mx-2 next" alt="Logo AMD" width="130px" (click)="chooseBrand('amd')">
+        <img src="../../../assets/intel.png" class="mx-2 next" alt="Logo Intel" width="135px" (click)="chooseBrand('intel')">
+      </div>
+    </div>
+
+    <!--Placa mãe-->
+    <div id="mainboard" class="content" role="tabpanel" aria-labelledby="mainboard-trigger">
+      <div class="p-card">
+        <p-table #dt1  [value]="filterProductsCat('placa-mae', 3)" selectionMode="single" [(selection)]="selectedProduct" 
+        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+          <ng-template pTemplate="caption">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <small>*Quantidades poderão ser modificadas no final</small>
+                <span class="p-input-icon-left p-ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+              </span>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Nome</th>
+                  <th class="text-center">Modelo</th>
+                  <th class="text-center" pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon></th>
+                  <th class="text-center">Escolher</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+              <tr>
+                <td class="text-center"><img [src]="images + '/' + product.image" [alt]="product.name" width="100" class="p-shadow-4"/></td>
+                <td class="text-center">{{product.name}}</td>
+                <td class="text-center">{{product.model}}</td>
+                <td class="text-center">{{product.price | currencyBrazil}}</td>
+                <td class="text-center">
+                  <p-tableRadioButton [value]="product"></p-tableRadioButton>
+                </td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" let-product>
+              <div class="p-d-flex p-ai-center p-jc-between">
+                  <p-button label="Voltar" (onClick)="prev()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar"(onClick)="nex(selectedProduct)" [disabled]="!selectedProduct" icon="pi pi-angle-right" iconPos="right"></p-button>
+              </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <!--Processador-->
+    <div id="processor" class="content" role="tabpanel" aria-labelledby="processor-trigger">
+      <div class="p-card">
+        <p-table #dt1 [(selection)]="selectedProduct2" [value]="filterProductsCat('processador', 2)" selectionMode="single"
+        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+          <ng-template pTemplate="caption">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <small>*Quantidades poderão ser modificadas no final</small>
+                <span class="p-input-icon-left p-ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+              </span>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Nome</th>
+                  <th class="text-center">Modelo</th>
+                  <th class="text-center" pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon></th>
+                  <th class="text-center">Escolher</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+              <tr>
+                <td class="text-center"><img [src]="images + '/' + product.image" [alt]="product.name" width="100" class="p-shadow-4"/></td>
+                <td class="text-center">{{product.name}}</td>
+                <td class="text-center">{{product.model}}</td>
+                <td class="text-center">{{product.price | currencyBrazil}}</td>
+                <td class="text-center">
+                  <p-tableRadioButton [value]="product"></p-tableRadioButton>
+                </td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" let-product>
+              <div class="p-d-flex p-ai-end p-jc-between">
+                  <p-button label="Voltar" (onClick)="prev()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar" (onClick)="nex(selectedProduct2)" [disabled]="!selectedProduct2" icon="pi pi-angle-right" iconPos="right"></p-button>
+              </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <!--Memória-->
+    <div id="memory" class="content" role="tabpanel" aria-labelledby="memory-trigger">
+      <div class="p-card">
+        <p-table #dt1 [(selection)]="selectedProduct3" [value]="filterProductsCat('memoria', 2)" selectionMode="single"
+        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+          <ng-template pTemplate="caption">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <small>*Quantidade poderá ser modificada no final</small>
+                <span class="p-input-icon-left p-ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+              </span>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Nome</th>
+                  <th class="text-center">Modelo</th>
+                  <th class="text-center" pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon></th>
+                  <th class="text-center">Escolher</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+              <tr>
+                <td class="text-center"><img [src]="images + '/' + product.image" [alt]="product.name" width="100" class="p-shadow-4"/></td>
+                <td class="text-center">{{product.name}}</td>
+                <td class="text-center">{{product.model}}</td>
+                <td class="text-center">{{product.price | currencyBrazil}}</td>
+                <td class="text-center">
+                  <p-tableRadioButton [value]="product"></p-tableRadioButton>
+                </td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" let-product>
+              <div class="p-d-flex p-ai-end p-jc-between">
+                <p-button label="Voltar" (onClick)="prev()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar" (onClick)="nex(selectedProduct3)" [disabled]="!selectedProduct3" icon="pi pi-angle-right" iconPos="right"></p-button>
+              </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <!--PLaca de video-->
+    <div id="vga" class="content" role="tabpanel" aria-labelledby="vga-trigger">
+      <div class="p-card">
+        <p-table #dt1 [(selection)]="selectedProduct4" [value]="filterProductsCat('placa-de-video', 2)" selectionMode="single"
+        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+          <ng-template pTemplate="caption">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <small>*Quantidade poderá ser modificada no final</small>
+                <span class="p-input-icon-left p-ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+              </span>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Nome</th>
+                  <th class="text-center">Modelo</th>
+                  <th class="text-center" pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon></th>
+                  <th class="text-center">Escolher</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+              <tr>
+                <td class="text-center"><img [src]="images + '/' + product.image" [alt]="product.name" width="100" class="p-shadow-4"/></td>
+                <td class="text-center">{{product.name}}</td>
+                <td class="text-center">{{product.model}}</td>
+                <td class="text-center">{{product.price | currencyBrazil}}</td>
+                <td class="text-center">
+                  <p-tableRadioButton [value]="product"></p-tableRadioButton>
+                </td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" let-product>
+              <div class="p-d-flex p-ai-end p-jc-between">
+                  <p-button label="Voltar" (onClick)="prev()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar" (onClick)="nex(selectedProduct4)" [disabled]="!selectedProduct4" icon="pi pi-angle-right" iconPos="right"></p-button>
+              </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <!--HD-->
+    <div id="hd" class="content" role="tabpanel" aria-labelledby="hd-trigger">
+      <div class="p-card">
+        <p-table #dt1 [(selection)]="selectedProduct5" [value]="filterProductsCat('hd', 2)" selectionMode="single"
+        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+          <ng-template pTemplate="caption">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <small>*Quantidade poderá ser modificada no final</small>
+                <span class="p-input-icon-left p-ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+              </span>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Nome</th>
+                  <th class="text-center">Modelo</th>
+                  <th class="text-center" pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon></th>
+                  <th class="text-center">Escolher</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+              <tr>
+                <td class="text-center"><img [src]="images + '/' + product.image" [alt]="product.name" width="100" class="p-shadow-4"/></td>
+                <td class="text-center">{{product.name}}</td>
+                <td class="text-center">{{product.model}}</td>
+                <td class="text-center">{{product.price | currencyBrazil}}</td>
+                <td class="text-center">
+                  <p-tableRadioButton [value]="product"></p-tableRadioButton>
+                </td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" let-product>
+              <div class="p-d-flex p-ai-end p-jc-between">
+                  <p-button label="Voltar" (onClick)="prev()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar" (onClick)="nex(selectedProduct5)" [disabled]="!selectedProduct5" icon="pi pi-angle-right" iconPos="right"></p-button>
+              </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <!--SSD-->
+    <div id="ssd" class="content" role="tabpanel" aria-labelledby="ssd-trigger">
+      <div class="p-card">
+        <p-table #dt1 [(selection)]="selectedProduct6" [value]="filterProductsCat('ssd', 2)" selectionMode="single"
+        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+          <ng-template pTemplate="caption">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <small>*Quantidade poderá ser modificada no final</small>
+                <span class="p-input-icon-left p-ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+              </span>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Nome</th>
+                  <th class="text-center">Modelo</th>
+                  <th class="text-center" pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon></th>
+                  <th class="text-center">Escolher</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+              <tr>
+                <td class="text-center"><img [src]="images + '/' + product.image" [alt]="product.name" width="100" class="p-shadow-4"/></td>
+                <td class="text-center">{{product.name}}</td>
+                <td class="text-center">{{product.model}}</td>
+                <td class="text-center">{{product.price | currencyBrazil}}</td>
+                <td class="text-center">
+                  <p-tableRadioButton [value]="product"></p-tableRadioButton>
+                </td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" let-product>
+              <div class="p-d-flex p-ai-end p-jc-between">
+                  <p-button label="Voltar" (onClick)="prev()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar" (onClick)="selectedProduct6 ? nex(selectedProduct6) : nex(selectedProduct6, 'no')" icon="pi pi-angle-right" iconPos="right"></p-button>
+              </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <!--Fonte-->
+    <div id="powers" class="content" role="tabpanel" aria-labelledby="powers-trigger">
+      <div class="p-card">
+        <p-table #dt1 [(selection)]="selectedProduct7" [value]="filterProductsCat('fonte', 2)" selectionMode="single"
+        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+          <ng-template pTemplate="caption">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <small>*Quantidade poderá ser modificada no final</small>
+                <span class="p-input-icon-left p-ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+              </span>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Nome</th>
+                  <th class="text-center">Modelo</th>
+                  <th class="text-center" pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon></th>
+                  <th class="text-center">Escolher</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+              <tr>
+                <td class="text-center"><img [src]="images + '/' + product.image" [alt]="product.name" width="100" class="p-shadow-4"/></td>
+                <td class="text-center">{{product.name}}</td>
+                <td class="text-center">{{product.model}}</td>
+                <td class="text-center">{{product.price | currencyBrazil}}</td>
+                <td class="text-center">
+                  <p-tableRadioButton [value]="product"></p-tableRadioButton>
+                </td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" let-product>
+              <div class="p-d-flex p-ai-end p-jc-between">
+                  <p-button label="Voltar" (onClick)="prev()" icon="pi pi-angle-left"></p-button>                
+                  <p-button label="Avançar" (onClick)="nex(selectedProduct7)" [disabled]="!selectedProduct7" icon="pi pi-angle-right" iconPos="right"></p-button>
+              </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <!--Gabinete-->
+    <div id="gabinet" class="content" role="tabpanel" aria-labelledby="gabinet-trigger">
+      <div class="p-card">
+        <p-table #dt1 [(selection)]="selectedProduct8" [value]="filterProductsCat('gabinete', 2)" selectionMode="single"
+        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+          <ng-template pTemplate="caption">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <small>*Quantidade poderá ser modificada no final</small>
+                <span class="p-input-icon-left p-ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+              </span>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Nome</th>
+                  <th class="text-center">Modelo</th>
+                  <th class="text-center" pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon></th>
+                  <th class="text-center">Escolher</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+              <tr>
+                <td class="text-center"><img [src]="images + '/' + product.image" [alt]="product.name" width="100" class="p-shadow-4"/></td>
+                <td class="text-center">{{product.name}}</td>
+                <td class="text-center">{{product.model}}</td>
+                <td class="text-center">{{product.price | currencyBrazil}}</td>
+                <td class="text-center">
+                  <p-tableRadioButton [value]="product"></p-tableRadioButton>
+                </td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" let-product>
+              <div class="p-d-flex p-ai-end p-jc-between">
+                  <p-button label="Voltar" (onClick)="prev()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar" (onClick)="nex(selectedProduct8)" [disabled]="!selectedProduct8" icon="pi pi-angle-right" iconPos="right"></p-button>
+              </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <!--WaterCooler-->
+    <div id="watercool" class="content" role="tabpanel" aria-labelledby="watercool-trigger">
+      <div class="p-card">
+        <p-table #dt1 [(selection)]="selectedProduct9" [value]="filterProductsCat('watercooler', 2)" selectionMode="single"
+        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+          <ng-template pTemplate="caption">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <small>*Quantidade poderá ser modificada no final</small>
+                <span class="p-input-icon-left p-ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+              </span>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Nome</th>
+                  <th class="text-center">Modelo</th>
+                  <th class="text-center" pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon></th>
+                  <th class="text-center">Escolher</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+              <tr>
+                <td class="text-center"><img [src]="images + '/' + product.image" [alt]="product.name" width="100" class="p-shadow-4"/></td>
+                <td class="text-center">{{product.name}}</td>
+                <td class="text-center">{{product.model}}</td>
+                <td class="text-center">{{product.price | currencyBrazil}}</td>
+                <td class="text-center">
+                  <p-tableRadioButton [value]="product"></p-tableRadioButton>
+                </td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" let-product>
+              <div class="p-d-flex p-ai-end p-jc-between">
+                  <p-button label="Voltar" (onClick)="prev()" icon="pi pi-angle-right" iconPos="right"></p-button>
+                  <p-button label="Avançar" (onClick)="selectedProduct9 ? nex(selectedProduct9) : nex(selectedProduct9, 'no')" icon="pi pi-angle-right" iconPos="right"></p-button>
+              </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <!--Monitor-->
+    <div id="monitor" class="content" role="tabpanel" aria-labelledby="monitor-trigger">
+      <div class="p-card">
+        <p-table #dt1 [(selection)]="selectedProduct10" [value]="filterProductsCat('monitor', 1)" selectionMode="single"
+        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+          <ng-template pTemplate="caption">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <small>*Quantidade poderá ser modificada no final</small>
+                <span class="p-input-icon-left p-ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+              </span>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Nome</th>
+                  <th class="text-center">Modelo</th>
+                  <th class="text-center" pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon></th>
+                  <th class="text-center">Escolher</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+              <tr>
+                <td class="text-center"><img [src]="images + '/' + product.image" [alt]="product.name" width="100" class="p-shadow-4"/></td>
+                <td class="text-center">{{product.name}}</td>
+                <td class="text-center">{{product.model}}</td>
+                <td class="text-center">{{product.price | currencyBrazil}}</td>
+                <td class="text-center">
+                  <p-tableRadioButton [value]="product"></p-tableRadioButton>
+                </td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" let-product>
+              <div class="p-d-flex p-ai-end p-jc-between">
+                  <p-button label="Voltar" (onClick)="prev()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar" (onClick)="selectedProduct10 ? nex(selectedProduct10) : nex(selectedProduct10, 'no')" icon="pi pi-angle-right" iconPos="right"></p-button>
+              </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <!--Teclado-->
+    <div id="teclado" class="content" role="tabpanel" aria-labelledby="teclado-trigger">
+      <div class="p-card">
+        <p-table #dt1 [(selection)]="selectedProduct11" [value]="filterProductsCat('teclado', 1)" selectionMode="single"
+        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+          <ng-template pTemplate="caption">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <small>*Quantidade poderá ser modificada no final</small>
+                <span class="p-input-icon-left p-ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+              </span>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Nome</th>
+                  <th class="text-center">Modelo</th>
+                  <th class="text-center" pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon></th>
+                  <th class="text-center">Escolher</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+              <tr>
+                <td class="text-center"><img [src]="images + '/' + product.image" [alt]="product.name" width="100" class="p-shadow-4"/></td>
+                <td class="text-center">{{product.name}}</td>
+                <td class="text-center">{{product.model}}</td>
+                <td class="text-center">{{product.price | currencyBrazil}}</td>
+                <td class="text-center">
+                  <p-tableRadioButton [value]="product"></p-tableRadioButton>
+                </td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" let-product>
+              <div class="p-d-flex p-ai-end p-jc-between">
+                  <p-button label="Voltar" (onClick)="prev()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar" (onClick)="selectedProduct11 ? nex(selectedProduct11) : nex(selectedProduct11, 'no')"  icon="pi pi-angle-right" iconPos="right"></p-button>
+              </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <!--Mouse-->
+    <div id="mouse" class="content" role="tabpanel" aria-labelledby="mouse-trigger">
+      <div class="p-card">
+        <p-table #dt1 [(selection)]="selectedProduct12" [value]="filterProductsCat('mouse', 1)" selectionMode="single"
+        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+          <ng-template pTemplate="caption">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <small>*Quantidade poderá ser modificada no final</small>
+                <span class="p-input-icon-left p-ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+              </span>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Nome</th>
+                  <th class="text-center">Modelo</th>
+                  <th class="text-center" pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon></th>
+                  <th class="text-center">Escolher</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+              <tr>
+                <td class="text-center"><img [src]="images + '/' + product.image" [alt]="product.name" width="100" class="p-shadow-4"/></td>
+                <td class="text-center">{{product.name}}</td>
+                <td class="text-center">{{product.model}}</td>
+                <td class="text-center">{{product.price | currencyBrazil}}</td>
+                <td class="text-center">
+                  <p-tableRadioButton [value]="product"></p-tableRadioButton>
+                </td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" let-product>
+              <div class="p-d-flex p-ai-end p-jc-between">
+                  <p-button label="Voltar" (onClick)="prev()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar" (onClick)="selectedProduct12 ? nex(selectedProduct12) : nex(selectedProduct12, 'no')" icon="pi pi-angle-right" iconPos="right"></p-button>
+              </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <!--HeadSet-->
+    <div id="headset" class="content" role="tabpanel" aria-labelledby="headset-trigger">
+      <div class="p-card">
+        <p-table #dt1 [(selection)]="selectedProduct13" [value]="filterProductsCat('headset', 1)" selectionMode="single"
+        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+          <ng-template pTemplate="caption">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <small>*Quantidade poderá ser modificada no final</small>
+                <span class="p-input-icon-left p-ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+              </span>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Nome</th>
+                  <th class="text-center">Modelo</th>
+                  <th class="text-center" pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon></th>
+                  <th class="text-center">Escolher</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+              <tr>
+                <td class="text-center"><img [src]="images + '/' + product.image" [alt]="product.name" width="100" class="p-shadow-4"/></td>
+                <td class="text-center">{{product.name}}</td>
+                <td class="text-center">{{product.model}}</td>
+                <td class="text-center">{{product.price | currencyBrazil}}</td>
+                <td class="text-center">
+                  <p-tableRadioButton [value]="product"></p-tableRadioButton>
+                </td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" let-product>
+              <div class="p-d-flex p-ai-end p-jc-between">
+                  <p-button label="Voltar" (onClick)="prev()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar" (onClick)="selectedProduct13 ? nex(selectedProduct13) : nex(selectedProduct13, 'no')" icon="pi pi-angle-right" iconPos="right"></p-button>
+              </div>
+          </ng-template>
+        </p-table>
+      </div>
     </div>
   </div>
-
-  <content-loader *ngIf="!products">
-    <svg:rect x="0" y="0"  width="25%" height="500" />
-    <svg:rect x="115" y="5"  width="27%" height="50" />
-    <svg:rect x="115" y="70"  width="27%" height="50" />
-    <svg:rect x="250" y="5"  width="27%" height="50" />
-    <svg:rect x="250" y="70"  width="27%" height="50" />
-    <svg:rect x="385" y="5"  width="27%" height="50" />
-    <svg:rect x="385" y="70"  width="27%" height="50" />
-  </content-loader>
-
-  <div class="parent p-2" *ngIf="products">
-    
-   
-
-    <div class="placa-mae" *ngIf="showMotherboards">
-      <h5>Placa mãe</h5>
-      <swiper class="swiper-container" fxFlex="auto" [config]="config">
-        <div class="swiper-slide" *ngFor="let product of filterProductsCat('processador')">
-          <app-card [className]="'scale-inverse d-flex flex-row'" [product]="product">
-            <button [ngClass]="{'btn btn-sm btn-outline-primary': brand === 'intel', 'btn btn-sm btn-outline-warning': brand === 'amd'}" (click)="filterAssociatedProducts(product)">Adicionar</button>
-          </app-card>
-        </div>
-     </swiper>
-    </div>
-    
-    <ng-container *ngIf="showConfig">
-      <div *ngFor="let category of categories" class="{{category.name | categoryclass}}">
-        <h5>{{category.name}}</h5>
-        <swiper class="swiper-container" fxFlex="auto" [config]="config">
-           <div class="swiper-slide" *ngFor="let product of filterProductsCat(category.name);">
-             <app-card [className]="'scale-inverse d-flex flex-row'" [product]="product">
-              
-              <form class="form-group" qtd [formGroup]="amountForm">
-                  <input type="number" min="1" class="form-control form-control-sm" formControlName="amountPr">
-              </form>
-
-              <button type="submit" class="btn btn-outline-success btn-sm" [disabled]="!showConfig" (click)="addToCart(product)">Adicionar</button>
-             </app-card>
-           </div>
-        </swiper>
-      </div>
-    </ng-container>
 </div>

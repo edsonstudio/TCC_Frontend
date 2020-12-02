@@ -1,15 +1,15 @@
- <div class="card {{className}} h-100 text-dark bg-white mb-3 text-center rounded-0" *ngIf="!product">
+ <div class="card h-100 text-dark mb-3 text-center rounded" *ngIf="!product">
   <ng-content select="img"></ng-content>
-  <div class="card-body" [ngStyle]="styleCard ? {'background-color': styleCard } : {'background-color': 'white'}">
-    <h5 class="card-title font-weight-light">Title</h5>
-    <ng-content select="p"></ng-content>
+  <div class="card-body">
+    <ng-content select="h6"></ng-content>
+    <ng-content select="small"></ng-content>
   </div>
-  <div class="card-footer py-2 px-1 border-0" [ngStyle]="styleCard ? {'background-color': styleCard } : {'background-color': 'white'}">
-    <ng-content select="a"></ng-content>
+  <div class="card-footer py-2 px-1 border-0">
+    <ng-content select="button"></ng-content>
   </div>
 </div> 
 
-<div class="card {{className}} h-100 text-dark bg-white mb-3 text-center rounded-0" *ngIf="product">
+<div class="card h-100 text-dark bg-white mb-3 text-center rounded-0" *ngIf="product">
  <img src="{{images}}/{{product.image}}" class="card-img-top w-50 mx-auto">
   <div class="card-body" [ngStyle]="styleCard ? {'background-color': styleCard } : {'background-color': 'white'}">
     <h6 class="card-title font-weight-light">{{product.name}}</h6>
