@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { EventEmitter } from '@angular/core';
 import { Product } from 'src/app/models/Product';
@@ -9,35 +9,47 @@ import { CategoryService } from 'src/app/services/Category/category.service';
 import { Category } from 'src/app/models/Category';
 import * as _ from 'lodash';
 import { AssociatedProducts } from 'src/app/models/AssociatedProducts';
-import { Guid } from 'guid-typescript';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import Stepper from 'bs-stepper';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
+
 
 @Component({
   selector: 'app-admproducts',
   templateUrl: './admproducts.component.html',
   styleUrls: ['./admproducts.component.scss']
 })
-export class AdmProductsComponent implements OnInit{
+export class AdmProductsComponent implements OnInit, AfterViewInit{
 
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
     private toastr: ToastrService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private messageService: MessageService,
+    private primengConfig: PrimeNGConfig
     ) { }
 
+  selectedDrop;
+  activeIndex = 0;
+  text;
+  stepper: Stepper;
   productFilter: string;
+  registerCategory: FormGroup;
   registerForm: FormGroup;
   associateForm: FormGroup;
   categories: Category[];
   forAssociate: Promise<any>;
   associateds: Promise<any>;
   file: File;
-  selectedCat: {products: Product[], id: Guid};
+  selectedCat: Category;
   productFather: Product;
+  productSon: Product;
   associatedProducts: AssociatedProducts[];
+  newProduct = new Product();
   urlImg = environment.images;
   imageName: string;
+  image;
   imageError: string;
   isImageSaved: boolean;
   cardImageBase64: string;
@@ -64,13 +76,14 @@ export class AdmProductsComponent implements OnInit{
   croppedImage: any = '';
   associateSon: Product;
   canRemove = false;
-
+  prt: Product;
   products: Product[];
 
   @Output()
   reloadComponent = new EventEmitter<any>();
 
   ngOnInit() {
+    this.primengConfig.ripple = true;
     this.validation();
     this.categoryService.getCategories().subscribe(cts => {
       this.categories = cts;
@@ -83,71 +96,173 @@ export class AdmProductsComponent implements OnInit{
     });
   }
 
+  ngAfterViewInit(): void {
+    this.stepper = new Stepper(document.getElementById('stepper2'), {
+      linear: true,
+      animation: true
+    });
+  }
+
+  ver(e){
+    console.log(e);
+    console.log(e.htmlValue);
+  }
+
+  validation(){
+    this.registerForm = this.fb.group({
+      name: ['', [Validators.minLength(15), Validators.maxLength(60), Validators.required]],
+      brand: ['', [Validators.minLength(2), Validators.required]],
+      model: ['', [Validators.minLength(5), Validators.required]],
+      description: ['', [Validators.minLength(15), Validators.required]],
+      price: ['', [Validators.required, Validators.min(1)]],
+      categoryId: ['', Validators.required],
+      amount: ['', [Validators.required, Validators.min(1)]],
+      active: [true],
+      image: [''],
+      imageUpload: [''],
+      id: ['']
+    });
+
+    this.associateForm = this.fb.group({
+      productFatherId: ['', Validators.required],
+      productSonId: ['', Validators.required]
+    });
+
+    this.registerCategory = this.fb.group({
+      name: ['', [Validators.required]]
+    });
+  }
+
+  confirm(){
+    const form: Product = this.registerForm.value;
+    this.newProduct.categoryId = form.categoryId;
+    this.newProduct.name = form.name;
+    this.newProduct.brand = form.brand;
+    this.newProduct.model = form.model;
+    this.newProduct.description = form.description;
+    this.newProduct.price = form.price;
+    this.newProduct.amount = form.amount;
+    this.newProduct.active = form.active;
+    this.newProduct.image = form.image;
+    this.newProduct.imageUpload = form.imageUpload;
+    this.stepper.next();
+  }
+
+  createProduct(){
+    const pr = new Product();
+    pr.categoryId = this.newProduct.categoryId;
+    pr.name = this.newProduct.name;
+    pr.brand = this.newProduct.brand;
+    pr.model = this.newProduct.model;
+    pr.description = this.newProduct.description;
+    pr.price = this.newProduct.price;
+    pr.amount = this.newProduct.amount;
+    pr.active = this.newProduct.active;
+    pr.image = this.newProduct.image;
+    pr.imageUpload = this.newProduct.imageUpload;
+    this.productService.postProduct(pr).subscribe(
+      success => {
+        this.messageService.add({severity: 'success', summary: 'Show!', detail: `${pr.model} adicionado com sucesso.`});
+        this.newProduct = null;
+        this.registerForm.reset();
+        this.ngOnInit();
+        this.stepper.reset();
+        this.activeIndex = 0;
+      }
+    );
+  }
+
+  loge(e){
+    console.log(e);
+    console.log(this.selectedCat);
+  }
+
+  setCategory(model){
+    this.registerForm.get('categoryId').setValue(model.value.id);
+    this.newProduct.categoryName = model.value.name;
+  }
+
+  next(){
+    this.stepper.next();
+  }
+
+  addCategory(){
+    const cat = Object.assign({}, this.registerCategory.value);
+    this.categoryService.postCategory(cat).subscribe(
+      success => {
+        this.messageService.add({severity: 'success', detail: `${cat.name} adicionada com sucesso`, summary: 'Show!'});
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 2000);
+      }
+    );
+  }
+
   associatedsFilter(): Promise<AssociatedProducts[]>{
     return new Promise((resolve, reject) => {
       resolve(this.productFather.associatedProducts);
   });
   }
 
-  con(event: Product, type){
-    console.log(this.selectedCat);
+  addSon(event: Product){
+    if (event !== null){
+      this.productSon = event;
+      this.associateForm.get('productSonId').setValue(event.id);
+      return;
+    }
+    this.associateForm.get('productSonId').reset();
+  }
+
+  con(event: Product){
     console.log(event);
     this.productFather = event;
     if (this.associateMode === 'add'){
-      switch (type)
-    { case 'father':
-        this.associateForm.get('productFatherId').setValue(event.id);
-        if (this.productFather.associatedProducts && this.productFather.associatedProducts.length > 0){
-          this.forAssociate = this.productService.getProducts().toPromise().then(prs => {
-            const filtered = [];
-            prs.forEach((product) => {
-              this.productFather.associatedProducts.forEach(product2 => {
-                  if (product.associatedProducts && product.associatedProducts.length > 0){
-                    product.associatedProducts.forEach(pr => {
-                      if (product2.productSon.id !== product.id && product.id !== this.productFather.id
-                        && this.productFather.id !== pr.productSon.id){
-                        filtered.push(product);
-                        console.log('foi na primeira');
-                      }
-                    });
-                  }
-                  else {
-                    if (product2.productSon.id !== product.id && product.id !== this.productFather.id){
+      this.associateForm.get('productFatherId').setValue(event.id);
+      if (this.productFather.associatedProducts && this.productFather.associatedProducts.length > 0){
+        this.forAssociate = this.productService.getProducts().toPromise().then(prs => {
+          const filtered = [];
+          prs.forEach((product) => {
+            this.productFather.associatedProducts.forEach(product2 => {
+                if (product.associatedProducts && product.associatedProducts.length > 0){
+                  product.associatedProducts.forEach(pr => {
+                    if (product2.productSon.id !== product.id && product.id !== this.productFather.id
+                      && this.productFather.id !== pr.productSon.id){
                       filtered.push(product);
-                      console.log('foi na segunda');
+                      console.log('foi na primeira');
                     }
+                  });
+                }
+                else {
+                  if (product2.productSon.id !== product.id && product.id !== this.productFather.id){
+                    filtered.push(product);
+                    console.log('foi na segunda');
                   }
-              });
+                }
             });
-            return filtered;
           });
-        }
-        else {
-          this.forAssociate = this.productService.getProducts().toPromise().then(prs => {
-            const filtered2 = [];
-            prs.forEach((product) => {
-              if (product.associatedProducts && product.associatedProducts.length > 0){
-                product.associatedProducts.forEach(aspr => {
-                  if (aspr.productSon.id !== this.productFather.id && product.id !== this.productFather.id){
-                    filtered2.push(product);
-                  }
-                });
-              }
-              else{
-                if (product.id !== this.productFather.id){
+          return filtered;
+        });
+      }
+      else {
+        this.forAssociate = this.productService.getProducts().toPromise().then(prs => {
+          const filtered2 = [];
+          prs.forEach((product) => {
+            if (product.associatedProducts && product.associatedProducts.length > 0){
+              product.associatedProducts.forEach(aspr => {
+                if (aspr.productSon.id !== this.productFather.id && product.id !== this.productFather.id){
                   filtered2.push(product);
                 }
+              });
+            }
+            else{
+              if (product.id !== this.productFather.id){
+                filtered2.push(product);
               }
-            });
-            return filtered2;
+            }
           });
-        }
-        break;
-
-      case 'son':
-        this.associateForm.get('productSonId').setValue(event.id);
-        break;
-    }
+          return filtered2;
+        });
+      }
     }
     else{
       if (event.associatedProducts && event.associatedProducts.length > 0){
@@ -157,7 +272,6 @@ export class AdmProductsComponent implements OnInit{
         this.toastr.warning(`${event.model} não tem produtos associados`, 'Atenção');
       }
     }
-    console.log(this.associateForm.value);
   }
 
   deleteProduct(pr: Product){
@@ -186,12 +300,14 @@ export class AdmProductsComponent implements OnInit{
     else {
       this.productService.postProduct(product).subscribe(
         success => {
-          this.toastr.success('Adicionado com sucesso', 'Show!');
+          this.messageService.add({severity: 'success', detail: `${product.model} adicionado com sucesso`, summary: 'Show!'});
           this.imageName = null;
           this.registerForm.reset();
-          console.log(success);
+          setTimeout(() => {
+            this.ngOnInit();
+          }, 2000);
         },
-        error => console.log(error)
+        error => this.messageService.add({severity: 'error', detail: 'Houve um problema interno, tente novamente.', summary: 'Opa!'})
       );
     }
   }
@@ -216,62 +332,49 @@ export class AdmProductsComponent implements OnInit{
 
   }
 
-  conss(){console.log(this.registerForm.value); }
-
   postAssociate(){
     const associate = Object.assign({}, this.associateForm.value);
     this.productService.postAssociate(associate).subscribe(
       success => {
         this.selectedCat = null;
         this.forAssociate = null;
-        this.toastr.success('Produtos associados', 'Show!');
+        this.messageService.add({severity: 'success', detail: 'Produtos associados', summary: 'Show!'});
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 2000);
       },
-      error => console.log(error)
+      error => this.messageService.add({severity: 'error', detail: 'Houve um problema interno, tente novamente.', summary: 'Opa!'})
     );
   }
 
   preloadRemove(event){
-    this.canRemove = true;
-    this.associateSon = event;
+    if (event !== null){
+      this.canRemove = true;
+      this.associateSon = event;
+      return;
+    }
+    this.canRemove = false;
   }
 
   removeAssociate(){
     const associate = this.associatedProducts.find(pr => pr.productSon.id === this.associateSon.id);
     this.productService.deleteAssociates(associate.id).subscribe(
       success => {
-        this.toastr.success('Associação desfeita', 'Show!');
+        this.messageService.add({severity: 'success', detail: 'Associação desfeita', summary: 'Show!'});
         this.selectedCat = null;
         this.canRemove = false;
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 2000);
       },
       error => {
-        console.log(error);
+        this.messageService.add({severity: 'error', detail: 'Houve um problema interno, tente novamente.', summary: 'Opa!'});
       }
     );
   }
 
   createBlur(){
     document.getElementById('test').style.filter = 'blur(3px)';
-  }
-
-  validation(){
-    this.registerForm = this.fb.group({
-      name: ['', [Validators.minLength(15), Validators.maxLength(60), Validators.required]],
-      brand: ['', [Validators.minLength(2), Validators.required]],
-      model: ['', [Validators.minLength(5), Validators.required]],
-      description: ['', [Validators.minLength(15), Validators.required]],
-      price: ['', [Validators.required, Validators.min(1)]],
-      categoryId: ['', Validators.required],
-      amount: ['', [Validators.required, Validators.min(1)]],
-      active: [true],
-      image: [''],
-      imageUpload: [''],
-      id: ['']
-    });
-
-    this.associateForm = this.fb.group({
-      productFatherId: ['', Validators.required],
-      productSonId: ['', Validators.required]
-    });
   }
 
   saveChanges(modal: ModalDirective){
@@ -295,8 +398,10 @@ export class AdmProductsComponent implements OnInit{
       }
       this.productService.putProduct(product).subscribe(pr => {
         this.closeModal(modal);
-        this.toastr.success(`${product.model} atualizado`, 'Show!');
-        this.ngOnInit();
+        this.messageService.add({severity: 'success', detail: `${product.model} atualizado`, summary: 'Show!'});
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 2000);
       });
     }
   }
@@ -334,7 +439,6 @@ export class AdmProductsComponent implements OnInit{
         image.onload = rs => {
             const imgHeight = rs.currentTarget['height'];
             const imgWidth = rs.currentTarget['width'];
-            console.log(imgHeight, imgWidth);
 
             if (imgHeight > maxHeight && imgWidth > maxWidth) {
                 this.imageError = `Dimensões máximas permitidas ${maxHeight} '*' ${maxWidth} px`;
@@ -348,6 +452,7 @@ export class AdmProductsComponent implements OnInit{
                   this.registerForm.get('image').setValue(this.imageName);
                    // this.previewImagePath = imgBase64Path;
                 }
+            this.image = image;
             };
         };
 

@@ -1,240 +1,446 @@
-<div id="test">
+<p-toast></p-toast>
+<div id="test" class="mt-2">
     <h4 class="text-center font-weight-light">Produtos</h4>
-    <tabset>
-      <tab heading="Todos">
-        <div class="table-responsive" style="overflow: auto; max-height: 28rem;">
-          <table class="table table-dark table-hover">
-            <thead style="background: linear-gradient(to top, #00000062 10%, #ffffff3f 90%) !important;">
-              <tr>
-                <th scope="col" class="text-center mr-0">Categoria</th>
-                <th scope="col" class="text-center mx-auto">Marca</th>
-                <th scope="col" class="text-center mx-auto">Modelo</th>
-                <th scope="col" class="text-center mx-auto">Quantidade</th>
-                <th scope="col" class="text-center">Preço</th>
-                <th scope="col" class="text-center">Imagem</th>
-                <th scope="col" class="d-flex justify-content-center">
-                  <div class="form-inline">
-                    <div class="form-group">
-                      <input type="text" class="form-control border-secondary form-control-sm text-center"
-                        placeholder="Filtrar" [(ngModel)]='productFilter'>
+    <p-tabView [(activeIndex)]="activeIndex">
+      <p-tabPanel header="Todos" leftIcon="pi pi-sitemap">
+        <p-table  #dt1 [value]="products" [globalFilterFields]="['name']" styleClass="p-datatable-customers p-datatable-responsive-demo" scrollHeight="150px" [scrollable]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+        [paginator]="true" currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} produtos">
+            <ng-template pTemplate="caption">
+              <div class="p-d-flex">
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+                </span>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center">Imagem</th>
+                    <th class="text-center" pSortableColumn="category">Categoria <p-sortIcon field="category"></p-sortIcon></th>
+                    <th class="text-center" pSortableColumn="name">Nome <p-sortIcon field="name"></p-sortIcon></th>
+                    <th class="text-center" pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon></th>
+                    <th class="text-center">Marca</th>
+                    <th class="text-center">Modelo</th>
+                    <th class="text-center">Quantidade</th>
+                    <th class="text-center">#</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td class="text-center"><img [src]="urlImg + '/' + product.image" [alt]="product.name" width="50" class="p-shadow-4" /></td>
+                    <td class="text-center">{{product.categoryName}}</td>
+                    <td class="text-center">{{product.name}}</td>
+                    <td class="text-center">{{product.price | currencyBrazil}}</td>
+                    <td class="text-center">{{product.brand}}</td>
+                    <td class="text-center">{{product.model}}</td>
+                    <td class="text-center">{{product.amount}}</td>
+                    <td class="text-center">
+                      <button class="btn btn-sm btn-warning mr-1" tooltip="Editar" (click)="putProduct(template, product)"><i
+                        class="fad fa-edit"></i></button>
+                      <button class="btn btn-sm btn-danger border border-dark shadow-sm" (click)="deleteProduct(product)"><i
+                          class="fad fa-eraser" tooltip="Excluir"></i></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    No total há {{products ? products.length : 0 }} produtos.
+                </div>
+            </ng-template>
+        </p-table>
+      </p-tabPanel>
+
+      <p-tabPanel header="Adicionar">
+        <div class="bs-stepper" id="stepper2">
+          <div class="bs-stepper-header" role="tablist">
+            <div class="step" data-target="#category">
+              <button type="button" class="step-trigger" role="tab" aria-controls="category" id="category-trigger">
+                <span class="bs-stepper-circle">1</span>
+                <span class="bs-stepper-label">Categoria</span>
+              </button>
+            </div>
+        
+            <div class="line"></div>
+
+            <div class="step" data-target="#title">
+              <button type="button" class="step-trigger" role="tab" aria-controls="title" id="title-trigger">
+                <span class="bs-stepper-circle">2</span>
+                <span class="bs-stepper-label">Título</span>
+              </button>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="step" data-target="#brand">
+              <button type="button" class="step-trigger" role="tab" aria-controls="brand" id="brand-trigger">
+                <span class="bs-stepper-circle">3</span>
+                <span class="bs-stepper-label">Marca</span>
+              </button>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="step" data-target="#model">
+              <button type="button" class="step-trigger" role="tab" aria-controls="model" id="model-trigger">
+                <span class="bs-stepper-circle">4</span>
+                <span class="bs-stepper-label">Modelo</span>
+              </button>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="step" data-target="#description">
+              <button type="button" class="step-trigger" role="tab" aria-controls="description" id="description-trigger">
+                <span class="bs-stepper-circle">5</span>
+                <span class="bs-stepper-label">Descrição</span>
+              </button>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="step" data-target="#image">
+              <button type="button" class="step-trigger" role="tab" aria-controls="image" id="image-trigger">
+                <span class="bs-stepper-circle">6</span>
+                <span class="bs-stepper-label">Imagem</span>
+              </button>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="step" data-target="#stock">
+              <button type="button" class="step-trigger" role="tab" aria-controls="stock" id="stock-trigger">
+                <span class="bs-stepper-circle">7</span>
+                <span class="bs-stepper-label">Estoque</span>
+              </button>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="step" data-target="#confirm">
+              <button type="button" class="step-trigger" role="tab" aria-controls="confirm" id="confirm-trigger">
+                <span class="bs-stepper-circle">#</span>
+                <span class="bs-stepper-label">Confirmar</span>
+              </button>
+            </div>
+
+          </div>
+
+          <div class="bs-stepper-content">
+            <div id="category" class="content" role="tabpanel" aria-labelledby="category-trigger">
+              <div class="p-card p-3">
+                <p-dropdown [options]="categories" [(ngModel)]="selectedDrop" (onChange)="setCategory($event)" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Selecione">
+                  <ng-template pTemplate="selectedItem">
+                      <div class="country-item country-item-value"  *ngIf="selectedDrop">
+                          <div>{{selectedDrop.name}}</div>
+                      </div>
+                  </ng-template>
+                  <ng-template let-category pTemplate="item">
+                      <div class="country-item">
+                          <div>{{category.name}}</div>
+                      </div>
+                  </ng-template>
+                </p-dropdown>
+                <div class="p-d-flex mt-2 p-ai-center justify-content-end p-jc-between">
+                  <p-button label="Avançar" (onClick)="next()" [disabled]="!selectedDrop" icon="pi pi-angle-right" iconPos="right"></p-button>
+                </div>
+              </div>
+            </div>
+
+            <div id="title" class="content" role="tabpanel" aria-labelledby="title-trigger">
+              <div class="p-card p-3">
+                <form [formGroup]="registerForm">
+                  <div class="p-fied">
+                    <span class="p-float-label">
+                      <input id="float-input" type="text" pInputText formControlName="name"> 
+                      <label for="float-input">Título</label>
+                    </span>
+                    <small *ngIf="registerForm.get('name').touched && registerForm.get('name').hasError('required')" class="p-invalid">
+                      Campo obrigatório
+                    </small>
+                    <small *ngIf="registerForm.get('name').touched && registerForm.get('name').hasError('minlength')" class="p-invalid">
+                      Mínimo de 15 caracteres
+                    </small>
+                    <small *ngIf="registerForm.get('name').touched && registerForm.get('name').hasError('maxlength')" class="p-invalid">
+                      Máximo de 60 caracteres
+                    </small>
+                  </div>
+                </form>
+                <div class="p-d-flex mt-2 p-ai-center p-jc-between">
+                  <p-button label="Voltar" (onClick)="stepper.previous()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar" (onClick)="next()" [disabled]="!registerForm.get('name').valid" icon="pi pi-angle-right" iconPos="right"></p-button>
+                </div>
+              </div>
+            </div>
+
+            <div id="brand" class="content" role="tabpanel" aria-labelledby="brand-trigger">
+              <div class="p-card p-3">
+                <form [formGroup]="registerForm">
+                  <div class="p-fied">
+                    <span class="p-float-label">
+                      <input id="float-input" type="text" pInputText formControlName="brand"> 
+                      <label for="float-input">Marca</label>
+                    </span>
+                    <small *ngIf="registerForm.get('brand').touched && registerForm.get('brand').hasError('required')" class="p-invalid">
+                      Campo obrigatório
+                    </small>
+                    <small *ngIf="registerForm.get('brand').touched && registerForm.get('brand').hasError('minlength')" class="p-invalid">
+                      Mínimo de 2 caracteres
+                    </small>
+                  </div>
+                </form>
+                <div class="p-d-flex mt-2 p-ai-center p-jc-between">
+                  <p-button label="Voltar" (onClick)="stepper.previous()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar" (onClick)="next()" [disabled]="!registerForm.get('brand').valid" icon="pi pi-angle-right" iconPos="right"></p-button>
+                </div>
+              </div>
+            </div>
+
+            <div id="model" class="content" role="tabpanel" aria-labelledby="model-trigger">
+              <div class="p-card p-3">
+                <form [formGroup]="registerForm">
+                  <div class="p-fied">
+                    <span class="p-float-label">
+                      <input id="float-input" type="text" pInputText formControlName="model"> 
+                      <label for="float-input">Modelo</label>
+                    </span>
+                    <small *ngIf="registerForm.get('model').touched && registerForm.get('model').hasError('required')" class="p-invalid">
+                      Campo obrigatório
+                    </small>
+                    <small *ngIf="registerForm.get('model').touched && registerForm.get('model').hasError('minlength')" class="p-invalid">
+                      Mínimo de 5 caracteres
+                    </small>
+                  </div>
+                </form>
+                <div class="p-d-flex mt-2 p-ai-center p-jc-between">
+                  <p-button label="Voltar" (onClick)="stepper.previous()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar" (onClick)="next()" [disabled]="!registerForm.get('model').valid" icon="pi pi-angle-right" iconPos="right"></p-button>
+                </div>
+              </div>
+            </div>
+          
+            <div id="description" class="content" role="tabpanel" aria-labelledby="description-trigger">
+              <div class="p-card p-3">
+                <h6>Destaque os principais pontos do produto</h6>
+                <form [formGroup]="registerForm">
+                  <div class="p-fied">
+                    <textarea pInputTextarea formControlName="description" [style]="{'height':'150px', 'resize':'none', 'width': '75%'}"></textarea>
+                    <small *ngIf="registerForm.get('description').touched && registerForm.get('description').hasError('required')" class="p-invalid d-block">
+                      Obrigatório
+                    </small>
+                    <small *ngIf="registerForm.get('description').touched && registerForm.get('description').hasError('minlength')" class="p-invalid d-block">
+                      Mínimo de 15 caracteres
+                    </small>
+                  </div>
+                </form>
+                <div class="p-d-flex mt-2 p-ai-center p-jc-between">
+                  <p-button label="Voltar" (onClick)="stepper.previous()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar" (onClick)="next()" [disabled]="!registerForm.get('description').valid" icon="pi pi-angle-right" iconPos="right"></p-button>
+                </div>
+              </div>
+            </div>
+
+            <div id="image" class="content" role="tabpanel" aria-labelledby="image-trigger">
+              <div class="p-card p-3">
+                <form [formGroup]="registerForm">
+                  <div class="p-fied">
+                    <button class="btn btn-danger" (click)="file.click()">
+                      <i class="fad fa-file-search"></i>
+                    </button>
+                    <input type="file" #file id="inputImage" class="d-none" accept="image/*"
+                    (change)="fileChangeEvent($event)">
+                    <ng-container *ngIf="image">
+                      <div class="mt-2 border border-success">
+                        <img src="{{image.src}}" width="50">
+                        <small *ngIf="imageName" for="inputPrice"> {{imageName}}</small>
+                      </div>
+                    </ng-container>
+                    <div *ngIf="imageError" class="invalid-feedback">
+                      {{imageError}}
                     </div>
                   </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody *ngIf="products && products.length">
-              <tr
-                *ngFor="let product of products | filter: productFilter">
-                <td class="text-center">{{product.categoryName}}</td>
-                <td class="text-center my-auto">{{product.brand}}</td>
-                <td class="text-center my-auto">{{product.model}}</td>
-                <td class="text-center">{{product.amount}}</td>
-                <td class="text-center">{{product.price | currency:'BRL':true:'1.2-2':'pt'}}</td>
-                <td class="text-center"><img src="{{urlImg}}/{{product.image}}" width="45px" alt="Imagem {{product.model}}"></td>
-                <td class="text-center">
-                  <button class="btn btn-sm btn-warning mr-1" tooltip="Editar" (click)="putProduct(template, product)"><i
-                    class="fad fa-edit"></i></button>
-                  <button class="btn btn-sm btn-danger border border-dark shadow-sm" (click)="deleteProduct(product)"><i
-                      class="fad fa-eraser" tooltip="Excluir"></i></button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                </form>
+                <div class="p-d-flex mt-2 p-ai-center p-jc-between">
+                  <p-button label="Voltar" (onClick)="stepper.previous()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar" (onClick)="next()" [disabled]="!image" icon="pi pi-angle-right" iconPos="right"></p-button>
+                </div>
+              </div>
+            </div>
+
+            <div id="stock" class="content" role="tabpanel" aria-labelledby="stock-trigger">
+              <div class="p-card p-3">
+                <form [formGroup]="registerForm" class="p-grid">
+                  <div class="p-fied p-col">
+                    <h6>Preço</h6>
+                    <p-inputNumber mode="currency" currency="BRL" locale="pt-BR" inputId="integeronly" formControlName="price"></p-inputNumber>
+                    <small *ngIf="registerForm.get('price').touched && registerForm.get('price').hasError('required')" class="p-invalid d-block">
+                      Campo obrigatório
+                    </small>
+                    <small *ngIf="registerForm.get('price').touched && registerForm.get('price').hasError('min')" class="p-invalid d-block">
+                      Mínimo de R$1
+                    </small>
+                  </div>
+
+                  <div class="p-fied p-col">
+                    <h6>Unidades</h6>
+                    <p-inputNumber inputId="integeronly" formControlName="amount" [ngClass]="{'is-invalid':registerForm.get('amount')?.touched && registerForm.get('amount').errors}"></p-inputNumber>
+                    <small *ngIf="registerForm.get('amount').touched && registerForm.get('amount').hasError('required')" class="p-invalid d-block">
+                      Campo obrigatório
+                    </small>
+                    <small *ngIf="registerForm.get('amount').touched && registerForm.get('amount').hasError('min')" class="p-invalid d-block">
+                      Mínimo de 1 unidade
+                    </small>
+                  </div>
+
+                  <div class="p-field p-col">
+                    <h6>Ativo</h6>
+                    <p-inputSwitch formControlName="active"></p-inputSwitch>
+                  </div>
+                </form>
+                <div class="p-d-flex mt-2 p-ai-center p-jc-between">
+                  <p-button label="Voltar" (onClick)="stepper.previous()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar" (onClick)="confirm()" [disabled]="!registerForm.get('price').valid || !registerForm.get('amount').valid || !registerForm.get('active').valid" icon="pi pi-angle-right" iconPos="right"></p-button>
+                </div>
+              </div>
+            </div>
+
+            <div id="confirm" class="content" role="tabpanel" aria-labelledby="confirm-trigger">
+              <div class="p-card p-3">
+                <div class="p-grid">
+                  <div class="p-col">
+                    <div class="p-field">
+                      <h6>Titulo</h6>
+                      <b>{{newProduct.name}}</b>
+                    </div>
+
+                    <div class="p-field">
+                      <h6>Categoria</h6>
+                      <b>{{newProduct.categoryName}}</b>
+                    </div>
+
+                    <div class="p-field">
+                      <h6>Descrição</h6>
+                      <b>{{newProduct.description}}</b>
+                    </div>
+                  </div>
+
+                  <div class="p-col">
+                    <div class="p-field">
+                      <h6>Preço</h6>
+                      <b>{{newProduct.price}}</b>
+                    </div>
+
+                    <div class="p-field">
+                      <h6>Quantidade</h6>
+                      <b>{{newProduct.amount}}</b>
+                    </div>
+
+                    <div class="p-field">
+                      <h6>Ativo</h6>
+                      <b>{{newProduct.active ? 'Sim' : 'Não'}}</b>
+                    </div>
+                  </div>
+
+                  <div class="p-col">
+                    <div class="p-field">
+                      <h6>Imagem</h6>
+                      <p-inplace>
+                        <ng-template pTemplate="display">
+                            <div class="p-d-inline-flex p-ai-center">
+                                <span class="pi pi-image" style="vertical-align: middle"></span>
+                                <span class="p-ml-2">Ver Imagem</span>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="content">
+                          <img src="{{image.src}}" width="80" alt="{{newProduct.name}}">
+                        </ng-template>
+                      </p-inplace>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-d-flex mt-2 p-ai-center p-jc-between">
+                  <p-button label="Voltar" (onClick)="stepper.previous()" icon="pi pi-angle-left"></p-button>
+                  <p-button label="Avançar" (onClick)="createProduct()" icon="pi pi-check" iconPos="right"></p-button>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
-      </tab>
+      </p-tabPanel>
 
-       <!-- <tab heading="Adicionar" class="p-4">
-        <form class="text-white text-center" [formGroup]="registerForm">
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputTitle">Título</label>
-                <input type="text" class="form-control" id="inputTitle" formControlName="name"
-                  [ngClass]="{'is-invalid': registerForm.get('name')?.touched && registerForm.get('name').errors}">
-                <div *ngIf="registerForm.get('name').hasError('required')" class="invalid-feedback">
-                  Campo obrigatório
-                </div>
-                <div *ngIf="registerForm.get('name').hasError('minlength')" class="invalid-feedback">
-                  Mínimo de 15 caracteres
-                </div>
-                <div *ngIf="registerForm.get('name').hasError('maxlength')" class="invalid-feedback">
-                  Máximo de 60 caracteres
-                </div>
+      <p-tabPanel header="Associação">
+        <p-dropdown [options]="categories" [(ngModel)]="selectedCat" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Selecione uma categoria">
+          <ng-template pTemplate="selectedItem">
+              <div class="country-item country-item-value"  *ngIf="selectedCat">
+                  <div>{{selectedCat.name}}</div>
               </div>
-  
-              <div class="form-group col-md-3">
-                <label for="inputBrand">Marca</label>
-                <input type="text" class="form-control" id="inputBrand" formControlName="brand"
-                  [ngClass]="{'is-invalid':registerForm.get('brand')?.touched &&  registerForm.get('brand').errors}">
-                <div *ngIf="registerForm.get('brand').hasError('required')" class="invalid-feedback">
-                  Campo obrigatório
-                </div>
-                <div *ngIf="registerForm.get('brand').hasError('minlength')" class="invalid-feedback">
-                  Mínimo de 2 caracteres
-                </div>
+          </ng-template>
+          <ng-template let-category pTemplate="item">
+              <div class="country-item">
+                  <div>{{category.name}}</div>
               </div>
-  
-              <div class="form-group col-md-3">
-                <label for="inputModel">Modelo</label>
-                <input type="text" class="form-control" id="inputModel" formControlName="model"
-                  [ngClass]="{'is-invalid':registerForm.get('model')?.touched && registerForm.get('model').errors}">
-  
-                <div *ngIf="registerForm.get('model').hasError('required')" class="invalid-feedback">
-                  Campo obrigatório
-                </div>
-                <div *ngIf="registerForm.get('model').hasError('minlength')" class="invalid-feedback">
-                  Mínimo de 5 caracteres
-                </div>
-              </div>
-            </div>
-  
-            <div class="form-group">
-              <label for="inputDescription">Descrição</label>
-              <textarea style="resize: none;" id="inputDescription" class="form-control border border-warning" cols="30" rows="3" formControlName="description"
-                [ngClass]="{'is-invalid':registerForm.get('description')?.touched && registerForm.get('description').errors}"></textarea>
-              <div *ngIf="registerForm.get('description').hasError('required')" class="invalid-feedback">
-                Campo obrigatório
-              </div>
-              <div *ngIf="registerForm.get('description').hasError('minlength')" class="invalid-feedback">
-                Mínimo de 15 caracteres
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-2">
-                <div class="container d-flex flex-column">
-                  <label for="inputPrice">Imagem</label>
-                  <button class="btn btn-danger" (click)="file.click()">
-                    <i class="fad fa-file-search"></i>
-                  </button>
-                  <input type="file" #file id="inputImage" class="d-none" accept="image/*"
-                  (change)="fileChangeEvent($event)">
-                </div>
-                <small *ngIf="imageName" for="inputPrice"> {{imageName}}</small>
-                <div *ngIf="imageError" class="invalid-feedback">
-                  {{imageError}}
-                </div>
-              </div>
-                
-              <div class="form-group col-md-2">
-                <label for="inputPrice">Preço</label>
-                <input type="number" class="form-control" id="inputPrice" formControlName="price"
-                  [ngClass]="{'is-invalid':registerForm.get('price')?.touched && registerForm.get('price').errors}">
-                <div *ngIf="registerForm.get('price').hasError('required')" class="invalid-feedback">
-                  Campo obrigatório
-                </div>
-                <div *ngIf="registerForm.get('price').hasError('min')" class="invalid-feedback">
-                  Mínimo de R$1
-                </div>
-              </div>
-  
-              <div class="form-group col-md-1">
-                <label for="inputAmount">Qtd</label>
-                <input type="number" class="form-control" id="inputAmount" formControlName="amount"
-                  [ngClass]="{'is-invalid':registerForm.get('amount')?.touched && registerForm.get('amount').errors}">
-                <div *ngIf="registerForm.get('amount').hasError('required')" class="invalid-feedback">
-                  Campo obrigatório
-                </div>
-                <div *ngIf="registerForm.get('amount').hasError('min')" class="invalid-feedback">
-                  Mínimo de 1 item
-                </div>
-              </div>
+          </ng-template>
+        </p-dropdown>
 
-              <div class="form-group col-md-2">
-                <label for="inputState">Estado</label>
-                <select id="inputState" (change)="conss()" class="form-control form-control-sm" formControlName="active"
-                  [ngClass]="{'is-invalid':registerForm.get('active')?.touched && registerForm.get('active').errors}">
-                  <option disabled selected></option>
-                  <option [value]="true">Ativo</option>
-                  <option [value]="false">Inativo</option>
-                </select>
-                <div *ngIf="registerForm.get('active').hasError('active')" class="invalid-feedback">
-                  Campo obrigatório
-                </div>
-              </div>
-
-              <div class="form-group col-md-2">
-                <label for="inputState">Categoria</label>
-                <select id="inputState" class="form-control form-control-sm" formControlName="categoryId"
-                  [ngClass]="{'is-invalid':registerForm.get('categoryId')?.touched && registerForm.get('categoryId').errors}">
-                  <option disabled selected></option>
-                  <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
-                </select>
-                <div *ngIf="registerForm.get('categoryId').hasError('required')" class="invalid-feedback">
-                  Campo obrigatório
-                </div>
-              </div>
-
-              <div class="col d-flex align-items-center justify-content-end">
-                <button class="btn btn-sm btn-success" (click)="postProduct()" [disabled]="!this.registerForm.valid">
-                  Adicionar
-                  <i class="fad fa-check-double"></i>
-                </button>
-              </div>
-              
-            </div>
-          </form>
-      </tab> -->
-
-      <!-- <tab heading="Associação">
-        <ng-select [(ngModel)]="selectedCat">
-          <ng-option *ngFor="let car of categories" [value]="{products: car.products, id: car.id}">{{car.name}}</ng-option>
-        </ng-select>
-
-        <button class="btn btn-danger btn-sm" *ngIf="selectedCat" (click)="associateMode = 'remove'">Remover</button>
-        <button class="btn btn-primary btn-sm" *ngIf="selectedCat" (click)="associateMode = 'add'">Associar</button>
+        <button pButton pRipple type="button" *ngIf="selectedCat" label="Remover" (click)="associateMode = 'remove'" class="p-button-raised p-button-danger p-button-sm mx-2 my-1"></button>
+        <button pButton pRipple type="button" *ngIf="selectedCat"  label="Associar" (click)="associateMode = 'add'" class="p-button-raised p-button-warning p-button-sm my-1"></button>
 
         <ng-container class="mt-2" *ngIf="selectedCat && associateMode">
           <h5>Principal</h5>
-          <ng-select [items]="selectedCat.products" bindLabel="name" bindValue="name" (change)="con($event, 'father')">
-            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
-                <div style="margin: 10px 0;" class="card">
-                    <div class="card-body">
-                        <h6 class="card-title">{{item.name}}</h6>
-                        <h6 class="card-subtitle mb-2 text-muted">{{item.categoryName}}</h6>
-                        <p class="card-text">
-                            <img height="25" width="25" src="{{urlImg}}/{{item.image}}"/>
-                            {{item.model}}
-                        </p>
-                    </div>
+          <p-dropdown [styleClass]="'w-75'" [options]="selectedCat.products" (onChange)="con($event.value)" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Selecione um produto">
+            <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value" *ngIf="productFather">
+                  <div style="font-weight: bold;">{{productFather.name}}</div>
+                  <img src="{{urlImg}}/{{productFather.image}}" width="20" alt="Imagem {{productFather.name}}">  
                 </div>
             </ng-template>
-          </ng-select>
+            <ng-template let-product pTemplate="item">
+                <div class="country-item">
+                  <div>{{product.name}}</div>
+                  <div style="font-weight: bold;">{{product.model}}</div>
+                  <img src="{{urlImg}}/{{product.image}}" alt="{{product.name}}" width="40">
+                </div>
+            </ng-template>
+          </p-dropdown>
         </ng-container>
         
 
       <ng-container *ngIf="associateMode === 'add'">
         <h5 *ngIf="forAssociate">Relacionado</h5>
-        <ng-select *ngIf="forAssociate" [items]="forAssociate | async" bindLabel="name" bindValue="name" (change)="con($event, 'son')">
-          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
-              <div style="margin: 10px 0;" class="card">
-                  <div class="card-body">
-                      <h6 class="card-title">{{item.name}}</h6>
-                      <h6 class="card-subtitle mb-2 text-muted">{{item.categoryName}}</h6>
-                      <p class="card-text">
-                          <img height="25" width="25" src="{{urlImg}}/{{item.image}}"/>
-                          {{item.model}}
-                      </p>
-                  </div>
+        <p-dropdown [styleClass]="'w-75'" *ngIf="forAssociate" [options]="forAssociate | async" (onChange)="addSon($event.value)" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Selecione um produto">
+          <ng-template pTemplate="selectedItem">
+              <div class="country-item country-item-value" *ngIf="productSon">
+                <div style="font-weight: bold;">{{productSon.name}}</div>
+                <img src="{{urlImg}}/{{productSon.image}}" width="20" alt="Imagem {{productSon.name}}">  
               </div>
           </ng-template>
-        </ng-select>
+          <ng-template let-product pTemplate="item">
+              <div class="country-item">
+                <div>{{product.name}}</div>
+                <div style="font-weight: bold;">{{product.model}}</div>
+                <img src="{{urlImg}}/{{product.image}}" alt="{{product.name}}" width="40">
+              </div>
+          </ng-template>
+        </p-dropdown>
       </ng-container>
 
       <ng-container *ngIf="associateMode === 'remove'">
         <h5>Relacionado</h5>
-        <ng-select *ngIf="associateds" (change)="preloadRemove($event)" [items]="associateds | async" bindLabel="name" bindValue="name">
-          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
-              <div style="margin: 10px 0;" class="card">
-                  <div class="card-body">
-                      <h6 class="card-title">{{item.name}}</h6>
-                      <h6 class="card-subtitle mb-2 text-muted">{{item.categoryName}}</h6>
-                      <p class="card-text">
-                          <img height="25" width="25" src="{{urlImg}}/{{item.image}}"/>
-                          {{item.model}}
-                      </p>
-                  </div>
+        <p-dropdown [styleClass]="'w-75'" *ngIf="associateds" [options]="associateds | async" (onChange)="preloadRemove($event.value)" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Selecione um produto">
+          <ng-template pTemplate="selectedItem">
+              <div class="country-item country-item-value" *ngIf="associateSon">
+                <div style="font-weight: bold;">{{associateSon.name}}</div>
+                <img src="{{urlImg}}/{{associateSon.image}}" width="20" alt="Imagem {{associateSon.name}}">  
               </div>
           </ng-template>
-        </ng-select>
+          <ng-template let-product pTemplate="item">
+              <div class="country-item">
+                <div>{{product.name}}</div>
+                <div style="font-weight: bold;">{{product.model}}</div>
+                <img src="{{urlImg}}/{{product.image}}" alt="{{product.name}}" width="40">
+              </div>
+          </ng-template>
+        </p-dropdown>
       </ng-container>
       
 
@@ -249,14 +455,32 @@
         </button>
       </div>
 
-      </tab> -->
-    </tabset>
+      </p-tabPanel>
 
-    
-  </div>
+      <p-tabPanel header="Categoria">
+        <div class="p-card p-3">
+          <form [formGroup]="registerCategory">
+            <div class="p-fied">
+              <span class="p-float-label">
+                <input id="float-input" type="text" pInputText formControlName="name"> 
+                <label for="float-input">Nome</label>
+              </span>
+              <small *ngIf="registerCategory.get('name').touched && registerCategory.get('name').hasError('required')" class="p-invalid">
+                Campo obrigatório
+              </small>
+            </div>
+          </form>
+          <div class="p-d-flex mt-2 p-ai-center p-jc-between">
+            <p-button label="Adicionar" (onClick)="addCategory()" [disabled]="!registerCategory.get('name').valid" icon="pi pi-check-circle" iconPos="right"></p-button>
+          </div>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+</div>
+
 
 <!--Modal Produto-->
-      <div class="modal fade" tabindex="-1" role="dialog" bsModal #template="bs-modal" [config]="{backdrop:'static'}"
+<div class="modal fade" tabindex="-1" role="dialog" bsModal #template="bs-modal" [config]="{backdrop:'static'}"
       aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -268,7 +492,7 @@
           </div>
           <div class="modal-body">
             <!--Registro-->
-            <form class="text-white text-center" [formGroup]="registerForm">
+            <form class="text-dark text-center" [formGroup]="registerForm">
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <input type="text" hidden formControlName="id">
@@ -365,7 +589,7 @@
         
                 <div class="form-group col-md-2">
                   <label for="inputState">Estado</label>
-                  <select id="inputState" (change)="conss()" class="form-control form-control-sm" formControlName="active"
+                  <select id="inputState" class="form-control form-control-sm" formControlName="active"
                     [ngClass]="{'is-invalid':registerForm.get('active')?.touched && registerForm.get('active').errors}">
                     <option disabled selected></option>
                     <option [value]="true">Ativo</option>
@@ -398,4 +622,4 @@
           </div>
         </div>
         </div>
-      </div>
+</div>
