@@ -32,9 +32,18 @@ export class UserAccessGuard implements CanActivate{
                     this.accessDenied();
                 }
 
-                const claimsValue = userClaims.value as string;
+                const uservalues: Array<string> = userClaims.value.split(',');
+                const localvalues: Array<string> = claim.value.split(',');
 
-                if (!claimsValue.includes(claim.value)){
+                let cont = 0;
+                localvalues.forEach(local => {
+                    uservalues.forEach(userc => {
+                        if (local.includes(userc)){
+                            cont++;
+                        }
+                    });
+                });
+                if (cont < localvalues.length){
                     this.accessDenied();
                 }
             }
