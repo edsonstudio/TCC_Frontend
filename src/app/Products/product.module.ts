@@ -14,53 +14,96 @@ import { ProductsComponent } from './products/products.component';
 import { ProductAppComponent } from './product-app';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PersonalizedComponent } from './personalized/personalized.component';
-import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { ContentLoaderModule } from '@ngneat/content-loader';
 import { NgBrazil } from 'ng-brazil';
 import { Store } from './cart.store';
 import { CartService } from '../services/Cart_Order/cart.service';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { OrderComponent } from './order/order.component';
-import { CartPageComponent } from './cart-page/cart-page.component';
 import { OrderService } from '../services/Cart_Order/order.service';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import {NgxLoaderIndicatorModule} from 'ngx-loader-indicator';
 import { CartGuard } from '../services/Cart_Order/cart.guard';
 import { OrderGuard } from '../services/Cart_Order/order.guard';
-import { ProductService } from '../services/Product/product.service';
+
+// PrimeNG Components
+import { RatingModule } from 'primeng/rating';
+import { ButtonModule } from 'primeng/button';
+import { DataViewModule } from 'primeng/dataview';
+import { DropdownModule } from 'primeng/dropdown';
+import { RippleModule } from 'primeng/ripple';
+import { CarouselModule } from 'primeng/carousel';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { CardModule } from 'primeng/card';
+import { FieldsetModule } from 'primeng/fieldset';
+import {PanelModule} from 'primeng/panel';
+import { SidebarModule } from 'primeng/sidebar';
+import {MenubarModule} from 'primeng/menubar';
+import { MenuModule } from 'primeng/menu';
+import {BreadcrumbModule} from 'primeng/breadcrumb';
+import { ListboxModule } from 'primeng/listbox';
+import {DialogModule} from 'primeng/dialog';
+import {DialogService, DynamicDialogModule} from 'primeng/dynamicdialog';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {ToastModule} from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { StepsModule } from 'primeng/steps';
+import {DragDropModule} from 'primeng/dragdrop';
+import { TableModule } from 'primeng/table';
+import {InputNumberModule} from 'primeng/inputnumber';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
-const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
-    direction: 'horizontal',
-    slidesPerView: 'auto'
-};
+
 @NgModule({
   imports: [
     CommonModule,
+    MenuModule,
     ProductRouterModule,
+    ListboxModule,
     FontAwesomeModule,
     SharedModule,
     NgxPaginationModule,
+    DynamicDialogModule,
     Ng2SearchPipeModule,
-    FormsModule,
+    MenubarModule,
     SwiperModule,
+    BreadcrumbModule,
     ContentLoaderModule,
     ReactiveFormsModule,
     FormsModule,
     NgBrazil,
     TooltipModule.forRoot(),
     NgxMaskModule.forRoot(),
-    NgxLoaderIndicatorModule.forRoot()
+    NgxLoaderIndicatorModule.forRoot(),
+    RatingModule,
+    ButtonModule,
+    DataViewModule,
+    DropdownModule,
+    RippleModule,
+    CarouselModule,
+    PasswordModule,
+    InputTextModule,
+    CardModule,
+    DialogModule,
+    FieldsetModule,
+    PanelModule,
+    SidebarModule,
+    OverlayPanelModule,
+    ToastModule,
+    StepsModule,
+    DragDropModule,
+    TableModule,
+    InputNumberModule,
+    ProgressSpinnerModule
   ],
   declarations: [
     ProductAppComponent,
     ProductComponent,
     ProductsComponent,
-    PersonalizedComponent,
-    OrderComponent,
-    CartPageComponent
+    PersonalizedComponent
   ],
   providers: [
     ProductResolve,
@@ -69,11 +112,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     OrderService,
     CartGuard,
     OrderGuard,
-    ProductService,
-    {
-      provide: SWIPER_CONFIG,
-      useValue: DEFAULT_SWIPER_CONFIG
-    }
+    MessageService,
+    DialogService
   ]
 })
 export class ProductModule { }
