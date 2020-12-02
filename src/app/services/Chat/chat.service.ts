@@ -5,7 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { BaseService } from '../base.service';
 import { Profile, User } from 'src/app/models/User';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
-import { Message } from 'src/app/models/Message';
+import { Message, Thread } from 'src/app/models/Message';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +14,6 @@ export class ChatService extends BaseService {
 
   constructor(private http: HttpClient){
     super();
-    this.createConnection();
-    this.registerOnServerEvents();
-    this.startConnection();
   }
 
   messageReceived = new EventEmitter<Message>();
@@ -29,14 +26,14 @@ export class ChatService extends BaseService {
     this._hubConnection.invoke('SendMessage', message);
     }
 
-  private createConnection() {
+  createConnection() {
     this._hubConnection = new HubConnectionBuilder()
       .withUrl('https://localhost:5101/chat', {
         accessTokenFactory: () => this.LocalStorage.getUserToken()
       }).build();
   }
 
-  private startConnection(): void {
+  startConnection(): void {
     this._hubConnection
       .start()
       .then(() => {
@@ -50,7 +47,7 @@ export class ChatService extends BaseService {
       });
   }
 
-  private registerOnServerEvents(): void {
+   registerOnServerEvents(): void {
     this._hubConnection.on('ReciveMessage', (data: any) => {
       this.messageReceived.emit(data);
     });
@@ -69,29 +66,28 @@ export class ChatService extends BaseService {
     }
 
     getProfile(accessToken): Observable<Profile>{
-        console.log('getProfile');
         return this.http.get(`${this.UrlChat}/users/getprofile`, this.GetJsonAuthHeader());
     }
 
-    getMessages(threadId, accessToken): Observable<any>{
-        return this.http.get(`${this.UrlChat}/Thread/getmessages/${threadId}`, {headers: new HttpHeaders({
+    getMessages(threadId, accessToken): Observable<Array<any>>{
+        return this.http.get<Array<any>>(`${this.UrlChat}/Thread/getmessages/${threadId}`, {headers: new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${accessToken}`
         })});
     }
 
-    getThreads(accessToken){
-        return this.http.get(`${this.UrlChat}Hey/getthreads`, this.GetJsonAuthHeader());
+    getThreads(): Observable<Thread[]>{
+        return this.http.get<Thread[]>(`${this.UrlChat}/Hey/getthreads`, this.GetJsonAuthHeader());
     }
 
-    createThread(oponentViewModel){
-        return this.http.post(`${this.UrlChat}/Hey/createthread`, {
+    createThread(oponentViewModel): Observable<Thread>{
+        return this.http.post<Thread>(`${this.UrlChat}/Hey/createthread`, {
             OponentVM: oponentViewModel
         }, this.GetJsonAuthHeader());
     }
 
     sendMessageToApi(messageViewModel) {
-        return this.http.post(`${this.UrlChat}/Hey/send`, messageViewModel, this.GetJsonAuthHeader());
+        return this.http.post(`${this.UrlChat}/Hey/send`, JSON.stringify(messageViewModel), this.GetJsonAuthHeader());
     }
 
     searchForMessageInThread(accessToken, param): Observable<any>{
