@@ -1,6 +1,6 @@
 <div class="container w-50 mx-auto py-5 px-4 text-white rounded-lg border-success">
-  <div class="row justify-content-center">
-    <div class="col col-md-6">
+  <div class="p-grid justify-content-center">
+    <div class="p-col p-md-6">
       <span>
       <fa-icon [icon]="faUser" size="lg" class="mr-2" [styles]="{'color':'black'}"></fa-icon>
       <h5 *ngIf="mode == 'login'" class="d-inline-block">Entrar</h5>
@@ -97,17 +97,19 @@
         </div>
       
         <div class="row mt-5">
-          <div *ngIf="mode == 'login'" class="col mx-auto">
-            <button pRipple type="submit" class="btn btn-sm btn-success btn-block" (click)="emitLogin()" [disabled]="formLoRe.get('email').invalid || formLoRe.get('password').invalid">Entrar</button>
+          <div *ngIf="mode == 'login'" class="col mx-auto d-flex">
+            <button pRipple pButton label="Entrar" type="submit" class="p-button p-button-sm mx-1 p-button-secondary" (click)="emitLogin()" [disabled]="formLoRe.get('email').invalid || formLoRe.get('password').invalid"></button>
+            <button pRipple [icon]="'fas fa-user-plus'" pTooltip="Cadastrar" pButton routerLink="/Inicio/conta/cadastrar" class="p-button p-button-sm"></button>
           </div>
           <div *ngIf="mode == 'register'" class="col mx-auto">
-            <button pRipple type="submit" class="btn btn-sm btn-dark btn-block" (click)="emitRegister()"  [disabled]="!formLoRe.valid">Cadastrar</button>
+            <button pRipple pButton label="Cadastrar" type="submit" class="p-button mx-1 p-button-sm p-button-secondary" (click)="emitRegister()"  [disabled]="!formLoRe.valid"></button>
+            <button pRipple [icon]="'fas fa-sign-in'" pTooltip="Entrar" pButton routerLink="/Inicio/conta/entrar" class="p-button p-button-sm"></button>
           </div>
         </div>
       </form>
     </div>
 
-    <div *ngIf="errors && errors.length > 0" class="col">
+    <div *ngIf="errors && errors.length > 0" class="p-col">
       <h6>Opa! Algo deu errado
         <span class="badge badge-primary badge-pill">{{errors.length}}</span>
       </h6>

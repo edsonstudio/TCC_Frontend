@@ -113,7 +113,7 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
       name: ['', [Validators.minLength(15), Validators.maxLength(60), Validators.required]],
       brand: ['', [Validators.minLength(2), Validators.required]],
       model: ['', [Validators.minLength(5), Validators.required]],
-      description: ['', [Validators.minLength(15), Validators.required]],
+      description: ['', [Validators.minLength(15), Validators.maxLength(500), Validators.required]],
       price: ['', [Validators.required, Validators.min(1)]],
       categoryId: ['', Validators.required],
       amount: ['', [Validators.required, Validators.min(1)]],

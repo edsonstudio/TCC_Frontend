@@ -64,7 +64,7 @@
               <h6><i class="pi pi-tag"></i> {{product.categoryName}}</h6>
               <h5 class="mb-2">{{product.name}}</h5>
               <h6 class="d-block my-2">{{product.price | currencyBrazil}}</h6>
-              <button (click)="buyItem(product)" pRipple class="p-button buttonS p-button-sm p-button-success my-3 align-self-center"><i class="pi pi-shopping-cart"></i> Comprar</button>
+              <button (click)="buyItem(product)" [disabled]="product.amount < 1" pRipple class="p-button buttonS p-button-sm p-button-success my-3 align-self-center"><i class="pi pi-shopping-cart"></i> Comprar</button>
             </div>
           </div>  
         </div>

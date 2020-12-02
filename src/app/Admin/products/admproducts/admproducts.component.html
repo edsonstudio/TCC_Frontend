@@ -546,6 +546,9 @@
                 <div *ngIf="registerForm.get('description').hasError('minlength')" class="invalid-feedback">
                   Mínimo de 15 caracteres
                 </div>
+                <div *ngIf="registerForm.get('description').hasError('maxlength')" class="invalid-feedback">
+                  Máximo de 500 caracteres
+                </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-2">

@@ -20,7 +20,7 @@
     <div class="p-toolbar-group-right">
       <button [iconPos]="'right'" (click)="logout()" *ngIf="logged" pButton label="Sair" [icon]="'pi pi-power-off'" class="p-button p-button-text p-button-secondary p-button-sm mr-1">
       </button>
-      <button [iconPos]="'right'" routerLink="/Inicio/conta/entrar" *ngIf="!logged" pButton label="Entrar" [icon]="'pi pi-sign-in'" class="p-button p-button-text p-button-secondary p-button-sm mr-1">
+      <button [iconPos]="'right'" routerLink="/Inicio/conta/entrar" *ngIf="!logged && actualUrl != 'account'" pButton label="Entrar" [icon]="'pi pi-sign-in'" class="p-button p-button-text p-button-secondary p-button-sm mr-1">
       </button>
       <i class="pi pi-bars next" pRipple (click)="seeBar = !seeBar" style="color: antiquewhite;"></i>
     </div>
