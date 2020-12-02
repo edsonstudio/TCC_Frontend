@@ -2,17 +2,25 @@
 @import '../node_modules/swiper/swiper-bundle.css';
 @import '../node_modules/swiper/swiper-bundle.min.css';
 @import './colors.scss';
-@import "~@ng-select/ng-select/themes/material.theme.css";
 @import "../node_modules/primeicons/primeicons.css";
 @import "../node_modules/primeng/resources/themes/arya-green/theme.css";
 @import "../node_modules/primeng/resources/primeng.min.css";
 @import "../node_modules/primeflex/primeflex.css";
+@import "~bs-stepper/dist/css/bs-stepper.css";
+@import "../node_modules/quill/dist/quill.core.css";
+@import "../node_modules/quill/dist/quill.snow.css";
 
 $primary-gradient: #686868, #282828;
 
 html{
     scroll-behavior: smooth !important;
     overflow-x: hidden !important;
+    font-family: 'MyFont';
+}
+
+@font-face {
+    font-family: 'MyFont';
+    src: url('./assets/fonts/Players.ttf');
 }
 .swiper-container {
     width: 100%;
@@ -20,7 +28,10 @@ html{
     // margin-left: auto;
     // margin-right: auto;
 }
-
+.p-toolbar {
+    padding: 2px 12px;
+    width: 100vw;
+}
 .swiper-slide {
     text-align: center;
     font-size: 18px;
@@ -40,6 +51,7 @@ html{
     -webkit-align-items: center;
     align-items: center;
 }
+
 
 @mixin gradient($direction, $list) { 
     background: -webkit-linear-gradient($direction, $list) !important;
@@ -61,6 +73,12 @@ width: 100% !important;
 
 .p-carousel {
     width: 100% !important;
+}
+
+#logo {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0;
 }
 
 .buttonS {
@@ -115,3 +133,4 @@ select {
   ::-webkit-scrollbar-thumb {
     background: #000; 
 }
+
