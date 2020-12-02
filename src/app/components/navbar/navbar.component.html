@@ -1,0 +1,29 @@
+<p-toolbar [styleClass]="'fixed-bottom'">
+    <div class="p-toolbar-group-left m-0 w-75">
+      <img src="../../../assets/logoma3.png" class="position-absolute fixed-bottom" alt="Logo marca" height="100" style="margin: 0;">
+      <span class="p-buttonset" style="margin-left: 90px;">
+        <button routerLink="/Inicio/admin" *ngIf="admin && actualUrl != 'admin'" [iconPos]="'right'" pButton label="Administração" [icon]="'fal fa-users-cog'" class="p-button p-button-secondary p-button-sm buttonS p-button-text">
+        </button>
+        <button routerLink="/Inicio/suporte/chat" *ngIf="admin && actualUrl != 'chat'" [iconPos]="'right'" pButton label="Suporte" [icon]="'fal fa-hands-helping'" class="p-button p-button-secondary p-button-sm buttonS p-button-text">
+        </button>
+        <button routerLink="/Inicio/produtos/todos" *ngIf="actualUrl != 'products' && actualUrl != 'home'" [iconPos]="'right'" pButton label="Catálogo" [icon]="'fad fa-shopping-bag'" class="p-button p-button-secondary p-button-sm buttonS p-button-text">
+        </button>
+        <button routerLink="/Inicio/produtos/meu-setup" *ngIf="actualUrl != 'personalized'" [iconPos]="'right'" pButton label="Montar Setup" [icon]="'fad fa-cogs'" class="p-button p-button-secondary p-button-sm buttonS p-button-text">
+        </button>
+        <button pRipple pTooltip="Meu Carrinho" routerLink="/Inicio/produtos/pedido/carrinho" *ngIf="logged && actualUrl != 'order'" class="p-button p-button-text p-button-primary p-button-sm p-button-rounded">
+          <i class="fad fa-shopping-cart mt-2"></i>
+          <span class="badge badge-light mb-2">{{itemsAmount}}</span>
+        </button>
+      </span>
+    </div>
+    
+    <div class="p-toolbar-group-right">
+      <button [iconPos]="'right'" (click)="logout()" *ngIf="logged" pButton label="Sair" [icon]="'pi pi-power-off'" class="p-button p-button-text p-button-secondary p-button-sm mr-1">
+      </button>
+      <button [iconPos]="'right'" routerLink="/Inicio/conta/entrar" *ngIf="!logged" pButton label="Entrar" [icon]="'pi pi-sign-in'" class="p-button p-button-text p-button-secondary p-button-sm mr-1">
+      </button>
+      <i class="pi pi-bars next" pRipple (click)="seeBar = !seeBar" style="color: antiquewhite;"></i>
+    </div>
+</p-toolbar>
+
+<app-psidebar [visibleSidebar]="seeBar"></app-psidebar>
