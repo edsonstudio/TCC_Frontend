@@ -1,0 +1,68 @@
+<div class="p-card">
+    <form [formGroup]="orderForm" class="p-4">
+        <div class="p-grid">
+            <div class="p-col">
+                <div class="p-field mt-4">
+                    <span class="p-float-label p-input-filled">
+                        <input id="float-input" #inpCard [mask]="'0000.0000.0000.0000'" autocomplete="off" type="text" required class="p-inputtext-sm" pInputText formControlName="numeroCartao"> 
+                        <label for="float-input">Número Cartão</label>
+                    </span>
+                    <small *ngIf="orderForm.get('numeroCartao').touched && orderForm.get('numeroCartao').hasError('required')" class="p-invalid">
+                        Campo obrigatório
+                    </small>
+                    <small *ngIf="orderForm.get('numeroCartao').touched && orderForm.get('numeroCartao').hasError('creditCard')" class="p-invalid">
+                        Número inválido
+                    </small>
+                </div>
+               
+                <div class="p-field my-4">
+                    <span class="p-float-label p-input-filled">
+                        <input id="float-input" autocomplete="off" type="text" required class="p-inputtext-sm w-50" pInputText formControlName="nomeCartao"> 
+                        <label for="float-input">Nome Cartão</label>
+                    </span>
+                    <small *ngIf="orderForm.get('nomeCartao').touched && orderForm.get('nomeCartao').hasError('minlength')" class="p-invalid">
+                        Digite um nome válido
+                    </small>
+                    <small *ngIf="orderForm.get('nomeCartao').touched && orderForm.get('nomeCartao').hasError('required')" class="p-invalid">
+                        Campo obrigatório
+                    </small>
+                    <i class="fab fa-cc-visa mr-1"></i>
+                    <i class="fab fa-cc-amex mr-1"></i>
+                    <i class="fab fa-cc-diners-club mr-1"></i>
+                    <i class="fab fa-cc-discover mr-1"></i>
+                    <i class="fab fa-cc-mastercard mr-1"></i>
+                </div>
+           </div>
+           
+
+           <div class="col">
+            <div class="p-field my-4">
+                <span class="p-float-label p-input-filled">
+                    <input class="p-inputtext-sm" pInputText autocomplete="off" type="text" minlength="3" maxlength="3" required  id="cardInp" formControlName="cvvCartao" [ngClass]="{'is-invalid': orderForm.get('cvvCartao')?.touched && orderForm.get('cvvCartao').errors}">
+                    <label for="cardInp">CVV</label>
+                </span>
+                <small *ngIf="orderForm.get('cvvCartao').touched && orderForm.get('cvvCartao').hasError('required')" class="p-invalid">
+                    Campo obrigatório
+                </small>
+                <small *ngIf="orderForm.get('cvvCartao').touched && orderForm.get('cvvCartao').hasError('minlength')" class="p-invalid">
+                    Código inválido
+                </small>
+            </div>
+            
+            <div class="p-field my-4">
+                <span class="p-float-label p-input-filled">
+                    <input type="text" (change)="log($event)" class="p-inputtext-sm" pInputText autocomplete="off" appInputMask required id="valInp" formControlName="expiracaoCartao" [ngClass]="{'is-invalid': orderForm.get('expiracaoCartao')?.touched && orderForm.get('expiracaoCartao').errors}">
+                    <label for="valInp">Validade</label>
+                </span>
+                <small *ngIf="orderForm.get('expiracaoCartao').touched && orderForm.get('expiracaoCartao').errors" class="p-invalid">
+                    Insira uma data válida
+                </small>
+            </div>
+       </div>
+        </div>
+    </form>
+    <div class="p-d-flex p-ai-center  p-2 p-jc-between">
+        <p-button label="Voltar" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
+        <p-button label="Avançar" [disabled]="!orderForm.valid" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
+    </div>
+</div>
