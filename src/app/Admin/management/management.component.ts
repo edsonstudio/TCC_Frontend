@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
+import { MenuItem } from 'primeng/api';
 import { Observable, Subscription } from 'rxjs';
 import { Product } from 'src/app/models/Product';
 import { Store } from 'src/app/Products/cart.store';
@@ -16,6 +17,10 @@ export class ManagementComponent implements OnInit {
     private store: Store)
     { }
 
+  home = {icon: 'pi pi-home', routerLink: '/Inicio'};
+  bread: MenuItem[] = [
+    {label: 'Administração'}
+  ];
   _opened: boolean = false;
   section = 'products';
   products$: Observable<Product[]>;

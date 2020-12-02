@@ -1,16 +1,3 @@
-<!-- Container for sidebar(s) + page content -->
-<ng-sidebar-container style="height: 90vh;">
- 
-  
-    <ng-sidebar #sidebar [mode]="'slide'" [opened]="_opened" [trapFocus]="'true'" [closeOnClickOutside]="'true'">
-    <p>Sidebar contents</p>
-  </ng-sidebar>
-  
-  
-  <div ng-sidebar-content>
-    <button (click)="_toggleSidebar()">Toggle sidebar</button>
-    <app-admproducts (reloadComponent)="reload()"  *ngIf="section === 'products'"></app-admproducts>
-    <app-admusers *ngIf="section === 'users'"></app-admusers>
-  </div>
-
-</ng-sidebar-container>
+<p-breadcrumb  [home]="home" [model]="bread"></p-breadcrumb>
+<app-admproducts (reloadComponent)="reload()"  *ngIf="section === 'products'"></app-admproducts>
+<app-navbar></app-navbar>
