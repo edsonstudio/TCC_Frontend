@@ -1,0 +1,75 @@
+<div class="p-card px-5" #main>
+    <form [formGroup]="addressForm" class="p-4">
+       <div class="p-grid">
+            <div class="p-col">
+                <div class="p-field my-4">
+                    <span class="p-float-label p-input-filled">
+                        <input id="float-input" (click)="log()" #inpCep autocomplete="off" type="text" (change)="calcShipping()" required [mask]="'00000-000'" class="p-inputtext-sm" pInputText formControlName="cep"> 
+                        <label for="float-input">CEP</label>
+                    </span>
+                </div>
+
+                <div class="p-field my-4">
+                    <span class="p-float-label p-input-filled">
+                        <input id="float-input" type="text" required class="p-inputtext-sm" pInputText formControlName="numero" [ngClass]="{'is-invalid': addressForm.get('numero').errors && addressForm.get('numero')?.touched}"> 
+                        <label for="float-input">Número</label>
+                    </span>
+                    <small *ngIf="addressForm.get('numero').hasError('required') && addressForm.get('numero').touched" class="invalid-feedback">
+                        Insira um número
+                    </small>
+                </div>
+            </div>
+    
+            <div class="p-col">
+                <div class="p-field my-4">
+                    <span class="p-float-label p-input-filled">
+                        <input id="float-input" disabled required type="text" class="p-inputtext" pInputText formControlName="cidade"> 
+                        <label for="float-input">Cidade</label>
+                    </span>
+                </div>
+        
+                <div class="p-field my-4">
+                    <span class="p-float-label p-input-filled">
+                        <input id="float-input" disabled required type="text" class="p-inputtext" pInputText formControlName="estado"> 
+                        <label for="float-input">Estado</label>
+                    </span>
+                </div>
+            </div>
+    
+            <div class="p-col">
+                <div class="p-field my-4">
+                    <span class="p-float-label p-input-filled">
+                        <input id="float-input" disabled required type="text" class="p-inputtext w-75" pInputText formControlName="logradouro"> 
+                        <label for="float-input">Logradouro</label>
+                    </span>
+                </div>
+
+                <div class="p-field my-4">
+                    <span class="p-float-label p-input-filled">
+                        <input id="float-input" disabled required type="text" class="p-inputtext" pInputText formControlName="bairro"> 
+                        <label for="float-input">Bairro</label>
+                    </span>
+                </div>
+                
+            </div>
+
+            <div class="p-col">
+                <div class="p-field my-4">
+                    <span class="p-float-label p-input-filled">
+                        <input id="float-input" type="text" class="p-inputtext w-100" pInputText formControlName="complemento"> 
+                        <label for="float-input">Complemento</label>
+                    </span>
+                    <small class="text-success">*Opcional</small>
+                </div>
+            </div>
+       </div>   
+    </form>
+    <div class="p-d-flex p-ai-center p-2 p-jc-between">
+        <p-button label="Voltar" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
+        <p-button label="Avançar" [disabled]="!addressForm.valid" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
+    </div>
+</div>
+<p-toast></p-toast>
+<p-blockUI  [blocked]="blocked">
+    <i class="pi pi-lock" style="font-size: 3rem"></i>
+</p-blockUI>

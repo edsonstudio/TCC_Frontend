@@ -1,0 +1,163 @@
+@import '../../../colors.scss';
+
+.chat_header{
+    color: #808f05
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  .inbox_people {
+    background: #f8f8f8 none repeat scroll 0 0;
+    float: left;
+    overflow: hidden;
+    width: 40%;
+    border-right: 1px solid #c4c4c4;
+  }
+  
+  .inbox_msg {
+    border: none;
+    clear: both;
+    overflow: hidden;
+    height: calc(100% - 32px);
+  }
+
+  #back{
+    height: calc(90vh - 58px);
+  }
+  
+  .top_spac {
+    margin: 20px 0 0;
+  }
+
+  
+  .chat_ib h5 {
+    font-size: 15px;
+    color: #464646;
+    margin: 0 0 8px 0;
+  }
+  
+    .chat_ib h5 span {
+      font-size: 13px;
+      float: right;
+    }
+  
+  .chat_ib p {
+    font-size: 14px;
+    color: #989898;
+    margin: auto
+  }
+  
+  .chat_img {
+    float: left;
+    width: 11%;
+  }
+  
+  .chat_ib {
+    float: left;
+    padding: 0 0 0 15px;
+    width: 88%;
+  }
+  
+  .chat_people {
+    overflow: hidden;
+    clear: both;
+  }
+  
+  .chat_list {
+    border-bottom: 1px solid #c4c4c4;
+    margin: 0;
+    padding: 18px 16px 10px;
+  }
+  
+  .inbox_chat {
+    height: 550px;
+    overflow-y: scroll;
+  }
+  
+  .active_chat {
+    background: #ebebeb;
+  }
+  
+  .incoming_msg_img {
+    display: inline-block;
+   
+  }
+  
+  .received_msg {
+    display: inline-block;
+    padding: 0 0 0 0px;
+    vertical-align: top;
+    width: 92%;
+  }
+  
+  .received_withd_msg p {
+    background: #ebebeb none repeat scroll 0 0;
+    border-radius: 30px;
+    color: #646464;
+    font-size: 14px;
+    margin: 0;
+    padding: 5px 10px 5px 12px;
+    width: 100%;
+  }
+  
+  .time_date {
+    color: #747474;
+    display: block;
+    font-size: 12px;
+    margin: 0px 0 5px;
+  }
+  
+  .received_withd_msg {
+    width: 95%;
+  }
+  
+  .mesgs {
+    padding: 10px 10px 0 10px;
+  }
+  
+  .sent_msg p {
+    background: $primary-green none repeat scroll 0 0;
+    border-radius: 30px;
+    font-size: 14px;
+    margin: 0;
+    color: #fff;
+    padding: 5px 10px 5px 12px;
+    width: 100%;
+  }
+  
+  .outgoing_msg {
+    overflow: hidden;
+  }
+  
+  .sent_msg {
+    float: right;
+    width: 85%;
+  }
+  
+  .input_msg_write input {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    
+    color: #e0dbdb;
+    font-size: 15px;
+    
+    width: 100% !important;
+  }
+  
+  .type_msg {
+    border-top: 1px solid #c4c4c4;
+    position: relative;
+  }
+  
+  .msg_send_btn {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 4px;
+  }
+  
+  .msg_history {
+    height: 516px;
+    overflow-y: auto;
+  }

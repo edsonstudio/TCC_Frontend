@@ -1,23 +1,17 @@
-<div class="container-fluid d-flex border p-0 border-primary" style="height: 90vh;">
-  <div class="container w-25 d-flex align-items-center" style="background-color: rgba(99, 223, 16, 0.63);">
-    <img src="{{images}}{{product.image}}" alt="Imagem {{product.name}}" class="w-100">
-  </div>
-  <div class="container w-75 p-5">
-    <div class="container bg-primary p-3  h-50">
-      <h3 class="text-white">{{product.name}}</h3>
-      <p><small>{{product.categoryName}}</small></p>
-      <p><small>{{product.brand}}</small></p>
-      <p><small>{{product.model}}</small></p>
-
-      <h5 *ngIf="product.active" class="text-right">Produto Dísponivel</h5>
-      <h5 *ngIf="!product.active" class="text-right">Produto Indisponivel</h5>
-
-      <div class="container d-flex flex-row-reverse mt-3">
-        <a href="" class="btn btn-sm btn-warning ">Comprar</a>
-      </div>
+<p-card>
+  <div class="product-list-item">
+    <img src="{{images}}/{{product.image}}" width="10%" [alt]="product.name"/>
+    <div class="product-list-detail">
+        <div class="product-name">{{product.name}}</div>
+        <div class="product-description">{{product.description}}</div>
+        <p-rating [ngModel]="val" [readonly]="false" [cancel]="false"></p-rating>
     </div>
-    <div class="container p-4 h-50" style="overflow: auto;">
-      <h6 class="text-white">NVIDIA TURING as placas de vídeo ROG GeForce RTX são alimentadas pela arquitetura de GPU da Turing e pela nova plataforma RTX. Isso dá a você até 6X o desempenho das placas de vídeo da geração anterior e traz a potência do ray tracing em tempo real e da Inteligência Artificial dos jogos.</h6>
+    <div class="product-list-action">
+        <span class="product-price">{{product.price |currencyBrazil}}</span>
+        <p-button icon="pi pi-shopping-cart" (onClick)="buyItem()"  label="Comprar" [disabled]="!product.active"></p-button>
+        <small class='bg-warning rounded p-1' *ngIf="product.amount < 10">Estoque Baixo</small>
+        <small class='bg-success rounded p-1' *ngIf="product.amount > 10">Disponível</small>
+        <small class='bg-warning rounded p-1' *ngIf="product.amount === 0">Indisponível</small>
     </div>
-  </div>
 </div>
+</p-card>

@@ -3,12 +3,17 @@ import { BaseService } from '../base.service';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { Address } from 'src/app/models/Address';
 
 @Injectable()
 
 export class OrderService extends BaseService {
     constructor(private http: HttpClient){
         super();
+    }
+
+    postAddress(ads: Address): Observable<Address>{
+        return this.http.post<Address>(`${this.UrlClient}`, ads, this.GetJsonAuthHeader());
     }
 
     applyVoucher(codeV){
@@ -20,6 +25,7 @@ export class OrderService extends BaseService {
     }
 
     sentOrder(order){
+        console.log( JSON.stringify(order));
         return this.http.post(`${this.UrlShopping}/pedido`, JSON.stringify(order), this.GetJsonAuthHeader());
     }
 

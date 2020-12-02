@@ -1,10 +1,11 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { User } from 'src/app/models/User';
 
 import { AccountService } from 'src/app/services/User/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { MenuItem } from 'primeng/api';
 
 
 @Component({
@@ -18,6 +19,10 @@ export class RegisterComponent implements OnInit {
   errorsResponse: string[];
   cleanForm = false;
   changesNotSaved: boolean;
+  bread: MenuItem[] = [
+    {label: 'Cadastrar'}
+  ];
+  home = {icon: 'pi pi-home', routerLink: '/Inicio'};
 
   constructor(
     private accountService: AccountService,

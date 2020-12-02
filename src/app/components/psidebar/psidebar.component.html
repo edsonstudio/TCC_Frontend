@@ -1,0 +1,58 @@
+<p-sidebar [fullScreen]="true" [(visible)]="visibleSidebar">
+  <div class="p-grid">
+    <div class="p-col-12" style="background-color: #282828;">
+      <div class="p-grid">
+        <div class="p-col-4 p-3 my-3 border-right">
+          <h6>Missão</h6>
+          <small class="d-block mb-5 text-justify">Entregar uma nova e incrível experiência na hora da compra de sua máquina ou apenas "partes" dela, com todo suporte necessário.</small>
+          <i class="fab fa-facebook mt-4 ml-1 mr-1"></i>
+          <i class="fab fa-twitter mr-1"></i>
+          <i class="fal fa-globe"></i>
+        </div>
+        <div class="p-col-4 p-3 my-3 border-right text-justify d-flex" id="categories">
+          <div class="container">
+            <h6>Principais Marcas</h6>
+            <small>AMD</small>
+            <small>Intel</small>
+            <small>Nvidia</small>
+            <small>HyperX</small>
+            <small>Gigabyte</small>
+          </div>
+          <div class="container">
+            <h6>Categorias</h6>
+            <small>Hardware</small>
+            <small>Periféricos</small>
+            <small>PC Gamer</small>
+          </div>
+        </div>
+        <div class="p-col-4 p-3 my-3">
+          <button (click)="montagem()" class="p-button rounded-0 p-button-secondary p-button-outlined d-block m-auto" pButton pRipple label="Montagem"></button>
+        </div> 
+      </div>
+    </div>
+
+    <div class="p-col-12 mt-3">
+      <div class="p-grid">
+        <div class="p-col p-0 w-50">
+          <div *ngIf="profile" class="container next my-5 d-block border border-success">
+            <h5 class="font-weight-light my-2" (click)="navigateToChat()"><i pRipple class="fad fa-comments-alt"></i> Suporte</h5>
+          </div>
+          <p-carousel dotsContainerClass="pbtn" autoplayInterval="2000" [value]="banners" [numVisible]="1" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+              <ng-template let-banner pTemplate="item">
+                  <img src="{{banner.src}}" width="100%" alt="{{banner.alt}}">
+              </ng-template>
+          </p-carousel>
+          
+        </div>
+ 
+        <div class="p-col d-flex justify-content-end">
+          <h6 class="align-self-end next" *ngIf="!profile" (click)="navigateToLogin()">Entrar <i class="fas fa-user mr-5 next"></i></h6>
+          <h6 class="align-self-end next" (click)="test.play()" *ngIf="profile">{{profile.email | username}} <i class="fas fa-user mr-5 mb-5 next"></i></h6>
+          <audio #test></audio>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+</p-sidebar>
+  

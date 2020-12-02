@@ -23,7 +23,7 @@ export class CategoryService extends BaseService{
     return this.http.get<Category>(`${this.UrlAPIV1}/categories/${id}`, super.GetJsonAuthHeader());
     }
 
-    postProduct(category: Category): Observable<Category> {
+    postCategory(category: Category): Observable<Category> {
         return this.http.post<Category>(`${this.UrlAPIV1}/categories`, category, super.GetJsonAuthHeader());
     }
 

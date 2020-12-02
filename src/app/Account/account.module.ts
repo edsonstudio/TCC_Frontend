@@ -10,13 +10,16 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { GuardAccount } from '../services/User/user.guard';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { MessageService } from 'primeng/api';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @NgModule({
     imports: [
         CommonModule,
         AccountRoutingModule,
         SharedModule,
-        NgxSpinnerModule
+        NgxSpinnerModule,
+        BreadcrumbModule
     ],
     declarations: [
         AccountAppComponent,
@@ -25,7 +28,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ],
     providers: [
         AccountService,
-        GuardAccount
+        GuardAccount,
+        MessageService
     ]
 })
 

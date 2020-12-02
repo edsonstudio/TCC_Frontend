@@ -1,9 +1,10 @@
 export class Address {
-    number: string;
+    numero: string;
     cep: string;
-    city: string;
-    country: string;
-    state: string;
-    complement: string;
-    publicPlace: string;
+    cidade: string;
+    bairro: string;
+    estado: string;
+    complemento: string;
+    logradouro: string;
+    clientId?;
 }
