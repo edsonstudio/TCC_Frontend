@@ -2,17 +2,24 @@ import { Address } from './Address';
 import { CartItem } from './CartItem';
 
 export class Order {
-    code: number;
+    codigo: number;
     status: number;
-    date: Date;
-    totalPrice: number;
-    discount: number;
-    codeVoucher: string;
-    usedVoucher: boolean;
-    itensOrder: CartItem[];
-    address: Address;
-    cardNumber: string;
-    cardName: string;
-    cardExp: string;
-    cardCVV: string;
+    data: string;
+    valorTotal: number;
+    desconto: number;
+    voucherCodigo: string;
+    voucherUtilizado: boolean;
+    pedidoItems: CartItem[];
+    Endereco: Address;
+    numeroCartao: string;
+    nomeCartao: string;
+    expiracaoCartao: string;
+    cvvCartao: string;
+}
+
+export class Payment {
+    numeroCartao: string;
+    nomeCartao: string;
+    expiracaoCartao: string;
+    cvvCartao: string;
 }

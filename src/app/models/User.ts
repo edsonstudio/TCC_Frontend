@@ -21,7 +21,7 @@ export class Profile {
 
 
 export class Oponent {
-    id: string;
+    id: Guid;
     username: string;
     email: string;
     avatarFileName: string;
