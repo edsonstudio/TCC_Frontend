@@ -1,26 +1,104 @@
- <div class="parent pl-3 py-4 mx-auto">
-    <div class="div1">
-      <app-card>
-        <img src="../../../assets/montagemBan.jpg" class="card-img-top">
-        <a routerLink="produtos/meu-setup" class="btn btn-danger btn-sm">Setup</a>
-        <a (click)="logout()" class="btn d-block m-0 text-white buttonS" style="background-color: #FF9900">Logout</a>
-      </app-card>
-    </div>
-  
-    <div class="div2 px-4">
-      <app-card>
-  
-      </app-card>
-    </div>
-  
-    <div class="div3 px-4">
-     <app-card></app-card>
-    </div>
-  
-    <div class="div4 px-3">
-      <app-card>
-        <a [routerLink]="'produtos/todos'" class="btn d-block m-0 text-white buttonS" style="background-color: #FF9900">Catálogo</a>
-      </app-card>
+<p-breadcrumb [home]="home" [model]="bread"></p-breadcrumb>
+<div class="p-grid p-3" style="height: 85vh;">
+  <div class="p-col-3 h-100">
+    <app-card>
+      <img src="../../../assets/montagemBan.jpg" width="100" class="card-img-top">
+      <h6 class="card-title text-white"><i class="fad fa-cogs" style="color: #6ACA25 !important;"></i> MONTAR SETUP</h6>
+      <small style="font-weight: bold;">COM TODO SUPORTE NECESSÁRIO PARA SUA DIVERSÃO</small>
+      <button (click)="nav()" [icon]="'fad fa-tools'" pButton pRipple type="button" label="CRIAR" class="p-button-sm font-weight-bold buttonS text-center p-button-success p-button-outlined"></button>
+    </app-card>
+  </div>
+
+  <div class="p-col-6">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <div class="swiper-container rounded" [swiper]="sliderOpt">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" *ngFor="let product of products">
+              <img src="{{urlImg}}/{{product.image}}" width="30%" alt="{{product.name}}">
+              <div class="d-flex">
+                <div class="col d-flex flex-column align-items-center my-auto">
+                  <h6><i class="pi pi-tag"></i> {{product.categoryName}}</h6>
+                  <h4 class="mb-2">{{product.name}}</h4>
+                  <h6 class="d-block my-2">{{product.price | currencyBrazil}}</h6>
+                  <button (click)="buyItem(product)" pRipple class="p-button buttonS p-button-sm p-button-success my-3 align-self-center"><i class="pi pi-shopping-cart"></i> Comprar</button>
+                </div>
+              </div>  
+            </div>
+          </div>
+          
+          <div class="swiper-pagination"></div>
+         
+        </div>
+      </div>
+      <div class="p-col-12 ">
+        <!-- <div class="swiper-container rounded" [swiper]="sliderOpt">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" *ngFor="let product of products">
+              <img src="{{urlImg}}/{{product.image}}" width="30%" alt="{{product.name}}">
+              <div class="d-flex">
+                <div class="col d-flex flex-column align-items-center my-auto">
+                  <h6><i class="pi pi-tag"></i> {{product.categoryName}}</h6>
+                  <h4 class="mb-2">{{product.name}}</h4>
+                  <h6 class="d-block my-2">{{product.price | currencyBrazil}}</h6>
+                  <button (click)="buyItem(product)" pRipple class="p-button buttonS p-button-sm p-button-success my-3 align-self-center"><i class="pi pi-shopping-cart"></i> Comprar</button>
+                </div>
+              </div>  
+            </div>
+          </div>
+          
+          <div class="swiper-pagination"></div>
+         
+        </div> -->
+      </div>
     </div>
   </div>
-  <ngx-spinner bdColor = "rgba(0, 0, 0, 1)" size = "large" color = "#6ACA25" type = "pacman" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+
+  <div class="p-col-3">
+    <div class="swiper-container rounded" [swiper]="sliderOpt">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let product of products">
+          <div class="d-flex flex-column">
+            <div class="col"><img src="{{urlImg}}/{{product.image}}" width="30%" alt="{{product.name}}"></div>
+            <div class="col d-flex flex-column align-items-center my-auto">
+              <h6><i class="pi pi-tag"></i> {{product.categoryName}}</h6>
+              <h5 class="mb-2">{{product.name}}</h5>
+              <h6 class="d-block my-2">{{product.price | currencyBrazil}}</h6>
+              <button (click)="buyItem(product)" pRipple class="p-button buttonS p-button-sm p-button-success my-3 align-self-center"><i class="pi pi-shopping-cart"></i> Comprar</button>
+            </div>
+          </div>  
+        </div>
+      </div>
+      
+      <div class="swiper-pagination"></div>
+     
+    </div>
+  </div>
+
+ </div>
+<ngx-spinner bdColor = "rgba(0, 0, 0, 1)" size = "large" color = "#6ACA25" type = "pacman" [fullScreen] = "true"><p style="color: white" > Carregando... </p></ngx-spinner>
+<p-toast position="bottom-center" key="c" [baseZIndex]="5000">
+  <ng-template let-message pTemplate="message">
+      <div class="p-flex p-flex-column" style="flex: 1">
+          <div class="p-text-center">
+              <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+              <h4>{{message.summary}}</h4>
+              <p>{{message.detail}}</p>
+          </div>
+          <div class="p-grid p-fluid">
+              <div class="p-col-6">
+                  <button type="button" pButton  label="Sim" (click)="navigateToLogin()" class="p-button-success"></button>
+              </div>
+              <div class="p-col-6">
+                  <button type="button" pButton label="Não" (click)="clearMessages()" class="p-button-secondary"></button>
+              </div>
+          </div>
+      </div>
+  </ng-template>
+</p-toast>
+<p-toast></p-toast>
+<app-navbar>
+
+</app-navbar>
+
+      
