@@ -2,6 +2,7 @@ import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { MenuItem, MessageService } from 'primeng/api';
 import { User } from 'src/app/models/User';
 import { AccountService } from 'src/app/services/User/user.service';
 
@@ -16,12 +17,17 @@ export class LoginComponent implements OnInit {
   cleanForm = false;
   errorsResponse: string[];
   returnUrl: string;
+  bread: MenuItem[] = [
+    {label: 'Entrar'}
+  ];
+  home = {icon: 'pi pi-home', routerLink: '/Inicio'};
 
   constructor(
     private accountService: AccountService,
     private toastr: ToastrService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private messageService: MessageService
   ) {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl;
   }
