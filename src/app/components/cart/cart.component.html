@@ -1,54 +1,78 @@
+<div class="p-card">
+  <div class="p-grid">
+    <div class="p-md-2 p-sm-12 mt-3 py-3">
+        <p-panel header="Desconto | Frete">
+            <form [formGroup]="formVoucher" class="mt-2">
+                <div class="p-field">
+                    <span class="p-float-label p-input-filled">
+                        <input id="float-input" type="text" class="p-inputtext-sm" pInputText formControlName="voucher"> 
+                        <label for="float-input">Voucher</label>
+                    </span>
+                    <small id="username1-help">Insira seu cupom de desconto</small>
+                </div>
+                <button pButton pRipple type="button" label="Aplicar" [disabled]="!formVoucher.valid" (click)="applyVoucher()" class="p-button-success p-button-sm p-button-outlined"></button>                
+            </form>
 
-<div class="d-flex mt-3">
-    <div class="table-responsive w-75" style="overflow: auto; max-height: 65vh;">
-      <table class="table table-dark table-hover"
-        style="background: linear-gradient(45deg, #00000062 10%, #ffffff3f 90%) !important; color: rgba(255, 255, 255, 0.733) !important">
-        <thead>
-          <tr class="text-center">
-            <td></td>
-            <td>Produto</td>
-            <td>Preço</td>
-            <td>Quantidade</td>
-          </tr>
-        </thead>
-        <tbody>
-           <tr *ngFor="let item of cartItems.items">
-            <td class="text-center py-0">
-              <img src="{{urlImages}}/{{item.image}}" width="50">
-            </td>
-            <td class="text-center my-auto">{{item.name}}</td>
-            <td class="text-center my-auto">{{item.price | currencyBrazil}}</td>
-            <td class="text-center my-auto">{{item.amount}}</td>
-          </tr> 
-        </tbody>
-      </table>
+            <form [formGroup]="formCep" class="mt-4">
+                <div class="p-field">
+                    <span class="p-float-label p-input-filled">
+                        <input id="float-input" [mask]="'00000-000'" formControlName="cep" type="text" class="p-inputtext-sm" pInputText> 
+                        <label for="float-input">CEP</label>
+                    </span>
+                </div>
+                <button pButton pRipple type="button" label="Consultar" (click)="calcShipping()" [disabled]="!formCep.valid" class="p-button-success p-button-sm p-button-outlined"></button>                
+            </form>
+            <div>
+                <p-progressSpinner *ngIf="loading && !shippingPrice && !deliveryIn" [style]="{width: '50px', height: '50px', marginTop: '10px'}" styleClass="custom-spinner" strokeWidth="5" animationDuration="2.5s"></p-progressSpinner>
+                <p class="my-1" *ngIf="shippingPrice">Custo: {{shippingPrice|currencyBrazil}}</p>
+                <p *ngIf="deliveryIn">Prazo: {{deliveryIn}} dias</p>
+            </div>
+          </p-panel>
+      </div>
+      <div class="p-md-10 p-sm-12">
+        <p-table #dt1 [value]="cartItems.items" [globalFilterFields]="['name']" styleClass="p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    <span>No total há {{cartItems.items ? cartItems.items.length : 0 }} produtos.</span>
+                  <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+                </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center">Nome</th>
+                    <th class="text-center">Imagem</th>
+                    <th class="text-center">Preço</th>
+                    <th class="text-center">Quantidade</th>
+                    <th class="text-center">Remover</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td class="text-center">{{product.name}}</td>
+                    <td class="text-center"><img [src]="urlImages + '/' + product.image" [alt]="product.name" width="100" class="p-shadow-4"/></td>
+                    <td class="text-center">{{product.price | currencyBrazil}}</td>
+                    <td class="text-center">
+                        <i pRipple class="fal fa-minus-circle next" tooltip="Remover" (click)="removeUnit(product)"></i> 
+                            {{product.amount}} 
+                        <i pRipple (click)="addUnit(product)" class="fal fa-plus-circle next" tooltip="Adicionar"></i>
+                        
+                    </td>
+                    <td class="text-center">
+                        <i pRipple (click)="removeItem(product.productId)" class="pi pi-trash next"></i>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    <span>Total: {{cartItems.totalPrice |currencyBrazil}}</span>
+                    <p-button label="Avançar"(onClick)="nextPage()"  icon="pi pi-angle-right" iconPos="right"></p-button>
+                </div>
+            </ng-template>
+          </p-table>
+      </div>
   </div>
-  
-  <div class="container w-25 py-1">
-    
-    <div class="container mb-3">
-      <h6 class="text-white">Voucher</h6>
-      <form [formGroup]="formVoucher" class="px-3">
-        <input type="text" class="form-control form-control-sm my-1 text-muted" placeholder="Digite o código" formControlName="voucher">
-        <button class="btn btn-sm btn-primary" (click)="applyVoucher()">Aplicar</button>
-      </form>  
-    </div>
-    
-    <div class="container">
-      <h6 class="text-white">Total: {{cartItems.totalPrice + cartItems.desconto}}</h6>
-      <h6 class="text-white">Desconto: {{cartItems.desconto}}</h6>
-      <h6 class="text-white">Final: {{cartItems.totalPrice}}</h6>
-    </div>
-    
-    <form [formGroup]="formCep" class="px-3">
-      <input type="text" [mask]="'00000-000'" class="form-control form-control-sm my-1" placeholder="Digite seu CEP" maxlength="9" minlength="8" formControlName="cep">
-      <button class="btn btn-sm btn-primary" (click)="calcShipping()">Calcular</button>
-    </form>
-    
-    <div *ngIf="shippingPrice" class="container my-1 p-3 text-white">
-      <h5>Correios</h5>
-      <p *ngIf="shippingPrice">Frete: R${{shippingPrice}}</p>
-      <p *ngIf="deliveryIn">Tempo: {{deliveryIn}} dias</p>
-    </div>
-  </div>
-  </div>
+</div>
+<p-toast [preventDuplicates]="true" [preventOpenDuplicates]="true"></p-toast>
