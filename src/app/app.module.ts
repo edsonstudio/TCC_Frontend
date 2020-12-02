@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './Navigation/home/home.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToastrModule } from 'ngx-toastr';
+import { SharedModule } from './components/shared.module';
 
 
 
@@ -24,7 +25,8 @@ import { ToastrModule } from 'ngx-toastr';
     FontAwesomeModule,
     HttpClientModule,
     FontAwesomeModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
