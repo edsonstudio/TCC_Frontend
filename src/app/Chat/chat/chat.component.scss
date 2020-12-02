@@ -1,3 +1,5 @@
+@import '../../../colors.scss';
+
 .chat_header{
     color: #808f05
   }
@@ -15,58 +17,20 @@
   }
   
   .inbox_msg {
-    border: 1px solid #c4c4c4;
+    border: none;
     clear: both;
     overflow: hidden;
+    height: calc(100% - 32px);
+  }
+
+  #back{
+    height: calc(90vh - 58px);
   }
   
   .top_spac {
     margin: 20px 0 0;
   }
-  
-  
-  .recent_heading {
-    float: left;
-    width: 40%;
-  }
-  
-  .srch_bar {
-    display: inline-block;
-    text-align: right;
-    width: 60%;
-  }
-  
-  .headind_srch {
-    padding: 10px 29px 10px 20px;
-    overflow: hidden;
-    border-bottom: 1px solid #c4c4c4;
-  }
-  
-  .recent_heading h4 {
-    color: #808f05;
-    font-size: 21px;
-    margin: auto;
-  }
-  
-  .srch_bar input {
-    border: 1px solid #cdcdcd;
-    border-width: 0 0 1px 0;
-    width: 80%;
-    padding: 2px 0 4px 6px;
-    background: none;
-  }
-  
-  .srch_bar .input-group-addon button {
-    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-    border: medium none;
-    padding: 0;
-    color: #707070;
-    font-size: 18px;
-  }
-  
-  .srch_bar .input-group-addon {
-    margin: 0 0 0 -27px;
-  }
+
   
   .chat_ib h5 {
     font-size: 15px;
@@ -130,7 +94,7 @@
   
   .received_withd_msg p {
     background: #ebebeb none repeat scroll 0 0;
-    border-radius: 3px;
+    border-radius: 30px;
     color: #646464;
     font-size: 14px;
     margin: 0;
@@ -154,8 +118,8 @@
   }
   
   .sent_msg p {
-    background: #808f05 none repeat scroll 0 0;
-    border-radius: 3px;
+    background: $primary-green none repeat scroll 0 0;
+    border-radius: 30px;
     font-size: 14px;
     margin: 0;
     color: #fff;
@@ -174,11 +138,11 @@
   
   .input_msg_write input {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-    border: medium none;
-    color: #4c4c4c;
+    
+    color: #e0dbdb;
     font-size: 15px;
-    min-height: 48px;
-    width: 100%;
+    
+    width: 100% !important;
   }
   
   .type_msg {
@@ -187,21 +151,10 @@
   }
   
   .msg_send_btn {
-    background: #808f05 none repeat scroll 0 0;
-    border: medium none;
-    border-radius: 50%;
-    color: #fff;
     cursor: pointer;
-    font-size: 17px;
-    height: 33px;
     position: absolute;
     right: 0;
-    top: 11px;
-    width: 33px;
-  }
-  
-  .messaging {
-    padding: 0 0 50px 0;
+    top: 4px;
   }
   
   .msg_history {
