@@ -19,6 +19,24 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { TabViewModule } from 'primeng/tabview';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { NgBrazil } from 'ng-brazil';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { EditorModule } from 'primeng/editor';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { InplaceModule } from 'primeng/inplace';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { RippleModule } from 'primeng/ripple';
+import { SharedModule } from '../components/shared.module';
 registerLocaleData(localePt);
 
 @NgModule({
@@ -34,7 +52,24 @@ registerLocaleData(localePt);
         ReactiveFormsModule,
         ImageCropperModule,
         NgSelectModule,
-        NgOptionHighlightModule
+        NgOptionHighlightModule,
+        BreadcrumbModule,
+        TabViewModule,
+        TableModule,
+        ButtonModule,
+        NgBrazil,
+        InputTextModule,
+        InputNumberModule,
+        DropdownModule,
+        EditorModule,
+        FileUploadModule,
+        RadioButtonModule,
+        InputSwitchModule,
+        InplaceModule,
+        InputTextareaModule,
+        ToastModule,
+        RippleModule,
+        SharedModule
     ],
     declarations: [
         ManagementComponent,
@@ -43,7 +78,8 @@ registerLocaleData(localePt);
     ],
     providers: [
         Store,
-        ProductService
+        ProductService,
+        MessageService
     ]
 })
 export class AdminModule{}
