@@ -2,7 +2,7 @@
 <div class="p-grid p-3" style="height: 85vh;">
   <div class="p-col-3 h-100">
     <app-card>
-      <img src="../../../assets/montagemBan.jpg" width="100" class="card-img-top">
+      <img src="../../../assets/montagem2.jpg" height="50%" class="card-img-top">
       <h6 class="card-title text-white"><i class="fad fa-cogs" style="color: #6ACA25 !important;"></i> MONTAR SETUP</h6>
       <small style="font-weight: bold;">COM TODO SUPORTE NECESSÁRIO PARA SUA DIVERSÃO</small>
       <button (click)="nav()" [icon]="'fad fa-tools'" pButton pRipple type="button" label="CRIAR" class="p-button-sm font-weight-bold buttonS text-center p-button-success p-button-outlined"></button>
@@ -54,25 +54,13 @@
     </div>
   </div>
 
-  <div class="p-col-3">
-    <div class="swiper-container rounded" [swiper]="sliderOpt">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide" *ngFor="let product of products">
-          <div class="d-flex flex-column">
-            <div class="col"><img src="{{urlImg}}/{{product.image}}" width="30%" alt="{{product.name}}"></div>
-            <div class="col d-flex flex-column align-items-center my-auto">
-              <h6><i class="pi pi-tag"></i> {{product.categoryName}}</h6>
-              <h5 class="mb-2">{{product.name}}</h5>
-              <h6 class="d-block my-2">{{product.price | currencyBrazil}}</h6>
-              <button (click)="buyItem(product)" [disabled]="product.amount < 1" pRipple class="p-button buttonS p-button-sm p-button-success my-3 align-self-center"><i class="pi pi-shopping-cart"></i> Comprar</button>
-            </div>
-          </div>  
-        </div>
-      </div>
-      
-      <div class="swiper-pagination"></div>
-     
-    </div>
+  <div class="p-col-3 h-100">
+    <app-card>
+      <img src="../../../assets/catalogo1.jpeg" height="50%" class="card-img-top">
+      <h6 class="card-title text-white"><i class="fad fa-shopping-bag" style="color: #6ACA25 !important;"></i> CATÁLOGO</h6>
+      <small style="font-weight: bold;">OS MELHORES HARDWARES E PERIFÉRICOS VOCÊ ENCONTRA AQUI</small>
+      <button (click)="nav2()" [icon]="'fad fa-tags'" pButton pRipple type="button" label="VISUALIZAR" class="p-button-sm font-weight-bold buttonS text-center p-button-success p-button-outlined"></button>
+    </app-card>
   </div>
 
  </div>

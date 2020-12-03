@@ -113,6 +113,10 @@ export class MainComponent extends CommumMethods implements OnInit, AfterViewIni
     this.router.navigate(['produtos/meu-setup'], {relativeTo: this.route});
   }
 
+  nav2(){
+    this.router.navigate(['produtos/todos'], {relativeTo: this.route});
+  }
+
   showConfirm() {
     this.clearMessages();
     this.messageService.add({key: 'c', sticky: true, severity: 'warn', summary: 'Necessário Login', detail: 'Fazer Login ?'});
