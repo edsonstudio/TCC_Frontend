@@ -24,6 +24,7 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ListItemsComponent } from './list-items/list-items.component';
 import { TableModule } from 'primeng/table';
 import { BlockUIModule } from 'primeng/blockui';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { BlockUIModule } from 'primeng/blockui';
     NgBrazil,
     DynamicDialogModule,
     TableModule,
-    BlockUIModule
+    BlockUIModule,
+    NgxSpinnerModule
   ],
   declarations: [
     CartComponent,
@@ -57,7 +59,8 @@ import { BlockUIModule } from 'primeng/blockui';
     OrderService,
     MessageService,
     Store,
-    DialogService
+    DialogService,
+    NgxSpinnerService
   ]
 })
 export class CartModule { }

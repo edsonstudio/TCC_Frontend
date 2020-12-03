@@ -33,7 +33,6 @@ export class MainComponent extends CommumMethods implements OnInit, AfterViewIni
     private route: ActivatedRoute,
     private messageService: MessageService) {
       super();
-      this.LoadingSpinner(this.router, this.spinner);
      }
 
   home = {icon: 'pi pi-home', routerLink: '/Inicio'};
@@ -76,11 +75,12 @@ export class MainComponent extends CommumMethods implements OnInit, AfterViewIni
     observer: true
   };
   ngOnInit(): void {
+    this.spinner.show();
     this.admin = this.isAdmin();
     this.primengConfig.ripple = true;
-    this.subscription = this.cart.getCart$.subscribe();
     this.uniqueID = this.chatService.LocalStorage.getUserToken();
     if (this.uniqueID){
+      this.subscription = this.cart.getCart$.subscribe();
       this.chatService.getProfile(this.uniqueID).subscribe(prof => this.profile = prof);
     }
     this.productService.getProducts().subscribe(prs => {
@@ -100,6 +100,9 @@ export class MainComponent extends CommumMethods implements OnInit, AfterViewIni
   }
 
   ngAfterViewInit() {
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1500);
   }
 
   logout(){

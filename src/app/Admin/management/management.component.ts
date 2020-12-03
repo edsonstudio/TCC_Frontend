@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem } from 'primeng/api';
 import { Observable, Subscription } from 'rxjs';
 import { Product } from 'src/app/models/Product';
@@ -10,10 +11,11 @@ import { ProductService } from 'src/app/services/Product/product.service';
   templateUrl: './management.component.html',
   styleUrls: ['./management.component.scss']
 })
-export class ManagementComponent implements OnInit {
+export class ManagementComponent implements OnInit, AfterViewInit {
 
   constructor(
     private productService: ProductService,
+    private spinner: NgxSpinnerService,
     private store: Store)
     { }
 
@@ -29,8 +31,15 @@ export class ManagementComponent implements OnInit {
   @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
 
   ngOnInit() {
+    this.spinner.show();
     this.products$ = this.store.getProducts();
     this.subscription = this.productService.getProductsStore$.subscribe();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1500);
   }
 
   _toggleSidebar() {

@@ -54,6 +54,7 @@ import { TableModule } from 'primeng/table';
 import {InputNumberModule} from 'primeng/inputnumber';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { ActionsGuard } from '../services/actions.guard';
 
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
@@ -114,6 +115,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     OrderService,
     CartGuard,
     OrderGuard,
+    ActionsGuard,
     MessageService,
     DialogService,
     NgxSpinnerService

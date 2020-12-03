@@ -12,6 +12,7 @@ import { AssociatedProducts } from 'src/app/models/AssociatedProducts';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import Stepper from 'bs-stepper';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
