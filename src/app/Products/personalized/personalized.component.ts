@@ -15,6 +15,8 @@ import { CommumMethods } from 'src/app/services/commum-methods';
 import { ProductService } from 'src/app/services/Product/product.service';
 import { SwiperOptions } from 'swiper';
 import { environment } from './../../../environments/environment';
+import { Subscription } from 'rxjs';
+import { Store } from '../cart.store';
 
 @Component({
   selector: 'app-personalized',
@@ -31,6 +33,7 @@ export class PersonalizedComponent extends CommumMethods implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private spinner: NgxSpinnerService,
+    private store: Store,
     private route: ActivatedRoute
     ) {
       super();
@@ -39,6 +42,7 @@ export class PersonalizedComponent extends CommumMethods implements OnInit {
 
   private stepper: Stepper;
   amountForm: FormGroup;
+  subscription: Subscription;
   images = environment.images;
   home = {icon: 'pi pi-home', routerLink: '/Inicio'};
   bread: MenuItem[] = [
@@ -81,16 +85,10 @@ export class PersonalizedComponent extends CommumMethods implements OnInit {
   selectedProduct13: Product;
 
   ngOnInit(): void {
-    const stepperEl = document.getElementById('stepper2');
+    this.subscription = this.cartService.getCart$.subscribe();
     this.stepper = new Stepper(document.querySelector('#stepper2'), {
-      linear: true,
+      linear: false,
       animation: true
-    });
-    stepperEl.addEventListener('show.bs-stepper', (event: CustomEvent) => {
-      // You can call prevent to stop the rendering of your step
-      // event.preventDefault()
-
-      console.warn(event.detail);
     });
 
     this.productService.getProducts().subscribe((prs: Product[]) => {
@@ -130,17 +128,21 @@ export class PersonalizedComponent extends CommumMethods implements OnInit {
   filterProductsCat(categoryName: string, mode: number): Product[]{
     switch (mode){
       case 1:
-        return this.categories.find(cat => this.removeAccent(cat.name) === this.removeAccent(categoryName))?.products;
+        return this.categories.find(cat => this.removeAccent(cat.name) === this.removeAccent(categoryName))?.products
+        .filter(product => product.amount > 0);
         break;
 
       case 2:
-        return this.selectedProduct?.associatedProducts
-        .filter(pr => this.removeAccent(pr.productSon.categoryName) === this.removeAccent(categoryName));
+        const associateds = this.selectedProduct?.associatedProducts
+        .filter(pr => this.removeAccent(pr.productSon.categoryName) === categoryName);
+        return associateds?.map(as => {if (as.productSon.amount > 0) { return as.productSon; }});
         break;
 
       case 3:
-        return this.categories.find(cat => this.removeAccent(cat.name) === this.removeAccent(categoryName))?.products
-        .filter(product => product.brand?.toLowerCase() === this.brand?.toLowerCase());
+        const catergoy = this.categories.find(cat => this.removeAccent(cat.name) === this.removeAccent(categoryName));
+        return catergoy?.products
+          .filter(product => product.brand?.toLowerCase() === this.brand?.toLowerCase() && product.associatedProducts.length > 0
+           && product?.amount > 0 );
         break;
     }
   }
@@ -157,9 +159,14 @@ export class PersonalizedComponent extends CommumMethods implements OnInit {
     text = text.replace(new RegExp('[ÓÒÔÕ]', 'gi'), 'o');
     text = text.replace(new RegExp('[ÚÙÛ]', 'gi'), 'u');
     text = text.replace(new RegExp('[Ç]', 'gi'), 'c');
-    text = text.replace(' ', '-');
+    text = text.split(' ').join('-');
     return text;
 }
+
+  onWheel(event: WheelEvent): void {
+    document.getElementById('stepperH').scrollLeft += event.deltaY;
+    event.preventDefault();
+  }
 
  chooseBrand(brand: string){
    this.brand = brand;
@@ -195,6 +202,7 @@ export class PersonalizedComponent extends CommumMethods implements OnInit {
 
  doSetup(){
    let confirm = 0;
+   this.spinner.show();
    this.productPersonalized.forEach((product, index) => {
      const brItem: CartItem = {
       name: product.name,
@@ -204,12 +212,26 @@ export class PersonalizedComponent extends CommumMethods implements OnInit {
       productId: product.productId
      };
 
-     this.cartService.postCartItem(brItem).toPromise();
-     confirm = index;
-   });
-   if (confirm === this.productPersonalized.length){
-    this.router.navigate(['..pedido/carrinho'], { relativeTo: this.route });
+     this.cartService.getCart$.toPromise().then(cart => {
+      if (cart.items.length > 0){
+          const result = cart.items.find(item => item.productId === brItem.productId);
+          if (!result){
+            this.cartService.postCartItem(brItem).toPromise().then(() => {
+              confirm = index;
+              });
+          }
+        }
+      else {
+        this.cartService.postCartItem(brItem).toPromise().then(() => {
+          confirm = index;
+          });
+      }
+      }
+    );
+     if (confirm === this.productPersonalized.length){
+      this.spinner.hide();
+      this.router.navigate(['..pedido/carrinho'], { relativeTo: this.route });
    }
+  });
  }
-
 }
