@@ -37,6 +37,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { SharedModule } from '../components/shared.module';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 registerLocaleData(localePt);
 
 @NgModule({
@@ -69,7 +70,8 @@ registerLocaleData(localePt);
         InputTextareaModule,
         ToastModule,
         RippleModule,
-        SharedModule
+        SharedModule,
+        NgxSpinnerModule
     ],
     declarations: [
         ManagementComponent,
@@ -79,7 +81,8 @@ registerLocaleData(localePt);
     providers: [
         Store,
         ProductService,
-        MessageService
+        MessageService,
+        NgxSpinnerService
     ]
 })
 export class AdminModule{}
