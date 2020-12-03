@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Stepper from 'bs-stepper';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { AssociatedProducts } from 'src/app/models/AssociatedProducts';
 import { CartItem } from 'src/app/models/CartItem';
 import { Category } from 'src/app/models/Category';
@@ -23,7 +23,7 @@ import { Store } from '../cart.store';
   templateUrl: './personalized.component.html',
   styleUrls: ['./personalized.component.scss']
 })
-export class PersonalizedComponent extends CommumMethods implements OnInit {
+export class PersonalizedComponent extends CommumMethods implements OnInit, AfterViewInit {
 
   constructor(
     private productService: ProductService,
@@ -32,12 +32,12 @@ export class PersonalizedComponent extends CommumMethods implements OnInit {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
+    private message: MessageService,
     private spinner: NgxSpinnerService,
     private store: Store,
     private route: ActivatedRoute
     ) {
       super();
-      this.LoadingSpinner(this.router, this.spinner);
     }
 
   private stepper: Stepper;
@@ -85,6 +85,7 @@ export class PersonalizedComponent extends CommumMethods implements OnInit {
   selectedProduct13: Product;
 
   ngOnInit(): void {
+    this.spinner.show('initial');
     this.subscription = this.cartService.getCart$.subscribe();
     this.stepper = new Stepper(document.querySelector('#stepper2'), {
       linear: false,
@@ -104,6 +105,12 @@ export class PersonalizedComponent extends CommumMethods implements OnInit {
     this.amountForm = this.fb.group({
       amountPr: [1]
     });
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.spinner.hide('initial');
+    }, 1500);
   }
 
   onRowSelect(event){
@@ -200,38 +207,40 @@ export class PersonalizedComponent extends CommumMethods implements OnInit {
   }
  }
 
- doSetup(){
-   let confirm = 0;
-   this.spinner.show();
-   this.productPersonalized.forEach((product, index) => {
-     const brItem: CartItem = {
+ async doSetup(){
+   this.spinner.show('load');
+   const localItens = this.productPersonalized.map(product => {
+    const pr: CartItem = {
       name: product.name,
       amount: 1,
       image: product.image,
       price: product.price,
       productId: product.productId
      };
+    return pr;
+   });
+   const cart = await this.cartService.getCart$.toPromise().then(ct => ct);
 
-     this.cartService.getCart$.toPromise().then(cart => {
-      if (cart.items.length > 0){
-          const result = cart.items.find(item => item.productId === brItem.productId);
-          if (!result){
-            this.cartService.postCartItem(brItem).toPromise().then(() => {
-              confirm = index;
-              });
-          }
-        }
-      else {
-        this.cartService.postCartItem(brItem).toPromise().then(() => {
-          confirm = index;
-          });
+   if (cart.items.length > 0){
+    for (const iterator of localItens) {
+      const result = cart.items.find(ca => ca.productId === iterator.productId);
+      if (result === undefined){
+       await this.cartService.postCartItem(iterator).toPromise().catch(() => {
+        this.cartService.removeCartItem(iterator.productId).toPromise();
+        this.spinner.hide();
+        this.message.add({severity: 'error', summary: 'Opa :(', detail: 'Ocorreu um erro inesperado, tente novamente mais tarde.'});
+       });
       }
-      }
-    );
-     if (confirm === this.productPersonalized.length){
-      this.spinner.hide();
-      this.router.navigate(['..pedido/carrinho'], { relativeTo: this.route });
-   }
-  });
+    }
+    }
+  else {
+    for (const brItem of localItens) {
+      await this.cartService.postCartItem(brItem).toPromise();
+    }
+  }
+
+   this.spinner.hide('load');
+   this.router.navigate(['/Inicio/produtos/pedido/carrinho']);
+
  }
 }

@@ -147,7 +147,7 @@
     <div id="mainboard" class="content" role="tabpanel" aria-labelledby="mainboard-trigger">
       <div class="p-card" *ngIf="showMotherboards">
         <p-table #dt1  [value]="filterProductsCat('placa-mae', 3)" selectionMode="single" [(selection)]="selectedProduct" 
-        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidades poderão ser modificadas no final</small>
@@ -191,7 +191,7 @@
     <div id="processor" class="content" role="tabpanel" aria-labelledby="processor-trigger">
       <div class="p-card">
         <p-table #dt1 [(selection)]="selectedProduct2" [value]="filterProductsCat('processador', 2)" selectionMode="single"
-        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidades poderão ser modificadas no final</small>
@@ -235,7 +235,7 @@
     <div id="memory" class="content" role="tabpanel" aria-labelledby="memory-trigger">
       <div class="p-card">
         <p-table #dt1 [(selection)]="selectedProduct3" [value]="filterProductsCat('memoria-ram', 2)" selectionMode="single"
-        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
@@ -279,7 +279,7 @@
     <div id="vga" class="content" role="tabpanel" aria-labelledby="vga-trigger">
       <div class="p-card">
         <p-table #dt1 [(selection)]="selectedProduct4" [value]="filterProductsCat('placa-de-video', 1)" selectionMode="single"
-        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
@@ -323,7 +323,7 @@
     <div id="hd" class="content" role="tabpanel" aria-labelledby="hd-trigger">
       <div class="p-card">
         <p-table #dt1 [(selection)]="selectedProduct5" [value]="filterProductsCat('hd', 1)" selectionMode="single"
-        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
@@ -367,7 +367,7 @@
     <div id="ssd" class="content" role="tabpanel" aria-labelledby="ssd-trigger">
       <div class="p-card">
         <p-table #dt1 [(selection)]="selectedProduct6" [value]="filterProductsCat('ssd', 2)" selectionMode="single"
-        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
@@ -411,7 +411,7 @@
     <div id="powers" class="content" role="tabpanel" aria-labelledby="powers-trigger">
       <div class="p-card">
         <p-table #dt1 [(selection)]="selectedProduct7" [value]="filterProductsCat('fonte', 1)" selectionMode="single"
-        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
@@ -455,7 +455,7 @@
     <div id="gabinet" class="content" role="tabpanel" aria-labelledby="gabinet-trigger">
       <div class="p-card">
         <p-table #dt1 [(selection)]="selectedProduct8" [value]="filterProductsCat('gabinete', 2)" selectionMode="single"
-        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
@@ -499,7 +499,7 @@
     <div id="watercool" class="content" role="tabpanel" aria-labelledby="watercool-trigger">
       <div class="p-card">
         <p-table #dt1 [(selection)]="selectedProduct9" [value]="filterProductsCat('watercooler', 1)" selectionMode="single"
-        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
@@ -543,7 +543,7 @@
     <div id="monitor" class="content" role="tabpanel" aria-labelledby="monitor-trigger">
       <div class="p-card">
         <p-table #dt1 [(selection)]="selectedProduct10" [value]="filterProductsCat('monitor', 1)" selectionMode="single"
-        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
@@ -587,7 +587,7 @@
     <div id="teclado" class="content" role="tabpanel" aria-labelledby="teclado-trigger">
       <div class="p-card">
         <p-table #dt1 [(selection)]="selectedProduct11" [value]="filterProductsCat('teclado', 1)" selectionMode="single"
-        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
@@ -631,7 +631,7 @@
     <div id="mouse" class="content" role="tabpanel" aria-labelledby="mouse-trigger">
       <div class="p-card">
         <p-table #dt1 [(selection)]="selectedProduct12" [value]="filterProductsCat('mouse', 1)" selectionMode="single"
-        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
@@ -675,7 +675,7 @@
     <div id="headset" class="content" role="tabpanel" aria-labelledby="headset-trigger">
       <div class="p-card">
         <p-table #dt1 [(selection)]="selectedProduct13" [value]="filterProductsCat('headset', 1)" selectionMode="single"
-        (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
@@ -733,4 +733,5 @@
     </div>
   </div>
 </div>
-<ngx-spinner bdColor = "rgba(144,144,144,0.71)" size = "medium" color = "#4dd10b" type = "ball-spin" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+<ngx-spinner [name]="'load'" bdColor = "rgba(144,144,144,0.71)" size = "medium" color = "#4dd10b" type = "ball-spin" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+<ngx-spinner name="initial" bdColor = "rgba(0, 0, 0, 1)" size = "large" color = "#6ACA25" type = "pacman" [fullScreen] = "true"><p style="color: white" > Carregando... </p></ngx-spinner>
