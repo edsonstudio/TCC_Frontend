@@ -1,8 +1,8 @@
 <p-breadcrumb [model]="bread" [home]="home"></p-breadcrumb>
 <div class="p-grid" id="main-grid">
-  <div class="p-col-12 p-md-3 p-sm-12">
+  <div class="p-col-12 p-md-3 p-sm-12" style="height: 100% !important;">
     <p-panel [header]="'Categorias'" [toggleable]="true">
-      <button pButton pRipple type="button" label="Todas" class="p-button-text"></button>
+      <button pButton pRipple type="button" (click)="products = mainProducts" label="Todas" class="p-button-text"></button>
       <p-panel [expandIcon]="'pi pi-angle-double-down'" [collapseIcon]="'pi pi-angle-double-up'" *ngFor="let category of categories" [header]="category.name" [collapsed]="true" [toggleable]="true">
         <span class="next" (click)="filterPrCategory(category)">Todos</span>
         <span (click)="filterProducts(category, brand )" *ngFor="let brand of Brands(category)" class="next d-block text-success">
@@ -12,8 +12,8 @@
     </p-panel>
 </div>
   
-  <div class="p-col-12 p-md-9 p-sm-12" style="height: 100% !important; overflow: auto;">
-    <p-dataView id="datavww" [emptyMessage]="'Produto não encontrado'" [loading]="products ? false : true" #dv [value]="products" [paginator]="true" [rows]="9" filterBy="name"
+  <div class="p-col-12 p-md-9 p-sm-12" style="height: 100% !important;">
+    <p-dataView id="datavww" [emptyMessage]="'Fora de estoque'" [loading]="products ? false : true" #dv [value]="products" [paginator]="true" [rows]="9" filterBy="name"
             [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
             <ng-template pTemplate="header">
                 <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
@@ -37,10 +37,10 @@
                         </div>
                         <div class="product-list-action">
                             <span class="product-price">{{product.price |currencyBrazil}}</span>
-                            <p-button icon="pi pi-shopping-cart" (onClick)="buyItem(product)" label="Adicionar" [disabled]="!product.active"></p-button>
-                            <small class='bg-warning rounded p-1' *ngIf="product.amount < 10">Estoque Baixo</small>
+                            <p-button icon="pi pi-shopping-cart" (onClick)="buyItem(product)" label="Adicionar" [disabled]="!product.active || product.amount < 2"></p-button>
+                            <small class='bg-warning rounded p-1' *ngIf="product.amount < 10 && product.amount > 2">Estoque Baixo</small>
                             <small class='bg-success rounded p-1' *ngIf="product.amount > 10">Disponível</small>
-                            <small class='bg-warning rounded p-1' *ngIf="product.amount === 0">Indisponível</small>
+                            <small class='bg-warning rounded p-1' *ngIf="product.amount < 2">Indisponível</small>
                         </div>
                     </div>
                 </div>
@@ -54,9 +54,9 @@
                                 <span class="product-category">{{product.categoryName}}</span>
                             </div>
                             
-                            <small class='bg-warning rounded p-1' *ngIf="product.amount < 10">Estoque Baixo</small>
+                            <small class='bg-warning rounded p-1' *ngIf="product.amount < 10 && product.amount > 2">Estoque Baixo</small>
                             <small class='bg-success rounded p-1' *ngIf="product.amount > 10">Disponível</small>
-                            <small class='bg-warning rounded p-1' *ngIf="product.amount === 0">Indisponível</small>
+                            <small class='bg-warning rounded p-1' *ngIf="product.amount < 2">Indisponível</small>
                             
                         </div>
                         <div class="product-grid-item-content">
@@ -66,7 +66,7 @@
                         </div>
                         <div class="product-grid-item-bottom">
                             <span class="product-price">{{product.price |currencyBrazil}}</span>
-                            <p-button icon="pi pi-shopping-cart" (onClick)="buyItem(product)" [disabled]="!product.active"></p-button>
+                            <p-button icon="pi pi-shopping-cart" (onClick)="buyItem(product)" [disabled]="!product.active || product.amount < 2"></p-button>
                             <p-button icon="pi pi-cog" (onClick)="show(product)" [disabled]="!product.active"></p-button>
                         </div>
                     </div>
@@ -98,6 +98,6 @@
         </div>
     </ng-template>
 </p-toast>
-
+<ngx-spinner name="initial" bdColor = "rgba(0, 0, 0, 1)" size = "large" color = "#6ACA25" type = "pacman" [fullScreen] = "true"><p style="color: white" > Carregando... </p></ngx-spinner>
 
 

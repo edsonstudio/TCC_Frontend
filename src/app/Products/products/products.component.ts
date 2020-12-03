@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { MenuItem, MessageService, PrimeNGConfig, SelectItem } from 'primeng/api';
@@ -24,7 +24,7 @@ import { CommumMethods } from 'src/app/services/commum-methods';
   styleUrls: ['./products.component.scss'],
   host: { "(window:resize)": "onWindowResize($event)" }
 })
-export class ProductsComponent extends CommumMethods implements OnInit {
+export class ProductsComponent extends CommumMethods implements OnInit, AfterViewInit {
 
   constructor(
     private productService: ProductService,
@@ -39,7 +39,6 @@ export class ProductsComponent extends CommumMethods implements OnInit {
     private dialogService: DialogService
     ) {
       super();
-      this.LoadingSpinner(this.router, this.spinner);
     }
 
 
@@ -57,6 +56,7 @@ export class ProductsComponent extends CommumMethods implements OnInit {
   displayy = false;
   colums: number;
   products: Product[];
+  mainProducts: Product[];
   categories: Category[];
   bread: MenuItem[] = [
     {label: 'Produtos'},
@@ -79,6 +79,7 @@ export class ProductsComponent extends CommumMethods implements OnInit {
   }
 
   ngOnInit() {
+    this.spinner.show('initial');
     this.primengConfig.ripple = true;
     this.getAll();
     this.getCategories();
@@ -87,6 +88,12 @@ export class ProductsComponent extends CommumMethods implements OnInit {
       {label: 'Preço Decrescente', value: '!price'}
   ];
     this.subscription = this.cart.getCart$.subscribe();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.spinner.hide('initial');
+    }, 1500);
   }
 
   onWindowResize(event) {
@@ -115,15 +122,12 @@ export class ProductsComponent extends CommumMethods implements OnInit {
   getAll(){
     this.productService.getProducts().subscribe((pr: Product[]) => {
       this.products = pr;
-      if (pr.length % 2 > 0){
-        this.colums = (pr.length + 1) / 2;
-      }else {this.colums = pr.length / 2; }
-      this.prlength = pr.length;
+      this.mainProducts = pr;
     });
   }
 
   Brands(category: Category){
-    let strings = new Array<string>();
+    const strings = new Array<string>();
     category.products.forEach(pr => strings.push(pr.brand));
 
     return strings.filter((brand, index) => strings.indexOf(brand) === index);
