@@ -53,6 +53,7 @@ import {DragDropModule} from 'primeng/dragdrop';
 import { TableModule } from 'primeng/table';
 import {InputNumberModule} from 'primeng/inputnumber';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
@@ -97,7 +98,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     DragDropModule,
     TableModule,
     InputNumberModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    NgxSpinnerModule
   ],
   declarations: [
     ProductAppComponent,
@@ -113,7 +115,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     CartGuard,
     OrderGuard,
     MessageService,
-    DialogService
+    DialogService,
+    NgxSpinnerService
   ]
 })
 export class ProductModule { }

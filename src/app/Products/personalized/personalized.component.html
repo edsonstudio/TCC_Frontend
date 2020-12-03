@@ -1,6 +1,6 @@
 <p-breadcrumb [home]="home" [model]="bread"></p-breadcrumb>
 <div id="stepper2" class="bs-stepper">
-  <div class="bs-stepper-header" role="tablist">
+  <div class="bs-stepper-header" id="stepperH" (wheel)="onWheel($event)" style="overflow-x: scroll !important; width: 100% !important;" role="tablist">
     <!-- your steps here -->
     <div class="step" data-target="#plataform">
       <button type="button" class="step-trigger" role="tab" aria-controls="plataform" id="plataform-trigger">
@@ -126,6 +126,13 @@
       </button>
     </div>
 
+    <div class="step" data-target="#confirm">
+      <button type="button" class="step-trigger" role="tab" aria-controls="confirm" id="confirm-trigger">
+        <span class="bs-stepper-circle">#</span>
+        <span class="bs-stepper-label">Confirmação</span>
+      </button>
+    </div>
+
   </div>
   <div class="bs-stepper-content">
     <!-- your steps content here -->
@@ -138,7 +145,7 @@
 
     <!--Placa mãe-->
     <div id="mainboard" class="content" role="tabpanel" aria-labelledby="mainboard-trigger">
-      <div class="p-card">
+      <div class="p-card" *ngIf="showMotherboards">
         <p-table #dt1  [value]="filterProductsCat('placa-mae', 3)" selectionMode="single" [(selection)]="selectedProduct" 
         (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
@@ -227,7 +234,7 @@
     <!--Memória-->
     <div id="memory" class="content" role="tabpanel" aria-labelledby="memory-trigger">
       <div class="p-card">
-        <p-table #dt1 [(selection)]="selectedProduct3" [value]="filterProductsCat('memoria', 2)" selectionMode="single"
+        <p-table #dt1 [(selection)]="selectedProduct3" [value]="filterProductsCat('memoria-ram', 2)" selectionMode="single"
         (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
@@ -271,7 +278,7 @@
     <!--PLaca de video-->
     <div id="vga" class="content" role="tabpanel" aria-labelledby="vga-trigger">
       <div class="p-card">
-        <p-table #dt1 [(selection)]="selectedProduct4" [value]="filterProductsCat('placa-de-video', 2)" selectionMode="single"
+        <p-table #dt1 [(selection)]="selectedProduct4" [value]="filterProductsCat('placa-de-video', 1)" selectionMode="single"
         (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
@@ -315,7 +322,7 @@
     <!--HD-->
     <div id="hd" class="content" role="tabpanel" aria-labelledby="hd-trigger">
       <div class="p-card">
-        <p-table #dt1 [(selection)]="selectedProduct5" [value]="filterProductsCat('hd', 2)" selectionMode="single"
+        <p-table #dt1 [(selection)]="selectedProduct5" [value]="filterProductsCat('hd', 1)" selectionMode="single"
         (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
@@ -403,7 +410,7 @@
     <!--Fonte-->
     <div id="powers" class="content" role="tabpanel" aria-labelledby="powers-trigger">
       <div class="p-card">
-        <p-table #dt1 [(selection)]="selectedProduct7" [value]="filterProductsCat('fonte', 2)" selectionMode="single"
+        <p-table #dt1 [(selection)]="selectedProduct7" [value]="filterProductsCat('fonte', 1)" selectionMode="single"
         (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
@@ -491,7 +498,7 @@
     <!--WaterCooler-->
     <div id="watercool" class="content" role="tabpanel" aria-labelledby="watercool-trigger">
       <div class="p-card">
-        <p-table #dt1 [(selection)]="selectedProduct9" [value]="filterProductsCat('watercooler', 2)" selectionMode="single"
+        <p-table #dt1 [(selection)]="selectedProduct9" [value]="filterProductsCat('watercooler', 1)" selectionMode="single"
         (onRowSelect)="onRowSelect($event)" [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
@@ -707,5 +714,23 @@
         </p-table>
       </div>
     </div>
+
+    <div id="confirm" class="content" role="tabpanel" aria-labelledby="confirm-trigger">
+      <div class="p-card" *ngIf="productPersonalized.length > 0">
+        <div class="p-grid p-2">
+            <div class="p-col" *ngFor="let product of productPersonalized">
+                <img src="{{images}}/{{product.image}}" alt="{{product.name}}" width="50">
+                <h6 class="my-2"><i class="far fa-truck"></i> {{product.name}}</h6>
+                <small>{{product.price|currencyBrazil}}</small>
+            </div>
+           
+        </div>
+        <div class="p-grid p-2 p-nogutter p-justify-between">
+            <p-button label="Voltar" (onClick)="prev()" icon="pi pi-angle-left"></p-button>
+            <p-button label="Completar" (onClick)="doSetup()" icon="pi pi-angle-right" iconPos="right" styleClass="p-button-success"></p-button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+<ngx-spinner bdColor = "rgba(144,144,144,0.71)" size = "medium" color = "#4dd10b" type = "ball-spin" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
