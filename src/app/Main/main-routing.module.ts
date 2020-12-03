@@ -10,7 +10,7 @@ const mainRouteConfig: Routes = [
     children: [
         { path: '', component: MainComponent },
         { path: 'produtos', loadChildren: () => import('../Products/product.module').then(m => m.ProductModule) },
-        { path: 'suporte', loadChildren: () => import('../Chat/chat.module').then(m => m.ChatModule) },
+        // { path: 'suporte', loadChildren: () => import('../Chat/chat.module').then(m => m.ChatModule) },
         { path: 'conta', loadChildren: () => import('../Account/account.module').then(m => m.AccountModule) },
         { path: 'admin', loadChildren: () => import('../Admin/admin.module').then(m => m.AdminModule) },
         { path: '**', redirectTo: '' }

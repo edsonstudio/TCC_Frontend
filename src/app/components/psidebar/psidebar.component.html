@@ -34,9 +34,9 @@
     <div class="p-col-12 mt-3">
       <div class="p-grid">
         <div class="p-col p-0 w-50">
-          <div *ngIf="profile" class="container next my-5 d-block border border-success">
+          <!-- <div *ngIf="profile" class="container next my-5 d-block border border-success">
             <h5 class="font-weight-light my-2" (click)="navigateToChat()"><i pRipple class="fad fa-comments-alt"></i> Suporte</h5>
-          </div>
+          </div> -->
           <p-carousel dotsContainerClass="pbtn" autoplayInterval="2000" [value]="banners" [numVisible]="1" [numScroll]="1" [responsiveOptions]="responsiveOptions">
               <ng-template let-banner pTemplate="item">
                   <img src="{{banner.src}}" width="100%" alt="{{banner.alt}}">

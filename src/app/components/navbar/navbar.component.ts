@@ -16,7 +16,6 @@ export class NavbarComponent extends CommumMethods implements OnInit {
     private primeNgConfig: PrimeNGConfig,
     private cartService: CartService,
     private localst: LocalStorageUtils,
-    private route: ActivatedRoute,
     private router: Router
   ) { super(); }
   seeBar = false;
@@ -171,7 +170,7 @@ export class NavbarComponent extends CommumMethods implements OnInit {
 
   logout(){
     this.localst.cleanUserLocalData();
-    window.location.reload();
+    this.router.navigate(['/Inicio']);
   }
 
   navigate(url){
