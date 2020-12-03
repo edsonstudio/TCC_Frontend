@@ -18,6 +18,18 @@ html{
     font-family: 'MyFont';
 }
 
+.p-panel {
+    height: 100% !important;
+    overflow: auto !important;
+}
+
+.p-dataview{height: 100% !important;}
+
+.p-dataview-content {
+    height: 75% !important;
+    overflow-y: auto !important;
+}
+
 @font-face {
     font-family: 'MyFont';
     src: url('./assets/fonts/Players.ttf');
