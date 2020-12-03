@@ -230,6 +230,9 @@
                     <small *ngIf="registerForm.get('description').touched && registerForm.get('description').hasError('minlength')" class="p-invalid d-block">
                       Mínimo de 15 caracteres
                     </small>
+                    <small *ngIf="registerForm.get('description').touched && registerForm.get('description').hasError('maxlength')" class="p-invalid d-block">
+                      Máximo de 500 caracteres
+                    </small>
                   </div>
                 </form>
                 <div class="p-d-flex mt-2 p-ai-center p-jc-between">
@@ -309,34 +312,34 @@
                   <div class="p-col">
                     <div class="p-field">
                       <h6>Titulo</h6>
-                      <b>{{newProduct.name}}</b>
+                      <b>{{newProduct?.name}}</b>
                     </div>
 
                     <div class="p-field">
                       <h6>Categoria</h6>
-                      <b>{{newProduct.categoryName}}</b>
+                      <b>{{newProduct?.categoryName}}</b>
                     </div>
 
                     <div class="p-field">
                       <h6>Descrição</h6>
-                      <b>{{newProduct.description}}</b>
+                      <b>{{newProduct?.description}}</b>
                     </div>
                   </div>
 
                   <div class="p-col">
                     <div class="p-field">
                       <h6>Preço</h6>
-                      <b>{{newProduct.price}}</b>
+                      <b>{{newProduct?.price}}</b>
                     </div>
 
                     <div class="p-field">
                       <h6>Quantidade</h6>
-                      <b>{{newProduct.amount}}</b>
+                      <b>{{newProduct?.amount}}</b>
                     </div>
 
                     <div class="p-field">
                       <h6>Ativo</h6>
-                      <b>{{newProduct.active ? 'Sim' : 'Não'}}</b>
+                      <b>{{newProduct?.active ? 'Sim' : 'Não'}}</b>
                     </div>
                   </div>
 
@@ -351,7 +354,7 @@
                             </div>
                         </ng-template>
                         <ng-template pTemplate="content">
-                          <img src="{{image.src}}" width="80" alt="{{newProduct.name}}">
+                          <img src="{{image?.src}}" width="80" alt="{{newProduct?.name}}">
                         </ng-template>
                       </p-inplace>
                     </div>
@@ -406,8 +409,8 @@
         
 
       <ng-container *ngIf="associateMode === 'add'">
-        <h5 *ngIf="forAssociate">Relacionado</h5>
-        <p-dropdown [styleClass]="'w-75'" *ngIf="forAssociate" [options]="forAssociate | async" (onChange)="addSon($event.value)" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Selecione um produto">
+        <h5 >Relacionado</h5>
+        <p-dropdown [styleClass]="'w-75'" *ngIf="forAssociate" [options]="forAssociate | async" (onChange)="addSon($event.value)" optionLabel="name" [filter]="true" filterBy="categoryName" [showClear]="true" placeholder="Selecione um produto">
           <ng-template pTemplate="selectedItem">
               <div class="country-item country-item-value" *ngIf="productSon">
                 <div style="font-weight: bold;">{{productSon.name}}</div>
@@ -417,7 +420,7 @@
           <ng-template let-product pTemplate="item">
               <div class="country-item">
                 <div>{{product.name}}</div>
-                <div style="font-weight: bold;">{{product.model}}</div>
+                <div style="font-weight: bold;">{{product.categoryName}}</div>
                 <img src="{{urlImg}}/{{product.image}}" alt="{{product.name}}" width="40">
               </div>
           </ng-template>
