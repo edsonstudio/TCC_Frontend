@@ -78,6 +78,7 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
   canRemove = false;
   prt: Product;
   products: Product[];
+  prodtest: Product[];
 
   @Output()
   reloadComponent = new EventEmitter<any>();
@@ -149,25 +150,18 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
   }
 
   createProduct(){
-    const pr = new Product();
-    pr.categoryId = this.newProduct.categoryId;
-    pr.name = this.newProduct.name;
-    pr.brand = this.newProduct.brand;
-    pr.model = this.newProduct.model;
-    pr.description = this.newProduct.description;
-    pr.price = this.newProduct.price;
-    pr.amount = this.newProduct.amount;
-    pr.active = this.newProduct.active;
-    pr.image = this.newProduct.image;
-    pr.imageUpload = this.newProduct.imageUpload;
-    this.productService.postProduct(pr).subscribe(
+    this.productService.postProduct(this.newProduct).subscribe(
       success => {
-        this.messageService.add({severity: 'success', summary: 'Show!', detail: `${pr.model} adicionado com sucesso.`});
+        this.messageService
+        .add({severity: 'success', summary: 'Show!', detail: `${this.newProduct.model} adicionado com sucesso.`, life: 1500});
         this.newProduct = null;
+        this.selectedDrop = null;
         this.registerForm.reset();
-        this.ngOnInit();
         this.stepper.reset();
         this.activeIndex = 0;
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 1500);
       }
     );
   }
@@ -190,10 +184,10 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
     const cat = Object.assign({}, this.registerCategory.value);
     this.categoryService.postCategory(cat).subscribe(
       success => {
-        this.messageService.add({severity: 'success', detail: `${cat.name} adicionada com sucesso`, summary: 'Show!'});
+        this.messageService.add({severity: 'success', detail: `${cat.name} adicionada com sucesso`, summary: 'Show!', life: 1500});
         setTimeout(() => {
           this.ngOnInit();
-        }, 2000);
+        }, 1500);
       }
     );
   }
@@ -206,58 +200,38 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
 
   addSon(event: Product){
     if (event !== null){
-      this.productSon = event;
-      this.associateForm.get('productSonId').setValue(event.id);
-      return;
+      const result = this.productFather.associatedProducts.find(son => son.productSon.id === event.id);
+      if (result){
+        this.messageService.add({severity: 'error', summary: 'Opa!', detail: `${event.name} já está associado`});
+        this.productSon = event;
+      }else {
+        this.productSon = event;
+        this.associateForm.get('productSonId').setValue(event.id);
+        return;
+      }
     }
     this.associateForm.get('productSonId').reset();
   }
 
   con(event: Product){
-    console.log(event);
     this.productFather = event;
     if (this.associateMode === 'add'){
       this.associateForm.get('productFatherId').setValue(event.id);
       if (this.productFather.associatedProducts && this.productFather.associatedProducts.length > 0){
         this.forAssociate = this.productService.getProducts().toPromise().then(prs => {
-          const filtered = [];
-          prs.forEach((product) => {
-            this.productFather.associatedProducts.forEach(product2 => {
-                if (product.associatedProducts && product.associatedProducts.length > 0){
-                  product.associatedProducts.forEach(pr => {
-                    if (product2.productSon.id !== product.id && product.id !== this.productFather.id
-                      && this.productFather.id !== pr.productSon.id){
-                      filtered.push(product);
-                      console.log('foi na primeira');
-                    }
-                  });
-                }
-                else {
-                  if (product2.productSon.id !== product.id && product.id !== this.productFather.id){
-                    filtered.push(product);
-                    console.log('foi na segunda');
-                  }
-                }
-            });
-          });
-          return filtered;
+          const productsAs = this.productFather.associatedProducts.map(prod => prod.productSon);
+          const filter1 = prs.filter(product => product.id !== this.productFather.id);
+          const test = filter1.filter(pr => !productsAs.includes(pr));
+
+          return test;
         });
       }
       else {
         this.forAssociate = this.productService.getProducts().toPromise().then(prs => {
           const filtered2 = [];
           prs.forEach((product) => {
-            if (product.associatedProducts && product.associatedProducts.length > 0){
-              product.associatedProducts.forEach(aspr => {
-                if (aspr.productSon.id !== this.productFather.id && product.id !== this.productFather.id){
-                  filtered2.push(product);
-                }
-              });
-            }
-            else{
-              if (product.id !== this.productFather.id){
-                filtered2.push(product);
-              }
+            if (product.id !== this.productFather.id){
+              filtered2.push(product);
             }
           });
           return filtered2;
@@ -291,27 +265,6 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
     }
   }
 
-  postProduct(){
-    const product = Object.assign({}, this.registerForm.value);
-
-    if (!this.imageName || !this.cardImageBase64){
-      this.toastr.warning('Insira uma imagem para o produto', 'Atenção');
-    }
-    else {
-      this.productService.postProduct(product).subscribe(
-        success => {
-          this.messageService.add({severity: 'success', detail: `${product.model} adicionado com sucesso`, summary: 'Show!'});
-          this.imageName = null;
-          this.registerForm.reset();
-          setTimeout(() => {
-            this.ngOnInit();
-          }, 2000);
-        },
-        error => this.messageService.add({severity: 'error', detail: 'Houve um problema interno, tente novamente.', summary: 'Opa!'})
-      );
-    }
-  }
-
   putProduct(modal: ModalDirective, product: Product){
     this.createBlur();
     modal.show();
@@ -338,12 +291,14 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
       success => {
         this.selectedCat = null;
         this.forAssociate = null;
-        this.messageService.add({severity: 'success', detail: 'Produtos associados', summary: 'Show!'});
+        this.associateMode = '';
+        this.messageService.add({severity: 'success', detail: 'Produtos associados', summary: 'Show!', life: 1500});
         setTimeout(() => {
           this.ngOnInit();
-        }, 2000);
+        }, 1500);
       },
-      error => this.messageService.add({severity: 'error', detail: 'Houve um problema interno, tente novamente.', summary: 'Opa!'})
+      error => this.messageService
+      .add({severity: 'error', detail: 'Houve um problema interno, tente novamente.', summary: 'Opa!', life: 1500})
     );
   }
 
@@ -360,15 +315,15 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
     const associate = this.associatedProducts.find(pr => pr.productSon.id === this.associateSon.id);
     this.productService.deleteAssociates(associate.id).subscribe(
       success => {
-        this.messageService.add({severity: 'success', detail: 'Associação desfeita', summary: 'Show!'});
+        this.messageService.add({severity: 'success', detail: 'Associação desfeita', summary: 'Show!', life: 1500});
         this.selectedCat = null;
         this.canRemove = false;
         setTimeout(() => {
           this.ngOnInit();
-        }, 2000);
+        }, 1500);
       },
       error => {
-        this.messageService.add({severity: 'error', detail: 'Houve um problema interno, tente novamente.', summary: 'Opa!'});
+        this.messageService.add({severity: 'error', detail: 'Houve um problema interno, tente novamente.', summary: 'Opa!', life: 1500});
       }
     );
   }
@@ -378,6 +333,7 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
   }
 
   saveChanges(modal: ModalDirective){
+    console.log(this.registerForm.value);
     if (this.registerForm.valid){
       let product: Product = {};
       if (this.file && this.file.size > 0){
@@ -398,10 +354,10 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
       }
       this.productService.putProduct(product).subscribe(pr => {
         this.closeModal(modal);
-        this.messageService.add({severity: 'success', detail: `${product.model} atualizado`, summary: 'Show!'});
+        this.messageService.add({severity: 'success', detail: `${product.model} atualizado`, summary: 'Show!', life: 1500});
         setTimeout(() => {
           this.ngOnInit();
-        }, 2000);
+        }, 1500);
       });
     }
   }
@@ -417,6 +373,7 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
     if (fileInput.target.files && fileInput.target.files[0]) {
         // Size Filter Bytes
       const file = fileInput.target.files[0];
+      this.file = file;
       const maxSize = 20971520;
       const allowedTypes = ['image/png', 'image/jpeg'];
       const maxHeight = 15200;
