@@ -84,3 +84,17 @@ $primary-green: #6ACA25;
       }
       
     }
+
+
+:host ::ng-deep {
+    .p-toast-message-custom {
+        background-color: #5c5c5c;
+        border: solid $primary-green;
+        border-width: 0 0 0 6px;
+        color: #e7e7e7;
+        .p-toast-icon-close {
+            color: #2c1e30;
+        }
+    }
+}
+      
