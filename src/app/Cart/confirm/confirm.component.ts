@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Order } from 'src/app/models/Order';
 import { Store } from 'src/app/Products/cart.store';
@@ -13,7 +15,7 @@ import { ListItemsComponent } from '../list-items/list-items.component';
   templateUrl: './confirm.component.html',
   styleUrls: ['./confirm.component.scss']
 })
-export class ConfirmComponent implements OnInit {
+export class ConfirmComponent implements OnInit, AfterViewInit {
 
   constructor(
     private store: Store,
@@ -21,12 +23,15 @@ export class ConfirmComponent implements OnInit {
     private cart: CartService,
     private router: Router,
     private route: ActivatedRoute,
-    public dialogService: DialogService
+    public dialogService: DialogService,
+    private spinner: NgxSpinnerService,
+    private messageService: MessageService
   ) { }
 
   finalOrder = new Order();
   localSt = new LocalStorageUtils();
   ngOnInit(): void {
+    this.spinner.show('initial');
     this.store.getPayment().subscribe(payment => {
       this.finalOrder.numeroCartao = payment.numeroCartao;
       this.finalOrder.nomeCartao = payment.nomeCartao;
@@ -34,7 +39,7 @@ export class ConfirmComponent implements OnInit {
       this.finalOrder.cvvCartao = payment.cvvCartao;
     });
     this.store.getAddress().subscribe(address => {
-      this.finalOrder.Endereco = address;
+      this.finalOrder.endereco = address;
     });
     this.cart.getCart$.subscribe(cart => {
       this.finalOrder.valorTotal = cart.totalPrice;
@@ -45,22 +50,30 @@ export class ConfirmComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.spinner.hide('initial');
+    }, 1500);
+  }
+
    doOrder(){
     this.finalOrder.data = new Date().toISOString();
     this.finalOrder.status = 0;
 
     this.orderService.sentOrder(this.finalOrder).subscribe(
       success => {
-        console.log(success);
+        this.spinner.hide('load');
+        this.router.navigate(['/Inicio/conta/pedidos']);
       },
       error => {
-        console.log(error);
+        this.messageService.add({severity: 'error', detail: 'Tente novamente mais tarde', summary: 'Erro inesperado'});
       }
     );
  }
 
  postAddress(){
-   const address = this.finalOrder.Endereco;
+   this.spinner.show('load');
+   const address = this.finalOrder.endereco;
    address.clientId = this.localSt.getUser().id;
 
    this.orderService.postAddress(address).toPromise().then(() => {

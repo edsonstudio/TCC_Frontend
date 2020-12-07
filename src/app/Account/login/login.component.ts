@@ -1,6 +1,7 @@
 import { Route } from '@angular/compiler/src/core';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem, MessageService } from 'primeng/api';
 import { User } from 'src/app/models/User';
@@ -11,7 +12,7 @@ import { AccountService } from 'src/app/services/User/user.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
 
   user: User;
   cleanForm = false;
@@ -27,12 +28,20 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private spinner: NgxSpinnerService
   ) {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl;
   }
 
   ngOnInit() {
+    this.spinner.show('initial');
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.spinner.hide('initial');
+    }, 1500);
   }
 
   login(event){

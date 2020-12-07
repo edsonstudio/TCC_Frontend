@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { User } from 'src/app/models/User';
@@ -6,6 +6,7 @@ import { User } from 'src/app/models/User';
 import { AccountService } from 'src/app/services/User/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { MenuItem } from 'primeng/api';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, AfterViewInit {
 
   user: User;
   errorsResponse: string[];
@@ -27,12 +28,19 @@ export class RegisterComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private spinner: NgxSpinnerService
     ) { }
 
-
   ngOnInit() {
+    this.spinner.show('initial');
     this.errorsResponse = [];
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.spinner.hide('initial');
+    }, 1500);
   }
 
 
