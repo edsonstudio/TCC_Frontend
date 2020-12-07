@@ -4,7 +4,7 @@
             <div class="p-col">
                 <div class="p-field my-4">
                     <span class="p-float-label p-input-filled">
-                        <input id="float-input" (click)="log()" #inpCep autocomplete="off" type="text" (change)="calcShipping()" required [mask]="'00000-000'" class="p-inputtext-sm" pInputText formControlName="cep"> 
+                        <input id="float-input" #inpCep autocomplete="off" type="text" (change)="calcShipping()" required [mask]="'00000-000'" class="p-inputtext-sm" pInputText formControlName="cep"> 
                         <label for="float-input">CEP</label>
                     </span>
                 </div>
@@ -70,6 +70,4 @@
     </div>
 </div>
 <p-toast></p-toast>
-<p-blockUI  [blocked]="blocked">
-    <i class="pi pi-lock" style="font-size: 3rem"></i>
-</p-blockUI>
+<ngx-spinner bdColor = "rgba(0, 0, 0, 1)" size = "large" color = "#6ACA25" type = "pacman" [fullScreen] = "true"><p style="color: white" > Carregando... </p></ngx-spinner>

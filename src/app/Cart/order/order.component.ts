@@ -17,7 +17,7 @@ export class OrderComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private store: Store,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
     ) { }
 
   orderForm: FormGroup;
