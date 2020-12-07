@@ -47,8 +47,7 @@
  
         <div class="p-col d-flex justify-content-end">
           <h6 class="align-self-end next" *ngIf="!profile" (click)="navigateToLogin()">Entrar <i class="fas fa-user mr-5 next"></i></h6>
-          <h6 class="align-self-end next" (click)="test.play()" *ngIf="profile">{{profile.email | username}} <i class="fas fa-user mr-5 mb-5 next"></i></h6>
-          <audio #test></audio>
+          <h6 class="align-self-end next" (click)="navigateToOrders()" *ngIf="profile">{{profile.email | username}} <i class="fas fa-user mr-5 mb-5 next"></i></h6>
         </div>
       </div>
     </div>

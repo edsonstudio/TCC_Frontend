@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Address } from 'src/app/models/Address';
+import { Order } from 'src/app/models/Order';
 
 @Injectable()
 
@@ -25,13 +26,14 @@ export class OrderService extends BaseService {
     }
 
     sentOrder(order){
-        console.log( JSON.stringify(order));
         return this.http.post(`${this.UrlShopping}/pedido`, JSON.stringify(order), this.GetJsonAuthHeader());
     }
 
-    CEP(cep: string): Observable<AdResponse> {
+    getOrder(): Observable<Order[]>{
+        return this.http.get<Order[]>(`${this.UrlShopping}/pedido/lista-cliente`, this.GetJsonAuthHeader());
+    }
 
-        console.log(cep);
+    CEP(cep: string): Observable<AdResponse> {
         cep = cep.replace(/\D/g, '');
         if (cep !== '') {
 

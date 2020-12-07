@@ -63,4 +63,9 @@ export class PsidebarComponent implements OnInit {
     this.router.navigate(['Inicio/produtos/meu-setup']);
   }
 
+  navigateToOrders(){
+    this.visibleSidebar = false;
+    this.router.navigate(['Inicio/conta/pedidos']);
+  }
+
 }

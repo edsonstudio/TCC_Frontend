@@ -1,0 +1,29 @@
+<p-breadcrumb [styleClass]="'sticky-top rounded-0'" [home]="home" [model]="bread"></p-breadcrumb>
+<div class="p-grid" style="height: calc(90vh - 50px) !important;">
+    <div class="p-col-12 p-md-3 p-sm-12" style="height: 100% !important;">
+        <p-panel [header]="'Pedidos'" [toggleable]="true">
+          <h6 *ngIf="!order">Você ainda não fez compras</h6>
+          <button (click)="setOrder(order)" *ngFor="let order of orders" pButton pRipple type="button" label="#{{order.data|date: 'short'}}" class="p-button"></button>
+        </p-panel>
+       </div>
+    <div class="p-card p-col-12 p-4 p-md-9 p-sm-12" style="height: 100% !important; overflow-y: auto !important;">
+        <h6 *ngIf="order">Detalhes</h6>
+        <button (click)="navigatePr()" pButton pRipple *ngIf="!order" [label]="'Conheça agora o nosso catálogo de produtos'" [icon]="'fad fa-shopping-bag'"></button>
+        <p-timeline [value]="event"  align="alternate" styleClass="customized-timeline">
+            <ng-template pTemplate="marker" let-event>
+                <span class="custom-marker p-shadow-2" [style.backgroundColor]="event.color">
+                    <i [ngClass]="event.icon"></i>
+                </span>
+            </ng-template>
+            <ng-template pTemplate="content" let-event>
+                <p-card [header]="event.status" [subheader]="event.date|date:'short'">
+                    <img *ngIf="event.image" src="{{event.image}}" [alt]="event.name" width="200" class="p-shadow-2" />
+                    <p>{{order?.endereco.logradouro}} - {{order?.endereco.cep}}</p>
+                    <p>teste</p>
+                </p-card>
+            </ng-template>
+        </p-timeline>
+    </div>
+</div>
+<app-navbar></app-navbar>
+<ngx-spinner name="initial" bdColor = "rgba(0, 0, 0, 1)" size = "large" color = "#6ACA25" type = "pacman" [fullScreen] = "true"><p style="color: white" > Carregando... </p></ngx-spinner>

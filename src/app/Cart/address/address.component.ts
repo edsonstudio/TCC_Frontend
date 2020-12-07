@@ -25,24 +25,24 @@ export class AddressComponent implements OnInit, AfterViewInit {
 
   addressForm: FormGroup;
   blocked = true;
-log(){console.log('oxe')}
+
   ngOnInit(): void {
-    this.validate();
-    this.store.getAddress().subscribe(response => {
-      if (response.cep){
-        this.addressForm.setValue({
-          logradouro: response.logradouro,
-          bairro: response.bairro,
-          cidade: response.cidade,
-          cep: response.cep,
-          estado: response.estado,
-          complemento: response.complemento,
-          numero: response.numero
-        });
-      }
-      this.blocked = false;
-    });
-  }
+      this.validate();
+      this.store.getAddress().subscribe(response => {
+        if (response.cep){
+          this.addressForm.setValue({
+            logradouro: response.logradouro,
+            bairro: response.bairro,
+            cidade: response.cidade,
+            cep: response.cep,
+            estado: response.estado,
+            complemento: response.complemento,
+            numero: response.numero
+          });
+        }
+        this.blocked = false;
+      });
+    }
 
   ngAfterViewInit(): void {
     this.someInput.nativeElement.focus();
