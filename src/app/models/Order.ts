@@ -10,7 +10,7 @@ export class Order {
     voucherCodigo: string;
     voucherUtilizado: boolean;
     pedidoItems: CartItem[];
-    Endereco: Address;
+    endereco: Address;
     numeroCartao: string;
     nomeCartao: string;
     expiracaoCartao: string;
