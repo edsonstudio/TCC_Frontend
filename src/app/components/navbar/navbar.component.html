@@ -8,7 +8,7 @@
         </button> -->
         <button (click)="navigate('/Inicio/produtos/todos')" *ngIf="actualUrl != 'products' && actualUrl != 'home'" [iconPos]="'right'" pButton label="Catálogo" [icon]="'fad fa-shopping-bag'" class="p-button p-button-secondary p-button-sm buttonS p-button-text">
         </button>
-        <button (click)="navigate('/Inicio/produtos/meu-setup')" *ngIf="actualUrl != 'personalized' && actualUrl != 'home'" [iconPos]="'right'" pButton label="Montar Setup" [icon]="'fad fa-cogs'" class="p-button p-button-secondary p-button-sm buttonS p-button-text">
+        <button (click)="navigate('/Inicio/produtos/meu-setup')" *ngIf="actualUrl != 'personalized' && actualUrl != 'home' && logged" [iconPos]="'right'" pButton label="Montar Setup" [icon]="'fad fa-cogs'" class="p-button p-button-secondary p-button-sm buttonS p-button-text">
         </button>
         <button pRipple pTooltip="Meu Carrinho" (click)="navigate('/Inicio/produtos/pedido/carrinho')" *ngIf="logged && actualUrl != 'order'" class="p-button p-button-text p-button-primary p-button-sm p-button-rounded">
           <i class="fad fa-shopping-cart mt-2"></i>

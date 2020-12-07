@@ -25,7 +25,10 @@ export class NavbarComponent extends CommumMethods implements OnInit {
   admin: boolean;
   actualUrl;
   ngOnInit(): void {
-    if (this.localst.getUser()){ this.cartService.cartAmount().toPromise().then(vl => this.itemsAmount = vl); }
+    if (this.localst.getUser()){
+        this.logged = true;
+        this.cartService.cartAmount().toPromise().then(vl => this.itemsAmount = vl);
+    }
     this.admin = this.isAdmin();
     if (this.router.url === '/Inicio/suporte/chat') { this.actualUrl = 'chat'; }
     if (this.router.url === '/Inicio/admin') { this.actualUrl = 'admin'; }
@@ -34,9 +37,6 @@ export class NavbarComponent extends CommumMethods implements OnInit {
     if (this.router.url.includes('/Inicio/conta')) { this.actualUrl = 'account'; }
     if (this.router.url.includes('/Inicio/produtos/pedido')) { this.actualUrl = 'order'; }
     if (this.router.url === '/Inicio') { this.actualUrl = 'home'; }
-    if (this.localst.getUserToken()){
-        this.logged = true;
-    }
     this.primeNgConfig.ripple = true;
     this.items = [
       {
@@ -171,6 +171,7 @@ export class NavbarComponent extends CommumMethods implements OnInit {
   logout(){
     this.localst.cleanUserLocalData();
     this.router.navigate(['/Inicio']);
+    this.ngOnInit();
   }
 
   navigate(url){
