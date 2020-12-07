@@ -1,8 +1,3 @@
 {
-    "gitflow4code.features": [
-        {
-            "name": "feature/finalV2Pedido",
-            "base": "develop"
-        }
-    ]
+    "gitflow4code.features": []
 }
