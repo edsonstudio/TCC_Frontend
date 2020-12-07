@@ -9,9 +9,18 @@ import { AccountAppComponent } from './account-app';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { GuardAccount } from '../services/User/user.guard';
-import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { MessageService } from 'primeng/api';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { TimelineModule } from 'primeng/timeline';
+import { OrderService } from '../services/Cart_Order/order.service';
+import { OrdersComponent } from './orders/orders.component';
+import { CardModule } from 'primeng/card';
+import { ActionsGuard } from '../services/actions.guard';
+import { PanelModule } from 'primeng/panel';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { NgBrazil } from 'ng-brazil';
 
 @NgModule({
     imports: [
@@ -19,17 +28,27 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
         AccountRoutingModule,
         SharedModule,
         NgxSpinnerModule,
-        BreadcrumbModule
+        BreadcrumbModule,
+        TimelineModule,
+        CardModule,
+        PanelModule,
+        ButtonModule,
+        RippleModule,
+        NgBrazil
     ],
     declarations: [
         AccountAppComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        OrdersComponent
     ],
     providers: [
         AccountService,
         GuardAccount,
-        MessageService
+        MessageService,
+        NgxSpinnerService,
+        OrderService,
+        ActionsGuard
     ]
 })
 
