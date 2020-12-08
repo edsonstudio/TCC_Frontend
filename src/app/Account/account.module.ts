@@ -21,6 +21,8 @@ import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { NgBrazil } from 'ng-brazil';
+import { DialogService } from 'primeng/dynamicdialog';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
     imports: [
@@ -34,7 +36,8 @@ import { NgBrazil } from 'ng-brazil';
         PanelModule,
         ButtonModule,
         RippleModule,
-        NgBrazil
+        NgBrazil,
+        DialogModule
     ],
     declarations: [
         AccountAppComponent,
@@ -48,7 +51,8 @@ import { NgBrazil } from 'ng-brazil';
         MessageService,
         NgxSpinnerService,
         OrderService,
-        ActionsGuard
+        ActionsGuard,
+        DialogService
     ]
 })
 
