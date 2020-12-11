@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Guid } from 'guid-typescript';
 import { Observable } from 'rxjs';
 import { Category } from 'src/app/models/Category';
-import { v4 as Guid } from 'uuid';
 import { BaseService } from '../base.service';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class CategoryService extends BaseService{
         return this.http.get<Category[]>(`${this.UrlAPIV1}/categories`, super.GetJsonAuthHeader());
     }
 
-    getCategory(id: typeof Guid): Observable<Category>{
+    getCategory(id: Guid): Observable<Category>{
     return this.http.get<Category>(`${this.UrlAPIV1}/categories/${id}`, super.GetJsonAuthHeader());
     }
 
@@ -27,7 +27,7 @@ export class CategoryService extends BaseService{
         return this.http.post<Category>(`${this.UrlAPIV1}/categories`, category, super.GetJsonAuthHeader());
     }
 
-    deleteCategory(id: typeof Guid): Observable<Category> {
+    deleteCategory(id: Guid): Observable<Category> {
        return this.http.delete<Category>(`${this.UrlAPIV1}/categories/${id}`, super.GetJsonAuthHeader());
     }
 

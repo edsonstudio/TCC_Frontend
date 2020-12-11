@@ -64,9 +64,7 @@ export class OrderComponent implements OnInit, AfterViewInit {
   }
 
   log(event){
-    console.log(event.target.value);
     this.orderForm.get('expiracaoCartao').setValue(event.target.value);
-    console.log(this.orderForm.get('expiracaoCartao').value);
    }
 
   expDateValidators(c: FormControl) {

@@ -59,7 +59,7 @@ export class ConfirmComponent implements OnInit, AfterViewInit {
    doOrder(){
     this.finalOrder.data = new Date().toISOString();
     this.finalOrder.status = 0;
-
+    console.log(this.finalOrder);
     this.orderService.sentOrder(this.finalOrder).subscribe(
       success => {
         this.spinner.hide('load');
@@ -88,7 +88,8 @@ export class ConfirmComponent implements OnInit, AfterViewInit {
   seeItems(){
     this.dialogService.open(ListItemsComponent, {
       data: {
-        cartItems: this.finalOrder.pedidoItems
+        cartItems: this.finalOrder.pedidoItems,
+        show: true
       },
       width: '70%'
     });

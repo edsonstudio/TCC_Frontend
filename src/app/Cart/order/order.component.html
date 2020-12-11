@@ -51,7 +51,7 @@
             
             <div class="p-field my-4">
                 <span class="p-float-label p-input-filled">
-                    <input type="text" class="p-inputtext-sm" pInputText autocomplete="off" appInputMask required id="valInp" formControlName="expiracaoCartao" [ngClass]="{'is-invalid': orderForm.get('expiracaoCartao')?.touched && orderForm.get('expiracaoCartao').errors}">
+                    <input type="text" (change)="log($event)" class="p-inputtext-sm" pInputText autocomplete="off" appInputMask required id="valInp" formControlName="expiracaoCartao" [ngClass]="{'is-invalid': orderForm.get('expiracaoCartao')?.touched && orderForm.get('expiracaoCartao').errors}">
                     <label for="valInp">Validade</label>
                 </span>
                 <small *ngIf="orderForm.get('expiracaoCartao').touched && orderForm.get('expiracaoCartao').errors" class="p-invalid">

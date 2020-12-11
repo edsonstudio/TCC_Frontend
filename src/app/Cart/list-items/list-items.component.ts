@@ -31,8 +31,10 @@ export class ListItemsComponent implements OnInit {
   mySubscription: any;
   urlImages = environment.images;
   items: CartItem[];
+  show: boolean;
   ngOnInit(): void {
     this.items = this.config.data.cartItems;
+    this.show = this.config.data.show;
   }
 
   removeItem(id){

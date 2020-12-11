@@ -4,9 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import localePt from '@angular/common/locales/pt';
 import { AdminRoutingModule } from './admin-routing.module';
 
-import { ManagementComponent } from './management/management.component';
 import { AdmProductsComponent } from '../Admin/products/admproducts/admproducts.component';
-import { AdmUsersComponent } from './users/admusers/admusers.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { Store } from '../Products/cart.store';
@@ -74,9 +72,7 @@ registerLocaleData(localePt);
         NgxSpinnerModule
     ],
     declarations: [
-        ManagementComponent,
-        AdmProductsComponent,
-        AdmUsersComponent
+        AdmProductsComponent
     ],
     providers: [
         Store,

@@ -176,6 +176,7 @@ export class NavbarComponent extends CommumMethods implements OnInit {
 
   navigate(url){
     this.router.navigate([`${url}`]);
+    this.ngOnInit();
   }
 
 }

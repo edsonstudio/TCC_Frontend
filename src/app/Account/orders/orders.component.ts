@@ -5,6 +5,8 @@ import { Order } from 'src/app/models/Order';
 import { OrderService } from 'src/app/services/Cart_Order/order.service';
 import { environment } from './../../../environments/environment';
 import { Router } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ListItemsComponent } from 'src/app/Cart/list-items/list-items.component';
 
 @Component({
   selector: 'app-orders',
@@ -17,7 +19,8 @@ export class OrdersComponent implements OnInit, AfterViewInit {
     private orderService: OrderService,
     private spinner: NgxSpinnerService,
     private primengConfig: PrimeNGConfig,
-    private router: Router
+    private router: Router,
+    private dialogService: DialogService
   ) { }
 
   event = new Array<any>();
@@ -29,6 +32,7 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   orders: Order[];
   order = new Order();
   urlImages = environment.images;
+  total = 0;
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
@@ -91,6 +95,10 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   setOrder(order: Order){
     this.event = [];
     this.order = order;
+    this.total = 0;
+    for (const cartitem of order.pedidoItems) {
+      this.total += cartitem.price * cartitem.amount;
+    }
     this.event.push({
       status: 'Solicitado', date: order.data, icon: PrimeIcons.SHOPPING_CART, color: '#9C27B0',
       image: `${this.urlImages}/${order.pedidoItems[0].image}`
@@ -133,6 +141,16 @@ export class OrdersComponent implements OnInit, AfterViewInit {
           status: 'Cancelado', date: order.data, icon: PrimeIcons.TIMES, color: '#22a71d'
         });
     }
+  }
+
+  seeItems(){
+    this.dialogService.open(ListItemsComponent, {
+      data: {
+        cartItems: this.order.pedidoItems,
+        show: false
+      },
+      width: '70%'
+    });
   }
 
   navigatePr(){

@@ -3,7 +3,7 @@
     <div class="p-col-12 p-md-3 p-sm-12" style="height: 100% !important;">
         <p-panel [header]="'Pedidos'" [toggleable]="true">
           <h6 *ngIf="!order">Você ainda não fez compras</h6>
-          <button (click)="setOrder(order)" *ngFor="let order of orders" pButton pRipple type="button" label="#{{order.data|date: 'short'}}" class="p-button"></button>
+          <button (click)="setOrder(order)" *ngFor="let order of orders" pButton pRipple type="button" label="#{{order.data|date: 'short'}}" class="p-button my-1"></button>
         </p-panel>
        </div>
     <div class="p-card p-col-12 p-4 p-md-9 p-sm-12" style="height: 100% !important; overflow-y: auto !important;">
@@ -19,7 +19,7 @@
                 <p-card [header]="event.status" [subheader]="event.date|date:'short'">
                     <img *ngIf="event.image" src="{{event.image}}" [alt]="event.name" width="200" class="p-shadow-2" />
                     <p>{{order?.endereco.logradouro}} - {{order?.endereco.cep}}</p>
-                    <p>teste</p>
+                    <b>Total: {{total - order?.desconto |currencyBrazil}}| <button style="margin-bottom: -10px;" pButton label="Items" (click)="seeItems()" class="p-button-sm"></button></b>
                 </p-card>
             </ng-template>
         </p-timeline>

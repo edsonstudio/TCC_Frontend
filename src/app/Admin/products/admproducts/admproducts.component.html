@@ -1,4 +1,4 @@
-<p-toast></p-toast>
+<p-breadcrumb  [home]="home" [model]="bread"></p-breadcrumb>
 <div id="test" class="mt-2">
     <h4 class="text-center font-weight-light">Produtos</h4>
     <p-tabView [(activeIndex)]="activeIndex">
@@ -354,7 +354,7 @@
                             </div>
                         </ng-template>
                         <ng-template pTemplate="content">
-                          <img src="{{image?.src}}" width="80" alt="{{newProduct?.name}}">
+                          <img style="background-color: rgb(83, 83, 83);" src="{{image?.src}}" width="100" alt="{{newProduct?.name}}">
                         </ng-template>
                       </p-inplace>
                     </div>
@@ -408,7 +408,7 @@
         </ng-container>
         
 
-      <ng-container *ngIf="associateMode === 'add'">
+      <div *ngIf="associateMode === 'add'">
         <h5 >Relacionado</h5>
         <p-dropdown [styleClass]="'w-75'" *ngIf="forAssociate" [options]="forAssociate | async" (onChange)="addSon($event.value)" optionLabel="name" [filter]="true" filterBy="categoryName" [showClear]="true" placeholder="Selecione um produto">
           <ng-template pTemplate="selectedItem">
@@ -425,9 +425,9 @@
               </div>
           </ng-template>
         </p-dropdown>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="associateMode === 'remove'">
+      <div *ngIf="associateMode === 'remove'">
         <h5>Relacionado</h5>
         <p-dropdown [styleClass]="'w-75'" *ngIf="associateds" [options]="associateds | async" (onChange)="preloadRemove($event.value)" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Selecione um produto">
           <ng-template pTemplate="selectedItem">
@@ -444,7 +444,7 @@
               </div>
           </ng-template>
         </p-dropdown>
-      </ng-container>
+      </div>
       
 
       <div class="col d-flex align-items-center justify-content-end">
@@ -461,26 +461,70 @@
       </p-tabPanel>
 
       <p-tabPanel header="Categoria">
-        <div class="p-card p-3">
-          <form [formGroup]="registerCategory">
-            <div class="p-fied">
-              <span class="p-float-label">
-                <input id="float-input" type="text" pInputText formControlName="name"> 
-                <label for="float-input">Nome</label>
-              </span>
-              <small *ngIf="registerCategory.get('name').touched && registerCategory.get('name').hasError('required')" class="p-invalid">
-                Campo obrigatório
-              </small>
+        <div class="p-card p-3 p-grid">
+          <div class="p-col-9">
+            <p-table  #dt3 [value]="categories" [globalFilterFields]="['name']" styleClass="p-datatable-customers p-datatable-responsive-demo" scrollHeight="150px" [scrollable]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+          [paginator]="true" currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} categorias">
+            <ng-template pTemplate="caption">
+              <div class="p-d-flex">
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt3.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+                </span>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center" pSortableColumn="name">Nome <p-sortIcon field="name"></p-sortIcon></th>
+                    <th class="text-center" pSortableColumn="products">Produtos <p-sortIcon field="products"></p-sortIcon></th>
+                    <th class="text-center">#</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-category>
+                <tr>
+                    <td class="text-center">{{category.name}}</td>
+                    <td class="text-center">{{category.products.length}}</td>
+                    <td class="text-center">
+                      <button class="btn btn-sm btn-warning mr-1" tooltip="Editar" (click)="putCategory(modcat, category)"><i
+                        class="fad fa-edit"></i></button>
+                      <button class="btn btn-sm btn-danger border border-dark shadow-sm" (click)="deleteCategory(category)"><i
+                          class="fad fa-eraser" tooltip="Excluir"></i></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    No total há {{categories ? categories.length : 0 }} categorias.
+                </div>
+            </ng-template>
+          </p-table>
+          </div>
+
+          <div class="p-col-3">
+            <div class="p-card p-3">
+              <form [formGroup]="registerCategory">
+                <div class="p-fied">
+                  <span class="p-float-label">
+                    <input id="float-input" type="text" pInputText formControlName="name"> 
+                    <label for="float-input">Nome</label>
+                  </span>
+                  <small *ngIf="registerCategory.get('name').touched && registerCategory.get('name').hasError('required')" class="p-invalid">
+                    Campo obrigatório
+                  </small>
+                </div>
+              </form>
+              <div class="p-d-flex mt-2 p-ai-center p-jc-between">
+                <p-button label="Adicionar" (onClick)="addCategory()" [disabled]="!registerCategory.get('name').valid" icon="pi pi-check-circle" iconPos="right"></p-button>
+              </div>
             </div>
-          </form>
-          <div class="p-d-flex mt-2 p-ai-center p-jc-between">
-            <p-button label="Adicionar" (onClick)="addCategory()" [disabled]="!registerCategory.get('name').valid" icon="pi pi-check-circle" iconPos="right"></p-button>
           </div>
         </div>
       </p-tabPanel>
     </p-tabView>
 </div>
-
+<app-navbar></app-navbar>
+<ngx-spinner bdColor = "rgba(0, 0, 0, 1)" size = "large" color = "#6ACA25" type = "pacman" [fullScreen] = "true"><p style="color: white" > Carregando... </p></ngx-spinner>
+<p-toast></p-toast>
 
 <!--Modal Produto-->
 <div class="modal fade" tabindex="-1" role="dialog" bsModal #template="bs-modal" [config]="{backdrop:'static'}"
@@ -628,4 +672,37 @@
           </div>
         </div>
         </div>
+</div>
+
+<!--Modal Categoria-->
+<div class="modal fade" bsModal #modcat="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="dialog-static-name">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left font-weight-light">Categoria</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal(modcat)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body px-4">
+        <form [formGroup]="registerCategory">
+          <div class="p-fied">
+            <span class="p-float-label">
+              <input id="float-input" type="text" pInputText formControlName="name"> 
+              <label for="float-input">Nome</label>
+            </span>
+            <small *ngIf="registerCategory.get('name').touched && registerCategory.get('name').hasError('required')" class="p-invalid">
+              Campo obrigatório
+            </small>
+          </div>
+        </form>
+      </div>
+      <div class="model-footer d-flex flex-row-reverse p-2">
+        <button type="submit" class="btn btn-sm btn-danger" [disabled]="!registerCategory.valid"
+          (click)="saveChangesC(modcat)"><i class="fa fa-check" aria-hidden="true"></i></button>
+        <button class="btn btn-sm btn-dark mr-1" (click)='closeModal(modcat)'>Cancelar</button>
+      </div>
+    </div>
+  </div>
 </div>

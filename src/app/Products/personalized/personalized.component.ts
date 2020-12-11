@@ -85,12 +85,12 @@ export class PersonalizedComponent extends CommumMethods implements OnInit, Afte
   selectedProduct13: Product;
 
   ngOnInit(): void {
-    this.spinner.show('initial');
-    this.subscription = this.cartService.getCart$.subscribe();
     this.stepper = new Stepper(document.querySelector('#stepper2'), {
-      linear: false,
+      linear: true,
       animation: true
     });
+    this.spinner.show('initial');
+    this.subscription = this.cartService.getCart$.subscribe();
 
     this.productService.getProducts().subscribe((prs: Product[]) => {
       this.products = prs;
@@ -148,7 +148,7 @@ export class PersonalizedComponent extends CommumMethods implements OnInit, Afte
       case 3:
         const catergoy = this.categories.find(cat => this.removeAccent(cat.name) === this.removeAccent(categoryName));
         return catergoy?.products
-          .filter(product => product.brand?.toLowerCase() === this.brand?.toLowerCase() && product.associatedProducts.length > 0
+          .filter(product => product.name?.toLowerCase().includes(this.brand?.toLowerCase()) && product.associatedProducts.length > 0
            && product?.amount > 0 );
         break;
     }

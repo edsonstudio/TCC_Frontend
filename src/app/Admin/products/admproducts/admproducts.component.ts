@@ -11,7 +11,7 @@ import * as _ from 'lodash';
 import { AssociatedProducts } from 'src/app/models/AssociatedProducts';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import Stepper from 'bs-stepper';
-import { MessageService, PrimeNGConfig } from 'primeng/api';
+import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 
@@ -28,7 +28,8 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
     private toastr: ToastrService,
     private fb: FormBuilder,
     private messageService: MessageService,
-    private primengConfig: PrimeNGConfig
+    private primengConfig: PrimeNGConfig,
+    private spinner: NgxSpinnerService
     ) { }
 
   selectedDrop;
@@ -80,28 +81,40 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
   prt: Product;
   products: Product[];
   prodtest: Product[];
+  home = {icon: 'pi pi-home', routerLink: '/Inicio'};
+  bread: MenuItem[] = [
+    {label: 'Administração'}
+  ];
 
   @Output()
   reloadComponent = new EventEmitter<any>();
 
   ngOnInit() {
+    this.spinner.show();
     this.primengConfig.ripple = true;
     this.validation();
-    this.categoryService.getCategories().subscribe(cts => {
-      this.categories = cts;
-    });
-    this.productService.getProducts().subscribe(prs => {
-      this.products = prs;
-    });
-    this.productService.getAssociates().subscribe(asspr => {
-      this.associatedProducts = asspr;
-    });
+    this.getAll();
   }
 
   ngAfterViewInit(): void {
     this.stepper = new Stepper(document.getElementById('stepper2'), {
       linear: true,
       animation: true
+    });
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1500);
+  }
+
+  getAll(){
+    this.categoryService.getCategories().toPromise().then(cts => {
+      this.categories = cts;
+    });
+    this.productService.getProducts().toPromise().then(prs => {
+      this.products = prs;
+    });
+    this.productService.getAssociates().toPromise().then(asspr => {
+      this.associatedProducts = asspr;
     });
   }
 
@@ -115,7 +128,7 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
       name: ['', [Validators.minLength(15), Validators.maxLength(60), Validators.required]],
       brand: ['', [Validators.minLength(2), Validators.required]],
       model: ['', [Validators.minLength(5), Validators.required]],
-      description: ['', [Validators.minLength(15), Validators.maxLength(500), Validators.required]],
+      description: ['', [Validators.minLength(15), Validators.maxLength(800), Validators.required]],
       price: ['', [Validators.required, Validators.min(1)]],
       categoryId: ['', Validators.required],
       amount: ['', [Validators.required, Validators.min(1)]],
@@ -131,7 +144,8 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
     });
 
     this.registerCategory = this.fb.group({
-      name: ['', [Validators.required]]
+      name: ['', [Validators.required]],
+      id: ['']
     });
   }
 
@@ -155,14 +169,21 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
       success => {
         this.messageService
         .add({severity: 'success', summary: 'Show!', detail: `${this.newProduct.model} adicionado com sucesso.`, life: 1500});
-        this.newProduct = null;
         this.selectedDrop = null;
-        this.registerForm.reset();
+        this.newProduct = new Product();
+        this.validation();
+        this.imageName = null;
+        this.image = null;
         this.stepper.reset();
         this.activeIndex = 0;
-        setTimeout(() => {
-          this.ngOnInit();
-        }, 1500);
+        this.getAll();
+        this.selectedCat = null;
+        this.canRemove = false;
+        this.forAssociate = null;
+        this.associateMode = null;
+        this.associateds = null;
+        this.productSon = null;
+        this.associateSon = null;
       }
     );
   }
@@ -186,9 +207,15 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
     this.categoryService.postCategory(cat).subscribe(
       success => {
         this.messageService.add({severity: 'success', detail: `${cat.name} adicionada com sucesso`, summary: 'Show!', life: 1500});
-        setTimeout(() => {
-          this.ngOnInit();
-        }, 1500);
+        this.selectedCat = null;
+        this.canRemove = false;
+        this.forAssociate = null;
+        this.associateMode = null;
+        this.associateds = null;
+        this.productSon = null;
+        this.associateSon = null;
+        this.getAll();
+        this.validation();
       }
     );
   }
@@ -256,11 +283,20 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
     else {
       this.productService.deleteProduct(pr.id).subscribe(
         success => {
-          this.toastr.success(`${pr.model} exluído com sucesso`, 'Feito');
-          this.reloadComponent.emit('Foi');
+          this.messageService
+          .add({severity: 'success', summary: 'Show!', detail: `${pr.model} exluído com sucesso`, life: 1000});
+          this.selectedCat = null;
+          this.canRemove = false;
+          this.forAssociate = null;
+          this.associateMode = null;
+          this.associateds = null;
+          this.productSon = null;
+          this.associateSon = null;
+          this.getAll();
         },
         error => {
-          this.toastr.error('Tente novamente', 'Ops :(');
+          this.messageService
+          .add({severity: 'error', detail: 'Houve um problema interno, tente novamente.', summary: 'Opa!', life: 1500});
         }
       );
     }
@@ -269,12 +305,11 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
   putProduct(modal: ModalDirective, product: Product){
     this.createBlur();
     modal.show();
-    console.log(this.file);
     this.registerForm.setValue({
       name: product.name,
       id: product.id,
-      image: '',
-      imageUpload: '',
+      image: null,
+      imageUpload: null,
       model: product.model,
       amount: product.amount,
       brand: product.brand,
@@ -286,17 +321,48 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
 
   }
 
+  putCategory(modal: ModalDirective, category: Category){
+    this.createBlur();
+    modal.show();
+    this.registerCategory.setValue({
+      name: category.name,
+      id: category.id
+    });
+  }
+
+  deleteCategory(cat: Category){
+    if (cat.products && cat.products.length > 0){
+      this.messageService.add({severity: 'error', detail: `${cat.name} contém ${cat.products.length} produtos, apague-os primeiro`});
+    }
+    else{
+      this.categoryService.deleteCategory(cat.id).toPromise().then(success => {
+        this.messageService
+        .add({severity: 'success', summary: 'Show!', detail: `${cat.name} exluída com sucesso`, life: 1200});
+        this.selectedCat = null;
+        this.canRemove = false;
+        this.forAssociate = null;
+        this.associateMode = null;
+        this.associateds = null;
+        this.productSon = null;
+        this.associateSon = null;
+        this.getAll();
+      }, error => {
+        this.messageService
+        .add({severity: 'error', detail: 'Houve um problema interno, tente novamente.', summary: 'Opa!', life: 1500});
+      });
+    }
+  }
+
   postAssociate(){
     const associate = Object.assign({}, this.associateForm.value);
     this.productService.postAssociate(associate).subscribe(
       success => {
         this.selectedCat = null;
         this.forAssociate = null;
-        this.associateMode = '';
+        this.associateMode = null;
+        this.productSon = null;
         this.messageService.add({severity: 'success', detail: 'Produtos associados', summary: 'Show!', life: 1500});
-        setTimeout(() => {
-          this.ngOnInit();
-        }, 1500);
+        this.getAll();
       },
       error => this.messageService
       .add({severity: 'error', detail: 'Houve um problema interno, tente novamente.', summary: 'Opa!', life: 1500})
@@ -319,9 +385,12 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
         this.messageService.add({severity: 'success', detail: 'Associação desfeita', summary: 'Show!', life: 1500});
         this.selectedCat = null;
         this.canRemove = false;
-        setTimeout(() => {
-          this.ngOnInit();
-        }, 1500);
+        this.forAssociate = null;
+        this.associateMode = null;
+        this.associateds = null;
+        this.productSon = null;
+        this.associateSon = null;
+        this.getAll();
       },
       error => {
         this.messageService.add({severity: 'error', detail: 'Houve um problema interno, tente novamente.', summary: 'Opa!', life: 1500});
@@ -331,6 +400,25 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
 
   createBlur(){
     document.getElementById('test').style.filter = 'blur(3px)';
+  }
+
+  saveChangesC(template){
+    if (this.registerCategory.valid){
+        const cat = Object.assign({}, this.registerCategory.value);
+
+        this.categoryService.putCategory(cat).subscribe((category: Category) => {
+          this.closeModal(template);
+          this.messageService.add({severity: 'success', detail: `Categoria atualizada`, summary: 'Show!', life: 1500});
+          this.selectedCat = null;
+          this.canRemove = false;
+          this.forAssociate = null;
+          this.associateMode = null;
+          this.associateds = null;
+          this.productSon = null;
+          this.associateSon = null;
+          this.getAll();
+        });
+    }
   }
 
   saveChanges(modal: ModalDirective){
@@ -356,15 +444,22 @@ export class AdmProductsComponent implements OnInit, AfterViewInit{
       this.productService.putProduct(product).subscribe(pr => {
         this.closeModal(modal);
         this.messageService.add({severity: 'success', detail: `${product.model} atualizado`, summary: 'Show!', life: 1500});
-        setTimeout(() => {
-          this.ngOnInit();
-        }, 1500);
+        this.selectedCat = null;
+        this.canRemove = false;
+        this.forAssociate = null;
+        this.associateMode = null;
+        this.associateds = null;
+        this.productSon = null;
+        this.associateSon = null;
+        this.getAll();
       });
     }
   }
 
   closeModal(modal: ModalDirective){
-    this.registerForm.reset();
+    this.validation();
+    this.imageName = null;
+    this.image = null;
     document.getElementById('test').style.filter = 'blur(0)';
     modal.hide();
   }

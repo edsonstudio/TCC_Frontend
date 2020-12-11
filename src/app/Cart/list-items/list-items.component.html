@@ -14,7 +14,7 @@
             <th class="text-center">Imagem</th>
             <th class="text-center">Preço</th>
             <th class="text-center">Quantidade</th>
-            <th class="text-center">Remover</th>
+            <th class="text-center" *ngIf="show">Remover</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
@@ -23,7 +23,7 @@
             <td class="text-center"><img [src]="urlImages + '/' + product.image" [alt]="product.name" width="100" class="p-shadow-4"/></td>
             <td class="text-center">{{product.price | currencyBrazil}}</td>
             <td class="text-center">{{product.amount}} </td>
-            <td class="text-center">
+            <td class="text-center" *ngIf="show">
                 <i pRipple (click)="removeItem(product.productId)" class="pi pi-trash next"></i>
             </td>
         </tr>

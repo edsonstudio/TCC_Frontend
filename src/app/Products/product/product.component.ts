@@ -71,7 +71,7 @@ export class ProductComponent extends CommumMethods implements OnInit, OnDestroy
         const prod = cartItems.find(cartItem => cartItem.productId === this.product.id);
         if (prod) {
           this.ref.close();
-          this.routeS.navigate(['/Inicio/produtos/carrinho']);
+          this.routeS.navigate(['/Inicio/produtos/pedido/carrinho']);
         }
         else {
           const caartIt: CartItem = {
@@ -85,7 +85,7 @@ export class ProductComponent extends CommumMethods implements OnInit, OnDestroy
           this.cart.postCartItem(caartIt).subscribe(
             success => {
               this.ref.close();
-              this.routeS.navigate(['/Inicio/produtos/carrinho']);
+              this.routeS.navigate(['/Inicio/produtos/pedido/carrinho']);
             },
             error => {console.log(error); }
           );

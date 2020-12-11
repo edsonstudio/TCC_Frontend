@@ -83,10 +83,10 @@
 
     <div class="line"></div>
 
-    <div class="step" data-target="#watercool">
-      <button type="button" class="step-trigger" role="tab" aria-controls="watercool" id="watercool-trigger">
+    <div class="step" data-target="#cooler">
+      <button type="button" class="step-trigger" role="tab" aria-controls="cooler" id="cooler-trigger">
         <span class="bs-stepper-circle">10</span>
-        <span class="bs-stepper-label">WaterCooler</span>
+        <span class="bs-stepper-label">Cooler</span>
       </button>
     </div>
 
@@ -150,7 +150,6 @@
          [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
-                <small>*Quantidades poderão ser modificadas no final</small>
                 <span class="p-input-icon-left p-ml-auto">
                   <i class="pi pi-search"></i>
                   <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
@@ -190,14 +189,13 @@
     <!--Processador-->
     <div id="processor" class="content" role="tabpanel" aria-labelledby="processor-trigger">
       <div class="p-card">
-        <p-table #dt1 [(selection)]="selectedProduct2" [value]="filterProductsCat('processador', 2)" selectionMode="single"
+        <p-table #dt2 [(selection)]="selectedProduct2" [value]="filterProductsCat('processador', 2)" selectionMode="single"
          [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
-                <small>*Quantidades poderão ser modificadas no final</small>
                 <span class="p-input-icon-left p-ml-auto">
                   <i class="pi pi-search"></i>
-                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+                  <input pInputText type="text"  (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
               </span>
               </div>
           </ng-template>
@@ -234,14 +232,14 @@
     <!--Memória-->
     <div id="memory" class="content" role="tabpanel" aria-labelledby="memory-trigger">
       <div class="p-card">
-        <p-table #dt1 [(selection)]="selectedProduct3" [value]="filterProductsCat('memoria-ram', 2)" selectionMode="single"
+        <p-table #dt3 [(selection)]="selectedProduct3" [value]="filterProductsCat('memoria-ram', 1)" selectionMode="single"
          [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
                 <span class="p-input-icon-left p-ml-auto">
                   <i class="pi pi-search"></i>
-                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+                  <input pInputText type="text"  (input)="dt3.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
               </span>
               </div>
           </ng-template>
@@ -278,14 +276,13 @@
     <!--PLaca de video-->
     <div id="vga" class="content" role="tabpanel" aria-labelledby="vga-trigger">
       <div class="p-card">
-        <p-table #dt1 [(selection)]="selectedProduct4" [value]="filterProductsCat('placa-de-video', 1)" selectionMode="single"
+        <p-table #dt4 [(selection)]="selectedProduct4" [value]="filterProductsCat('placa-de-video', 1)" selectionMode="single"
          [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
-                <small>*Quantidade poderá ser modificada no final</small>
                 <span class="p-input-icon-left p-ml-auto">
                   <i class="pi pi-search"></i>
-                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+                  <input pInputText type="text"  (input)="dt4.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
               </span>
               </div>
           </ng-template>
@@ -322,14 +319,14 @@
     <!--HD-->
     <div id="hd" class="content" role="tabpanel" aria-labelledby="hd-trigger">
       <div class="p-card">
-        <p-table #dt1 [(selection)]="selectedProduct5" [value]="filterProductsCat('hd', 1)" selectionMode="single"
+        <p-table #dt5 [(selection)]="selectedProduct5" [value]="filterProductsCat('hd', 1)" selectionMode="single"
          [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
                 <span class="p-input-icon-left p-ml-auto">
                   <i class="pi pi-search"></i>
-                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+                  <input pInputText type="text"  (input)="dt5.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
               </span>
               </div>
           </ng-template>
@@ -366,14 +363,14 @@
     <!--SSD-->
     <div id="ssd" class="content" role="tabpanel" aria-labelledby="ssd-trigger">
       <div class="p-card">
-        <p-table #dt1 [(selection)]="selectedProduct6" [value]="filterProductsCat('ssd', 2)" selectionMode="single"
+        <p-table #dt6 [(selection)]="selectedProduct6" [value]="filterProductsCat('ssd', 2)" selectionMode="single"
          [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
                 <span class="p-input-icon-left p-ml-auto">
                   <i class="pi pi-search"></i>
-                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+                  <input pInputText type="text"  (input)="dt6.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
               </span>
               </div>
           </ng-template>
@@ -410,14 +407,13 @@
     <!--Fonte-->
     <div id="powers" class="content" role="tabpanel" aria-labelledby="powers-trigger">
       <div class="p-card">
-        <p-table #dt1 [(selection)]="selectedProduct7" [value]="filterProductsCat('fonte', 1)" selectionMode="single"
+        <p-table #dt7 [(selection)]="selectedProduct7" [value]="filterProductsCat('fonte', 1)" selectionMode="single"
          [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
-                <small>*Quantidade poderá ser modificada no final</small>
                 <span class="p-input-icon-left p-ml-auto">
                   <i class="pi pi-search"></i>
-                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+                  <input pInputText type="text"  (input)="dt7.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
               </span>
               </div>
           </ng-template>
@@ -454,14 +450,13 @@
     <!--Gabinete-->
     <div id="gabinet" class="content" role="tabpanel" aria-labelledby="gabinet-trigger">
       <div class="p-card">
-        <p-table #dt1 [(selection)]="selectedProduct8" [value]="filterProductsCat('gabinete', 2)" selectionMode="single"
+        <p-table #dt8 [(selection)]="selectedProduct8" [value]="filterProductsCat('gabinete', 2)" selectionMode="single"
          [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
-                <small>*Quantidade poderá ser modificada no final</small>
                 <span class="p-input-icon-left p-ml-auto">
                   <i class="pi pi-search"></i>
-                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+                  <input pInputText type="text"  (input)="dt8.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
               </span>
               </div>
           </ng-template>
@@ -495,17 +490,16 @@
       </div>
     </div>
 
-    <!--WaterCooler-->
-    <div id="watercool" class="content" role="tabpanel" aria-labelledby="watercool-trigger">
+    <!--Cooler-->
+    <div id="cooler" class="content" role="tabpanel" aria-labelledby="cooler-trigger">
       <div class="p-card">
-        <p-table #dt1 [(selection)]="selectedProduct9" [value]="filterProductsCat('watercooler', 1)" selectionMode="single"
+        <p-table #dt9 [(selection)]="selectedProduct9" [value]="filterProductsCat('cooler', 2)" selectionMode="single"
          [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
-                <small>*Quantidade poderá ser modificada no final</small>
                 <span class="p-input-icon-left p-ml-auto">
                   <i class="pi pi-search"></i>
-                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+                  <input pInputText type="text"  (input)="dt9.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
               </span>
               </div>
           </ng-template>
@@ -542,14 +536,13 @@
     <!--Monitor-->
     <div id="monitor" class="content" role="tabpanel" aria-labelledby="monitor-trigger">
       <div class="p-card">
-        <p-table #dt1 [(selection)]="selectedProduct10" [value]="filterProductsCat('monitor', 1)" selectionMode="single"
+        <p-table #dt10 [(selection)]="selectedProduct10" [value]="filterProductsCat('monitores', 1)" selectionMode="single"
          [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
-                <small>*Quantidade poderá ser modificada no final</small>
                 <span class="p-input-icon-left p-ml-auto">
                   <i class="pi pi-search"></i>
-                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+                  <input pInputText type="text"  (input)="dt10.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
               </span>
               </div>
           </ng-template>
@@ -586,14 +579,13 @@
     <!--Teclado-->
     <div id="teclado" class="content" role="tabpanel" aria-labelledby="teclado-trigger">
       <div class="p-card">
-        <p-table #dt1 [(selection)]="selectedProduct11" [value]="filterProductsCat('teclado', 1)" selectionMode="single"
+        <p-table #dt11 [(selection)]="selectedProduct11" [value]="filterProductsCat('teclado', 1)" selectionMode="single"
          [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
-                <small>*Quantidade poderá ser modificada no final</small>
                 <span class="p-input-icon-left p-ml-auto">
                   <i class="pi pi-search"></i>
-                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+                  <input pInputText type="text"  (input)="dt11.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
               </span>
               </div>
           </ng-template>
@@ -630,14 +622,13 @@
     <!--Mouse-->
     <div id="mouse" class="content" role="tabpanel" aria-labelledby="mouse-trigger">
       <div class="p-card">
-        <p-table #dt1 [(selection)]="selectedProduct12" [value]="filterProductsCat('mouse', 1)" selectionMode="single"
+        <p-table #dt12 [(selection)]="selectedProduct12" [value]="filterProductsCat('mouse', 1)" selectionMode="single"
          [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
-                <small>*Quantidade poderá ser modificada no final</small>
                 <span class="p-input-icon-left p-ml-auto">
                   <i class="pi pi-search"></i>
-                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+                  <input pInputText type="text"  (input)="dt12.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
               </span>
               </div>
           </ng-template>
@@ -674,14 +665,14 @@
     <!--HeadSet-->
     <div id="headset" class="content" role="tabpanel" aria-labelledby="headset-trigger">
       <div class="p-card">
-        <p-table #dt1 [(selection)]="selectedProduct13" [value]="filterProductsCat('headset', 1)" selectionMode="single"
+        <p-table #dt13 [(selection)]="selectedProduct13" [value]="filterProductsCat('headset', 1)" selectionMode="single"
          [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
                 <span class="p-input-icon-left p-ml-auto">
                   <i class="pi pi-search"></i>
-                  <input pInputText type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
+                  <input pInputText type="text"  (input)="dt13.filterGlobal($event.target.value, 'contains')" placeholder="Buscar"/>
               </span>
               </div>
           </ng-template>
