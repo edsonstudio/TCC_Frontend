@@ -73,6 +73,7 @@
     "@types/lodash": "^4.14.164",
     "@types/node": "^12.11.1",
     "@types/swiper": "^5.4.1",
+    "angular-cli-ghpages": "^1.0.0-rc.1",
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
