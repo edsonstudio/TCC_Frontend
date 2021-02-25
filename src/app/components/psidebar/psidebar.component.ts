@@ -27,10 +27,10 @@ export class PsidebarComponent implements OnInit {
   uniqueID: string;
   profile: Profile;
   banners = [
-    { src: '../../../assets/nav/amd.jpg', alt: 'Logo AMD' },
-    { src: '../../../assets/nav/intel.jpg', alt: 'Logo Intel' },
-    { src: '../../../assets/nav/kingston.jpg', alt: 'Logo Kingston' },
-    { src: '../../../assets/nav/nvidia.jpg', alt: 'Nvidia' }
+    { src: 'assets/nav/amd.jpg', alt: 'Logo AMD' },
+    { src: 'assets/nav/intel.jpg', alt: 'Logo Intel' },
+    { src: 'assets/nav/kingston.jpg', alt: 'Logo Kingston' },
+    { src: 'assets/nav/nvidia.jpg', alt: 'Nvidia' }
   ];
 
   responsiveOptions = [
