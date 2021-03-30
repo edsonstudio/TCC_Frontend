@@ -3,9 +3,10 @@
         <img src="https://edsont8.github.io/TCC_Frontend/assets/logoma3.png" alt="Dragon Store" width="150px" />
     </a>
 </div>
+
 # DragonStore Front-end APP
 
-# Introduction 
+## Introduction 
 This is a Front-end App in Angular 9 for a distributed Application (microservices), with the Backend using .NET Core 3.1 - There are 7 API's communicating through MessageBus [(RabbitMQ)](https://www.rabbitmq.com).
 
 This is a project to conclude the Technical Course in Systems Development (TCC) at the Brazilian [School SENAI "Ary Torres"](https://www.sp.senai.br).
@@ -13,7 +14,7 @@ The project consists of an e-commerce website with front-end developed in [Angul
 
 The source code of the .NET Core Back-end you can find in this repository: https://github.com/edsont8/TCC_Backend and is hosted at this address: https://edsont8.github.io/TCC_Backtend 
 
-# List of API's hosted on Heroku
+## List of API's hosted on Heroku
 
 1.	API - [Authentication](https://heroku-auth-chat.herokuapp.com/swagger/index.html)
 2.	API - [Clients](https://heroku-clients.herokuapp.com/swagger/index.html)
@@ -38,8 +39,7 @@ If you prefer to install with yarn:
 yarn global add @angular/cli
 ```
 
-## 
-Step 1 - Installing the dependencies
+## Step 1 - Installing the dependencies
 
 
 Access your project's root folder and execute the command below:
@@ -80,19 +80,16 @@ Open your browser and access the url http: // localhost: 4200. Ready!
 
 ## Used in this project:
 
-Front-end:
+### Front-end:
 ![Skill](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![Skill](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![Skill](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
 ![Skill](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)
 ![Skill](https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white)
 ![Skill](https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
+![Skill](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
 
-https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-
-
-
-Back-end:
+### Back-end:
 ![Skill](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
 ![Skill](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
 ![Skill](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)
