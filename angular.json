@@ -134,5 +134,8 @@
       }
     }
   },
-  "defaultProject": "webfront"
+  "defaultProject": "webfront",
+  "cli": {
+    "analytics": "a4abac1e-3cff-4717-914f-bb5d369688ec"
+  }
 }
