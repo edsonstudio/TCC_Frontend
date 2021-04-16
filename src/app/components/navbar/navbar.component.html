@@ -1,11 +1,11 @@
 <p-toolbar [styleClass]="'fixed-bottom'">
     <div class="p-toolbar-group-left m-0 w-75">
-      <img src="assets/logoma3.png" (click)="navigate('/Inicio')" class="position-absolute fixed-bottom next" alt="Logo marca" height="100" style="margin: 0;">
+      <img src="../../../assets/logoma3.png" class="position-absolute fixed-bottom" alt="Logo marca" height="100" style="margin: 0;">
       <span class="p-buttonset" style="margin-left: 90px;">
         <button (click)="navigate('/Inicio/admin')" *ngIf="admin && actualUrl != 'admin'" [iconPos]="'right'" pButton label="Administração" [icon]="'fal fa-users-cog'" class="p-button p-button-secondary p-button-sm buttonS p-button-text">
         </button>
-        <!-- <button (click)="navigate('/Inicio/suporte/chat')" *ngIf="admin && actualUrl != 'chat'" [iconPos]="'right'" pButton label="Suporte" [icon]="'fal fa-hands-helping'" class="p-button p-button-secondary p-button-sm buttonS p-button-text">
-        </button> -->
+        <button (click)="navigate('/Inicio/suporte/chat')" *ngIf="admin && actualUrl != 'chat'" [iconPos]="'right'" pButton label="Suporte" [icon]="'fal fa-hands-helping'" class="p-button p-button-secondary p-button-sm buttonS p-button-text">
+        </button>
         <button (click)="navigate('/Inicio/produtos/todos')" *ngIf="actualUrl != 'products' && actualUrl != 'home'" [iconPos]="'right'" pButton label="Catálogo" [icon]="'fad fa-shopping-bag'" class="p-button p-button-secondary p-button-sm buttonS p-button-text">
         </button>
         <button (click)="navigate('/Inicio/produtos/meu-setup')" *ngIf="actualUrl != 'personalized' && actualUrl != 'home' && logged" [iconPos]="'right'" pButton label="Montar Setup" [icon]="'fad fa-cogs'" class="p-button p-button-secondary p-button-sm buttonS p-button-text">
