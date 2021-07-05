@@ -1,6 +1,6 @@
 <div align="center">
-    <a href="https://edsont8.github.io/TCC_Frontend">
-        <img src="https://edsont8.github.io/TCC_Frontend/assets/logoma3.png" alt="Dragon Store" width="150px" />
+    <a href="https://edsonstudio.github.io/TCC_Frontend">
+        <img src="https://edsonstudio.github.io/TCC_Frontend/assets/logoma3.png" alt="Dragon Store" width="150px" />
     </a>
 </div>
 
@@ -72,9 +72,9 @@ Open your browser and access the url http: // localhost: 4200. Ready!
 
 <table>    
   <tr>
-    <td align="center"><a href="https://github.com/edsont8"><img src="https://avatars1.githubusercontent.com/u/55901214?v=4?s=100" width="100px;"  alt=""/><br /><sub><b>Edson Costa</b></sub></a><br /><a href="https://github.com/edsont8/TCC_Frontend/commits?author=edsont8" title="Documentation">📖 Commits</a></td>
-    <td align="center"><a href="https://github.com/miguellz67"><img src="https://avatars1.githubusercontent.com/u/55901848?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Luiz Miguel</b></sub></a><br /><a href="https://github.com/edsont8/TCC_Frontend/commits?author=miguellz67" title="Documentation">📖 Commits</a></td>
-    <td align="center"><a href="https://github.com/Pereiracode"><img src="https://avatars2.githubusercontent.com/u/55901172?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mateus Pereira</b></sub></a><br /><a href="https://github.com/edsont8/TCC_Frontend/commits?author=Pereiracode" title="Documentation">📖 Commits</a></td>
+    <td align="center"><a href="https://github.com/edsonstudio"><img src="https://avatars1.githubusercontent.com/u/55901214?v=4?s=100" width="100px;"  alt=""/><br /><sub><b>Edson Costa</b></sub></a><br /><a href="https://github.com/edsonstudio/TCC_Frontend/commits?author=edsonstudio" title="Documentation">📖 Commits</a></td>
+    <td align="center"><a href="https://github.com/miguellz67"><img src="https://avatars1.githubusercontent.com/u/55901848?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Luiz Miguel</b></sub></a><br /><a href="https://github.com/edsonstudio/TCC_Frontend/commits?author=miguellz67" title="Documentation">📖 Commits</a></td>
+    <td align="center"><a href="https://github.com/Pereiracode"><img src="https://avatars2.githubusercontent.com/u/55901172?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mateus Pereira</b></sub></a><br /><a href="https://github.com/edsonstudio/TCC_Frontend/commits?author=Pereiracode" title="Documentation">📖 Commits</a></td>
   </tr>
 </table>
 
@@ -101,4 +101,4 @@ Open your browser and access the url http: // localhost: 4200. Ready!
 
 ## Repo status:
 [![All Contributors](https://img.shields.io/badge/Contribuitors-3-orange.svg?style=flat-square)](#contributors-)
-[![Star on GitHub](https://img.shields.io/github/stars/edsont8/TCC_Frontend.svg?style=social)](https://github.com/edsont8/TCC_Frontend/stargazers)
+[![Star on GitHub](https://img.shields.io/github/stars/edsonstudio/TCC_Frontend.svg?style=social)](https://github.com/edsonstudio/TCC_Frontend/stargazers)
