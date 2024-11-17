@@ -67,7 +67,7 @@
                         <div class="product-grid-item-bottom">
                             <span class="product-price">{{product.price |currencyBrazil}}</span>
                             <p-button icon="pi pi-shopping-cart" (onClick)="buyItem(product)" [disabled]="!product.active || product.amount < 2"></p-button>
-                            <p-button icon="pi pi-cog" (onClick)="show(product)" [disabled]="!product.active"></p-button>
+                            <p-button icon="pi pi-search-plus" (onClick)="show(product)" [disabled]="!product.active"></p-button>
                         </div>
                     </div>
                 </div>

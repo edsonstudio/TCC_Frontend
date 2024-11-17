@@ -64,6 +64,10 @@ html{
     align-items: center;
 }
 
+.p-datatable .p-datatable-footer {
+    margin-bottom: 100px !important;
+}
+
 
 @mixin gradient($direction, $list) { 
     background: -webkit-linear-gradient($direction, $list) !important;
