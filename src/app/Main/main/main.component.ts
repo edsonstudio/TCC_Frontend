@@ -74,6 +74,24 @@ export class MainComponent extends CommumMethods implements OnInit, AfterViewIni
     allowTouchMove: true,
     observer: true
   };
+
+  sliderOpt4: SwiperOptions = {
+    direction: 'horizontal',
+    mousewheel: true,
+    effect: 'cube',
+    speed: 1000,
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination',
+      dynamicBullets: true
+    },
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+    allowTouchMove: true,
+    observer: true,
+  };
   ngOnInit(): void {
     this.spinner.show();
     this.admin = this.isAdmin();

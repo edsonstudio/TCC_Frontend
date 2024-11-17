@@ -30,6 +30,8 @@ export class ConfirmComponent implements OnInit, AfterViewInit {
 
   finalOrder = new Order();
   localSt = new LocalStorageUtils();
+  errors: string[];
+
   ngOnInit(): void {
     this.spinner.show('initial');
     this.store.getPayment().subscribe(payment => {
@@ -56,36 +58,43 @@ export class ConfirmComponent implements OnInit, AfterViewInit {
     }, 1500);
   }
 
-   doOrder(){
+  doOrder() {
     this.finalOrder.data = new Date().toISOString();
     this.finalOrder.status = 0;
     console.log(this.finalOrder);
     this.orderService.sentOrder(this.finalOrder).subscribe(
       success => {
+        this.clearToasts();
+        console.log("success: ", success)
         this.spinner.hide('load');
+        this.messageService.add({ severity: 'success', summary: 'Show!', detail: 'Desconto aplicado', life: 2000 });
         this.router.navigate(['/Inicio/conta/pedidos']);
       },
       error => {
-        this.messageService.add({severity: 'error', detail: 'Tente novamente mais tarde', summary: 'Erro inesperado'});
+        this.spinner.hide('load');
+        this.errors = error.error.errors.Mensagens;
+        this.errors.forEach((msgError) => {
+          this.messageService.add({ severity: 'error', summary: 'Opa :(', detail: `${msgError}` });
+        });
       }
     );
- }
-
- postAddress(){
-   this.spinner.show('load');
-   const address = this.finalOrder.endereco;
-   address.clientId = this.localSt.getUser().id;
-
-   this.orderService.postAddress(address).toPromise().then(() => {
-     this.doOrder();
-   });
- }
-
-  prevPage(){
-    this.router.navigate(['../pagamento'], {relativeTo: this.route});
   }
 
-  seeItems(){
+  postAddress() {
+    this.spinner.show('load');
+    const address = this.finalOrder.endereco;
+    address.clientId = this.localSt.getUser().id;
+
+    this.orderService.postAddress(address).toPromise().then(() => {
+      this.doOrder();
+    });
+  }
+
+  prevPage() {
+    this.router.navigate(['../pagamento'], { relativeTo: this.route });
+  }
+
+  seeItems() {
     this.dialogService.open(ListItemsComponent, {
       data: {
         cartItems: this.finalOrder.pedidoItems,
@@ -95,4 +104,8 @@ export class ConfirmComponent implements OnInit, AfterViewInit {
     });
   }
 
+
+  clearToasts() {
+    this.messageService.clear();
+  }
 }

@@ -43,8 +43,12 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     }, 1500);
   }
 
+  formatCpf(cpf: string): string {
+    return cpf.replace(/\D/g, '');
+  }
 
   register(event: User){
+    event.cpf = this.formatCpf(event.cpf);
     this.user = event;
     console.log(event);
     this.accountService.registerUser(this.user).subscribe(

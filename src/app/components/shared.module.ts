@@ -36,6 +36,7 @@ import { MessageService } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { CartService } from '../services/Cart_Order/cart.service';
 import { LocalStorageUtils } from '../utils/localstorage';
+import { OrderService } from '../services/Cart_Order/order.service';
 
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
@@ -93,7 +94,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
         Store,
         MessageService,
         CartService,
-        LocalStorageUtils
+        LocalStorageUtils,
+        OrderService,
+
     ]
 })
 

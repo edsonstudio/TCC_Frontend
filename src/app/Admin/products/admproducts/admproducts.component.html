@@ -3,7 +3,7 @@
     <h4 class="text-center font-weight-light">Produtos</h4>
     <p-tabView [(activeIndex)]="activeIndex">
       <p-tabPanel header="Todos" leftIcon="pi pi-sitemap">
-        <p-table  #dt1 [value]="products" [globalFilterFields]="['name']" styleClass="p-datatable-customers p-datatable-responsive-demo" scrollHeight="150px" [scrollable]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+        <p-table  #dt1 [value]="products" [globalFilterFields]="['name']" styleClass="p-datatable-customers p-datatable-responsive-demo" scrollHeight="100%" [scrollable]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
         [paginator]="true" currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} produtos">
             <ng-template pTemplate="caption">
               <div class="p-d-flex">
@@ -463,7 +463,7 @@
       <p-tabPanel header="Categoria">
         <div class="p-card p-3 p-grid">
           <div class="p-col-9">
-            <p-table  #dt3 [value]="categories" [globalFilterFields]="['name']" styleClass="p-datatable-customers p-datatable-responsive-demo" scrollHeight="150px" [scrollable]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+            <p-table  #dt3 [value]="categories" [globalFilterFields]="['name']" styleClass="p-datatable-customers p-datatable-responsive-demo" scrollHeight="100%" [scrollable]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
           [paginator]="true" currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} categorias">
             <ng-template pTemplate="caption">
               <div class="p-d-flex">

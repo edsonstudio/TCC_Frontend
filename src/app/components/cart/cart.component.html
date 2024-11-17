@@ -30,7 +30,7 @@
           </p-panel>
       </div>
       <div class="p-md-10 p-sm-12">
-        <p-table #dt1 [value]="cartItems.items" [globalFilterFields]="['name']" styleClass="p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+        <p-table #dt1 [value]="cartItems.items" [globalFilterFields]="['name']" styleClass="p-datatable-responsive-demo" scrollHeight="100%" [scrollable]="true">
             <ng-template pTemplate="caption">
                 <div class="p-d-flex p-ai-center p-jc-between">
                     <span>No total há {{cartItems.items ? cartItems.items.length : 0 }} produtos.</span>

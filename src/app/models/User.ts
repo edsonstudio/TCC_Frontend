@@ -6,6 +6,7 @@ export class User {
     email?: string;
     password?: string;
     confirmpassword?: string;
+    cpf?: string;
 
     username?: string;
     isOnline?: boolean;

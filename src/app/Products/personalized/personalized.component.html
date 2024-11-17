@@ -147,7 +147,7 @@
     <div id="mainboard" class="content" role="tabpanel" aria-labelledby="mainboard-trigger">
       <div class="p-card" *ngIf="showMotherboards">
         <p-table #dt1  [value]="filterProductsCat('placa-mae', 3)" selectionMode="single" [(selection)]="selectedProduct" 
-         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="100%" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <span class="p-input-icon-left p-ml-auto">
@@ -190,7 +190,7 @@
     <div id="processor" class="content" role="tabpanel" aria-labelledby="processor-trigger">
       <div class="p-card">
         <p-table #dt2 [(selection)]="selectedProduct2" [value]="filterProductsCat('processador', 2)" selectionMode="single"
-         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="100%" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <span class="p-input-icon-left p-ml-auto">
@@ -233,7 +233,7 @@
     <div id="memory" class="content" role="tabpanel" aria-labelledby="memory-trigger">
       <div class="p-card">
         <p-table #dt3 [(selection)]="selectedProduct3" [value]="filterProductsCat('memoria-ram', 1)" selectionMode="single"
-         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="100%" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
@@ -277,7 +277,7 @@
     <div id="vga" class="content" role="tabpanel" aria-labelledby="vga-trigger">
       <div class="p-card">
         <p-table #dt4 [(selection)]="selectedProduct4" [value]="filterProductsCat('placa-de-video', 1)" selectionMode="single"
-         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="100%" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <span class="p-input-icon-left p-ml-auto">
@@ -320,7 +320,7 @@
     <div id="hd" class="content" role="tabpanel" aria-labelledby="hd-trigger">
       <div class="p-card">
         <p-table #dt5 [(selection)]="selectedProduct5" [value]="filterProductsCat('hd', 1)" selectionMode="single"
-         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="100%" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
@@ -364,7 +364,7 @@
     <div id="ssd" class="content" role="tabpanel" aria-labelledby="ssd-trigger">
       <div class="p-card">
         <p-table #dt6 [(selection)]="selectedProduct6" [value]="filterProductsCat('ssd', 2)" selectionMode="single"
-         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="100%" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
@@ -408,7 +408,7 @@
     <div id="powers" class="content" role="tabpanel" aria-labelledby="powers-trigger">
       <div class="p-card">
         <p-table #dt7 [(selection)]="selectedProduct7" [value]="filterProductsCat('fonte', 1)" selectionMode="single"
-         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="100%" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <span class="p-input-icon-left p-ml-auto">
@@ -451,7 +451,7 @@
     <div id="gabinet" class="content" role="tabpanel" aria-labelledby="gabinet-trigger">
       <div class="p-card">
         <p-table #dt8 [(selection)]="selectedProduct8" [value]="filterProductsCat('gabinete', 2)" selectionMode="single"
-         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="100%" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <span class="p-input-icon-left p-ml-auto">
@@ -494,7 +494,7 @@
     <div id="cooler" class="content" role="tabpanel" aria-labelledby="cooler-trigger">
       <div class="p-card">
         <p-table #dt9 [(selection)]="selectedProduct9" [value]="filterProductsCat('cooler', 2)" selectionMode="single"
-         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="100%" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <span class="p-input-icon-left p-ml-auto">
@@ -537,7 +537,7 @@
     <div id="monitor" class="content" role="tabpanel" aria-labelledby="monitor-trigger">
       <div class="p-card">
         <p-table #dt10 [(selection)]="selectedProduct10" [value]="filterProductsCat('monitores', 1)" selectionMode="single"
-         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="100%" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <span class="p-input-icon-left p-ml-auto">
@@ -580,7 +580,7 @@
     <div id="teclado" class="content" role="tabpanel" aria-labelledby="teclado-trigger">
       <div class="p-card">
         <p-table #dt11 [(selection)]="selectedProduct11" [value]="filterProductsCat('teclado', 1)" selectionMode="single"
-         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="100%" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <span class="p-input-icon-left p-ml-auto">
@@ -623,7 +623,7 @@
     <div id="mouse" class="content" role="tabpanel" aria-labelledby="mouse-trigger">
       <div class="p-card">
         <p-table #dt12 [(selection)]="selectedProduct12" [value]="filterProductsCat('mouse', 1)" selectionMode="single"
-         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="100%" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <span class="p-input-icon-left p-ml-auto">
@@ -666,7 +666,7 @@
     <div id="headset" class="content" role="tabpanel" aria-labelledby="headset-trigger">
       <div class="p-card">
         <p-table #dt13 [(selection)]="selectedProduct13" [value]="filterProductsCat('headset', 1)" selectionMode="single"
-         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="200px" [scrollable]="true">
+         [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-responsive-demo" scrollHeight="100%" [scrollable]="true">
           <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <small>*Quantidade poderá ser modificada no final</small>
