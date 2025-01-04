@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng deploy --base-href=https://edsonstudio.github.io/TCC_Frontend/"
+    "build-ghpages": "ng build --prod --base-href=https://edsonstudio.github.io/TCC_Frontend/",
+    "deploy": "ngh --dir=dist/webfront"
   },
   "private": true,
   "dependencies": {
